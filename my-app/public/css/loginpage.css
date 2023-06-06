@@ -1,0 +1,94 @@
+.loginhome {
+    font-family: Arial, sans-serif;
+    background-color:lightskyblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .container2 {
+    background-color:ivory;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 400px;
+    text-align: center;
+  }
+
+  h1 {
+    margin-top: 0;
+    color: #2874f0;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .inputform-group {
+    margin-bottom: 20px;
+  }
+
+  .inputform-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+    text-align: left;
+  }
+
+  .inputform-group input[type="text"],
+  .inputform-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .inputform-group input[type="text"]:focus,
+  .inputform-group input[type="password"]:focus {
+    border-color: #2874f0;
+  }
+
+  .inputform-group input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #2874f0;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+  }
+
+  .inputform-group input[type="submit"]:hover {
+    background-color: #1c56b8;
+  }
+
+  .inputform-group .message {
+    color: #888;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .inputform-group .message a {
+    color: #2874f0;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .inputform-group .flipkart-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .inputform-group .flipkart-logo img {
+    width: 100px;
+    height: 30px;
+  }

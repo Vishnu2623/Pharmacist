@@ -271,7 +271,7 @@ button {
     float: left;
 }
 
-.logo {
+.ecommerce_logo {
     width: 100%;
     float: left;
     text-align: center;
@@ -369,6 +369,7 @@ button {
     color: #fff;
     background-color: #30302e;
     border-color: #30302e;
+    width:12rem;
 }
 
 
@@ -973,12 +974,64 @@ input.mail_bt::placeholder {
   }
 
   .cat-item {
-    background-color:white;
+    background-color:rgba(166, 166, 166, 0.67);
     color: black;
     padding: 20px;
     text-align: center;
     border-radius: 5px;
-    border: 2px solid black;
+    
   }
   
 /* copyright section end */
+
+.wishlist-icon {
+    position: absolute;
+    margin-top: 80px;
+    right: 8px;
+
+    color: red; /* Change the color here */
+    font-size: 24px; /* Change the font size here */
+  }
+  
+
+  
+
+
+  #custom-search-input {
+    margin:0;
+    margin-top: 10px;
+    padding: 0;
+}
+ 
+#custom-search-input .search-query {
+    width:100%;
+    padding-right: 3px;
+    padding-left: 15px;
+        /* IE7-8 doesn't have border-radius, so don't indent the padding */
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 0;
+}
+ 
+#custom-search-input button {
+    border: 0;
+    background: none;
+    /** belows styles are working good */
+    padding: 2px 5px;
+    margin-top: 2px;
+    position: absolute;
+    right:0;
+    /* IE7-8 doesn't have border-radius, so don't indent the padding */
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color:#D9230F;
+    cursor: unset;
+    z-index: 2;
+}
+ 
+.search-query:focus{
+    z-index: 0;   
+}
