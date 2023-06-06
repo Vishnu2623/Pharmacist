@@ -65,15 +65,16 @@ const Publicusernav = () => {
 
           <a href="index">Home</a>
           <a href="">My Profile</a>
-          <a href="Category2">My Orders</a>
-          <a href="">My Prescriptions</a>
-          <a href="">Add Address</a>
-          <a href="">Payment</a>
+          <a href="Order">My Order</a>
+          <a href="Orders">Orders History</a>
+          <a href="">Track Order</a>
+          {/* <a href="">Add Address</a> */}
+          {/* <a href="">Payment</a> */}
          
-          <a href="">My Reviews</a>
+          {/* <a href="">My Reviews</a> */}
           <a href="">Wishlist</a>
-          <a href="">Privacy policy</a>
-          <a href="">Terms &amp; Conditions</a>
+          {/* <a href="">Privacy policy</a>
+          <a href="">Terms &amp; Conditions</a> */}
           <a href="">Log Out</a>
         </div>
         <span className="toggle_icon" onClick={openNav}>

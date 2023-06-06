@@ -38,6 +38,8 @@ import ShopProduct from '../Navbar/ShopProduct'
 import Addcart from '../Navbar/Addcart'
 import Payment from '../Navbar/Payment'
 import Orderconformation from '../Navbar/Orderconformation'
+import Myorder from '../Navbar/Myorder'
+import OrdersHistory from '../Navbar/OrdersHistory'
 
 const Mainrouter = () => {
   return (
@@ -79,6 +81,13 @@ const Mainrouter = () => {
             <Route path="addcart" element={<Addcart/>}/>
             <Route path="pay" element={<Payment/>}/>
             <Route path="thanks" element={<Orderconformation/>}/>
+            <Route path="Order" element={<Myorder/>}/>
+            <Route path="Orders" element={<OrdersHistory/>}/>
+            <Route path="subcategory" element={<SubCategory/>}/>
+
+
+
+
 
 
 

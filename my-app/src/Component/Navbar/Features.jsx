@@ -36,7 +36,7 @@ const Features = () => {
           <h1 className="fas fa-exchange-alt text-primary m-0 mr-3" />
           <a href="#"> </a>
           <h5 className="font-weight-semi-bold m-0">
-            <a href="#">Order History</a>
+            <a href="Orders">Order History</a>
           </h5>
         </div>
       </div>

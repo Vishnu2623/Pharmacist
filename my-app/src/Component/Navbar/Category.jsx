@@ -8,10 +8,10 @@ const Category = () => {
   </h2>
   <div className="row px-xl-5 pb-3">
     <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
-      <a className="text-decoration-none" href="">
+      <a className="text-decoration-none" href="subcategory">
         <div className="cat-item d-flex align-items-center mb-4">
           <div className="overflow-hidden" style={{ width: 100, height: 100}}>
-            <img className="img-fluid" src="images2/.jpg" alt="" />
+            <img className="img-fluid" src="images2/product_05.png" alt="" />
           </div>
           <div className="flex-fill pl-3">
             <h4>Medicines</h4>
@@ -21,10 +21,10 @@ const Category = () => {
       </a>
     </div>
     <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
-      <a className="text-decoration-none" href="">
+      <a className="text-decoration-none" href="subcategory">
         <div className="cat-item img-zoom d-flex align-items-center mb-4">
           <div className="overflow-hidden" style={{ width: 100, height: 100 }}>
-            <img className="img-fluid" src="img/cat-2.jpg" alt="" />
+            <img className="img-fluid" src="images2/product_05.png" alt="" />
           </div>
           <div className="flex-fill pl-3">
             <h4>Animal Medicines</h4>
@@ -34,10 +34,10 @@ const Category = () => {
       </a>
     </div>
     <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
-      <a className="text-decoration-none" href="">
+      <a className="text-decoration-none" href="subcategory">
         <div className="cat-item img-zoom d-flex align-items-center mb-4">
           <div className="overflow-hidden" style={{ width: 100, height: 100 }}>
-            <img className="img-fluid" src="img/cat-3.jpg" alt="" />
+            <img className="img-fluid" src="images2/product_05.png" alt="" />
           </div>
           <div className="flex-fill pl-3">
             <h4>Beauty & Personal Care</h4>
@@ -47,10 +47,10 @@ const Category = () => {
       </a>
     </div>
     <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
-      <a className="text-decoration-none" href="">
+      <a className="text-decoration-none" href="subcategory">
         <div className="cat-item img-zoom d-flex align-items-center mb-4">
           <div className="overflow-hidden" style={{ width: 100, height: 100 }}>
-            <img className="img-fluid" src="img/cat-4.jpg" alt="" />
+            <img className="img-fluid" src="images2/product_05.png" alt="" />
           </div>
           <div className="flex-fill pl-3">
             <h4>Health Food & Beverages</h4>
@@ -60,10 +60,10 @@ const Category = () => {
       </a>
     </div>
     <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
-      <a className="text-decoration-none" href="">
+      <a className="text-decoration-none" href="subcategory">
         <div className="cat-item img-zoom d-flex align-items-center mb-4">
           <div className="overflow-hidden" style={{ width: 100, height: 100 }}>
-            <img className="img-fluid" src="img/cat-4.jpg" alt="" />
+            <img className="img-fluid" src="images2/product_05.png" alt="" />
           </div>
           <div className="flex-fill pl-3">
             <h4>Health Drink & Supplements</h4>
@@ -73,10 +73,10 @@ const Category = () => {
       </a>
     </div>
     <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
-      <a className="text-decoration-none" href="">
+      <a className="text-decoration-none" href="subcategory">
         <div className="cat-item img-zoom d-flex align-items-center mb-4">
           <div className="overflow-hidden" style={{ width: 100, height: 100 }}>
-            <img className="img-fluid" src="img/cat-3.jpg" alt="" />
+            <img className="img-fluid" src="images2/product_05.png" alt="" />
           </div>
           <div className="flex-fill pl-3">
             <h4>Covid Essentials</h4>
@@ -86,10 +86,10 @@ const Category = () => {
       </a>
     </div>
     <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
-      <a className="text-decoration-none" href="">
+      <a className="text-decoration-none" href="subcategory">
         <div className="cat-item img-zoom d-flex align-items-center mb-4">
           <div className="overflow-hidden" style={{ width: 100, height: 100 }}>
-            <img className="img-fluid" src="img/cat-2.jpg" alt="" />
+            <img className="img-fluid" src="images2/product_05.png" alt="" />
           </div>
           <div className="flex-fill pl-3">
             <h4>Mother & Baby</h4>
@@ -99,10 +99,10 @@ const Category = () => {
       </a>
     </div>
     <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
-      <a className="text-decoration-none" href="">
+      <a className="text-decoration-none" href="subcategory">
         <div className="cat-item img-zoom d-flex align-items-center mb-4">
           <div className="overflow-hidden" style={{ width: 100, height: 100 }}>
-            <img className="img-fluid" src="img/cat-1.jpg" alt="" />
+            <img className="img-fluid" src="images2/product_05.png" alt="" />
           </div>
           <div className="flex-fill pl-3">
             <h4>Ayurvedic & Herbal</h4>
@@ -112,10 +112,10 @@ const Category = () => {
       </a>
     </div>
     <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
-      <a className="text-decoration-none" href="">
+      <a className="text-decoration-none" href="subcategory">
         <div className="cat-item img-zoom d-flex align-items-center mb-4">
           <div className="overflow-hidden" style={{ width: 100, height: 100 }}>
-            <img className="img-fluid" src="img/cat-2.jpg" alt="" />
+            <img className="img-fluid" src="images2/product_05.png" alt="" />
           </div>
           <div className="flex-fill pl-3">
             <h4>Home Care & Hyginene</h4>
@@ -125,10 +125,10 @@ const Category = () => {
       </a>
     </div>
     <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
-      <a className="text-decoration-none" href="">
+      <a className="text-decoration-none" href="subcategory">
         <div className="cat-item img-zoom d-flex align-items-center mb-4">
           <div className="overflow-hidden" style={{ width: 100, height: 100 }}>
-            <img className="img-fluid" src="img/cat-1.jpg" alt="" />
+            <img className="img-fluid" src="images2/product_05.png" alt="" />
           </div>
           <div className="flex-fill pl-3">
             <h4>Devices & Aids</h4>
@@ -138,10 +138,10 @@ const Category = () => {
       </a>
     </div>
     <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
-      <a className="text-decoration-none" href="">
+      <a className="text-decoration-none" href="subcategory">
         <div className="cat-item img-zoom d-flex align-items-center mb-4">
           <div className="overflow-hidden" style={{ width: 100, height: 100 }}>
-            <img className="img-fluid" src="img/cat-4.jpg" alt="" />
+            <img className="img-fluid" src="images2/product_05.png" alt="" />
           </div>
           <div className="flex-fill pl-3">
             <h4>Orthopaeics</h4>
@@ -151,10 +151,10 @@ const Category = () => {
       </a>
     </div>
     <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
-      <a className="text-decoration-none" href="">
+      <a className="text-decoration-none" href="subcategory">
         <div className="cat-item img-zoom d-flex align-items-center mb-4">
           <div className="overflow-hidden" style={{ width: 100, height: 100 }}>
-            <img className="img-fluid" src="img/cat-3.jpg" alt="" />
+            <img className="img-fluid" src="images2/product_05.png" alt="" />
           </div>
           <div className="flex-fill pl-3">
             <h4>Sports</h4>
