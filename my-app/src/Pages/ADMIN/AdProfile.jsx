@@ -9,7 +9,6 @@ const AdProfile = () => {
     <AdminHomepage/>
     <div className="main-content" style={{marginTop:'-600px'}}>
      <Amyprofile/>
-     <Publicuserfooter/>
  </div></>
   )
 }

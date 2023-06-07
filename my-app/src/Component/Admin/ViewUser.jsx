@@ -19,11 +19,10 @@ const ViewUser = () => {
             <tr className="text-white">
               
               <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
               <th>Username</th>
-              <th>Country</th>
-              <th>City</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -32,11 +31,10 @@ const ViewUser = () => {
           <tbody>
             <tr>
               <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>USA</td>
-              <td>New York</td>
+              <td>User1</td>
+              <td>User1@gmail.com</td>
+              <td>9072823381</td>
+              <td>Username1</td>
               <td class="d-flex">
     <button class="btn btn-success edit-button mr-2 flex-fill">Approve</button>
     <button class="btn btn-danger delete-button flex-fill">Reject</button>
@@ -44,11 +42,10 @@ const ViewUser = () => {
             </tr>
             <tr>
               <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-              <td>Spain</td>
-              <td>Madrid</td>
+              <td>Use2</td>
+              <td>user2@gmail.com</td>
+              <td>9072823381</td>
+              <td>Username2</td>
               <td class="d-flex">
     <button class="btn btn-success edit-button mr-2 flex-fill">Approve</button>
     <button class="btn btn-danger delete-button flex-fill">Reject</button>
@@ -56,11 +53,10 @@ const ViewUser = () => {
             </tr>
             <tr>
               <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-              <td>Italy</td>
-              <td>Rome</td>
+              <td>user3</td>
+              <td>user3@gmail.com</td>
+              <td>9072823381</td>
+              <td>username3</td>
               <td class="d-flex">
     <button class="btn btn-success edit-button mr-2 flex-fill">Approve</button>
     <button class="btn btn-danger delete-button flex-fill">Reject</button>
@@ -68,11 +64,10 @@ const ViewUser = () => {
             </tr>
             <tr>
               <th scope="row">4</th>
-              <td>Anna</td>
-              <td>Doe</td>
-              <td>@anna</td>
-              <td>Poland</td>
-              <td>Warsaw</td>
+              <td>User4</td>
+              <td>User4@gmail.com</td>
+              <td>9072823381</td>
+              <td>Username4</td>
               <td class="d-flex">
     <button class="btn btn-success edit-button mr-2 flex-fill">Approve</button>
     <button class="btn btn-danger delete-button flex-fill">Reject</button>
@@ -80,11 +75,10 @@ const ViewUser = () => {
             </tr>
             <tr>
               <th scope="row">5</th>
-              <td>Mary</td>
-              <td>Kate</td>
-              <td>@olsen</td>
-              <td>Germany</td>
-              <td>Berlin</td>
+              <td>User5</td>
+              <td>User5@gmail.com</td>
+              <td>9072823381</td>
+              <td>Username5</td>
               <td class="d-flex">
     <button class="btn btn-success edit-button mr-2 flex-fill">Approve</button>
     <button class="btn btn-danger delete-button flex-fill">Delete</button>

@@ -15,21 +15,22 @@ const ManageDeliveryboy = () => {
             <tr className="text-white">
               
               <th>ID</th>
-              <th>MEDICINE CATEGORY NAME</th>
+              <th>NAME</th>
 
-              <th>IMAGE</th>
+              <th>EMAIL</th>
+              <th>PHONE</th>
+              <th>USERNAME</th>
             <th>Action</th>
             </tr>
           </thead>
       <tbody>
         <tr>
         
-          <td>Product 1</td>
-          <td>Product 1</td>
-         
-          <td>
-            <img src="product1.jpg" alt="Product 1" className="product-image" />
-          </td>
+          <td> 1</td>
+          <td>Delivery Boy</td>
+          <td>deliveryboy@gmail.com</td>
+          <td>9072823381</td>
+          <td>Username</td>
           <td>
                 <i className="fa-sharp fa-solid fa-trash" />
                 &nbsp;&nbsp;&nbsp;
@@ -38,13 +39,11 @@ const ManageDeliveryboy = () => {
 
         </tr>
         <tr>
-       
-          <td>Product 1</td>
-          <td>Product 1</td>
-          
-          <td>
-            <img src="product1.jpg" alt="Product 1" className="product-image" />
-          </td>
+        <td> 2</td>
+          <td>Delivery Boy</td>
+          <td>deliveryboy@gmail.com</td>
+          <td>9072823381</td>
+          <td>Username</td>
           <td>
                 <i className="fa-sharp fa-solid fa-trash" />
                 &nbsp;&nbsp;&nbsp;
@@ -54,12 +53,11 @@ const ManageDeliveryboy = () => {
         </tr>
         <tr>
         
-          <td>Product 1</td>
-          <td>Product 1</td>
-          
-          <td>
-            <img src="product1.jpg" alt="Product 1" className="product-image" />
-          </td>
+        <td> 3</td>
+          <td>Delivery Boy</td>
+          <td>deliveryboy@gmail.com</td>
+          <td>9072823381</td>
+          <td>Username</td>
           <td>
                 <a href=''><i className="fa-sharp fa-solid fa-trash" /></a>
                 &nbsp;&nbsp;&nbsp;
@@ -67,14 +65,12 @@ const ManageDeliveryboy = () => {
               </td>
 
         </tr>
-        <tr>
-        
-          <td>Product 1</td>
-          <td>Product 1</td>
-         
-          <td>
-            <img src="product1.jpg" alt="Product 1" className="product-image" />
-          </td>
+        <tr> 
+          <td> 4</td>
+          <td>Delivery Boy</td>
+          <td>deliveryboy@gmail.com</td>
+          <td>9072823381</td>
+          <td>Username</td>
           <td>
                 <i className="fa-sharp fa-solid fa-trash" />
                 &nbsp;&nbsp;&nbsp;

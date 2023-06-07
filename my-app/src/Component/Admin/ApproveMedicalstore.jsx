@@ -15,9 +15,14 @@ const ApproveMedicalstore = () => {
             <tr className="text-white">
               <th/>
               <th>ID</th>
-              <th>MEDICINE CATEGORY NAME</th>
-
-              <th>IMAGE</th>
+              <th>Store Name</th>
+              <th>License Number</th>
+              <th>Address</th>
+              <th>Pincode</th>
+              <th>City</th>
+              <th>Email</th>
+              <th>Phone No</th>
+              <th>Username</th>
             <th>Action</th>
             </tr>
           </thead>
@@ -30,31 +35,14 @@ const ApproveMedicalstore = () => {
               </label>
             </td>
           <td>Product 1</td>
-          <td>Product 1</td>
-         
-          <td>
-            <img src="product1.jpg" alt="Product 1" className="product-image" />
-          </td>
-          <td>
-                <i className="fa-sharp fa-solid fa-trash" />
-                &nbsp;&nbsp;&nbsp;
-                <i className="fa-sharp fa-solid fa-pen" />
-              </td>
-
-        </tr>
-        <tr>
-        <td>
-              <label className="custom-control custom-checkbox">
-                <input type="checkbox" className="custom-control-input" />
-                <span className="custom-control-indicator" />
-              </label>
-            </td>
-          <td>Product 1</td>
-          <td>Product 1</td>
-          
-          <td>
-            <img src="product1.jpg" alt="Product 1" className="product-image" />
-          </td>
+          <td>Name</td>
+          <td>License Number</td>
+          <td>Address</td>
+          <td>Pincode</td>
+          <td>City</td>
+          <td>Email</td>
+          <td>Phone</td>
+          <td>Username</td>
           <td>
                 <i className="fa-sharp fa-solid fa-trash" />
                 &nbsp;&nbsp;&nbsp;
@@ -69,12 +57,38 @@ const ApproveMedicalstore = () => {
                 <span className="custom-control-indicator" />
               </label>
             </td>
-          <td>Product 1</td>
-          <td>Product 1</td>
-          
+            <td>Product 1</td>
+          <td>Name</td>
+          <td>License Number</td>
+          <td>Address</td>
+          <td>Pincode</td>
+          <td>City</td>
+          <td>Email</td>
+          <td>Phone</td>
+          <td>Username</td>
           <td>
-            <img src="product1.jpg" alt="Product 1" className="product-image" />
-          </td>
+                <i className="fa-sharp fa-solid fa-trash" />
+                &nbsp;&nbsp;&nbsp;
+                <i className="fa-sharp fa-solid fa-pen" />
+              </td>
+
+        </tr>
+        <tr>
+        <td>
+              <label className="custom-control custom-checkbox">
+                <input type="checkbox" className="custom-control-input" />
+                <span className="custom-control-indicator" />
+              </label>
+            </td>
+            <td>Product 1</td>
+          <td>Name</td>
+          <td>License Number</td>
+          <td>Address</td>
+          <td>Pincode</td>
+          <td>City</td>
+          <td>Email</td>
+          <td>Phone</td>
+          <td>Username</td>
           <td>
                 <a href=''><i className="fa-sharp fa-solid fa-trash" /></a>
                 &nbsp;&nbsp;&nbsp;
@@ -89,12 +103,15 @@ const ApproveMedicalstore = () => {
                 <span className="custom-control-indicator" />
               </label>
             </td>
-          <td>Product 1</td>
-          <td>Product 1</td>
-         
-          <td>
-            <img src="product1.jpg" alt="Product 1" className="product-image" />
-          </td>
+            <td>Product 1</td>
+          <td>Name</td>
+          <td>License Number</td>
+          <td>Address</td>
+          <td>Pincode</td>
+          <td>City</td>
+          <td>Email</td>
+          <td>Phone</td>
+          <td>Username</td>
           <td>
                 <i className="fa-sharp fa-solid fa-trash" />
                 &nbsp;&nbsp;&nbsp;
