@@ -37,6 +37,20 @@ const Addproduct = () => {
                 <option value="subcategory3">Subcategory 3</option>
               </select>
             </div>
+            <div className="productform-group">
+              <label htmlFor="subcategory" className="productform-label">
+                Need a Prescription?:
+              </label>
+              <select
+                className="productform-control"
+                id="subcategory"
+                required=""
+              >
+                <option value="">Select </option>
+                <option value="subcategory1">Yes</option>
+                <option value="subcategory2">No</option>
+              </select>
+            </div>
     <div className="productform-group">
       <label htmlFor="productName" className="productform-label">
         Medicine Name:

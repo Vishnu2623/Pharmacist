@@ -72,7 +72,7 @@ const Publicusernav = () => {
           {/* <a href="">Payment</a> */}
          
           {/* <a href="">My Reviews</a> */}
-          <a href="">Wishlist</a>
+          <a href="wishlist">Wishlist</a>
           {/* <a href="">Privacy policy</a>
           <a href="">Terms &amp; Conditions</a> */}
           <a href="">Log Out</a>

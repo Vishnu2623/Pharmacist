@@ -4,6 +4,7 @@ import Publicuserfooter from '../Component/Footer/Publicuserfooter'
 import Features from '../Component/Navbar/Features'
 import Category from '../Component/Navbar/Category'
 import Products from '../Component/Navbar/Products'
+import Productlist from '../Component/Navbar/Productlist'
 
 
 const Publicuser = () => {
@@ -13,6 +14,7 @@ const Publicuser = () => {
     <Features/>
     <Category/>
    <Products/>
+   <Productlist/>
   
     <Publicuserfooter/>
   

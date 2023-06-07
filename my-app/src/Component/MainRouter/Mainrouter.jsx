@@ -40,6 +40,10 @@ import Payment from '../Navbar/Payment'
 import Orderconformation from '../Navbar/Orderconformation'
 import Myorder from '../Navbar/Myorder'
 import OrdersHistory from '../Navbar/OrdersHistory'
+import Productlist from '../Navbar/Productlist'
+import Wishlist from '../Navbar/Wishlist'
+import Uploadprescription from '../Navbar/Uploadprescription'
+import Homepage from '../../Pages/DeliveryBoy/Homepage'
 
 const Mainrouter = () => {
   return (
@@ -48,6 +52,7 @@ const Mainrouter = () => {
             <Route path="/" element={<Pharmacist/>}/>
             <Route path="Medicalreg" element={<MedicalStorereg/>}/>
             <Route path="Deliveryboy" element={<DeliveryBoy/>}/>
+
             <Route path="Userreg" element={<UserReg/>}/>
             <Route path="Login" element={<Login/>}/>
             <Route path="About" element={<PublicUserAbout/>}/>
@@ -84,6 +89,14 @@ const Mainrouter = () => {
             <Route path="Order" element={<Myorder/>}/>
             <Route path="Orders" element={<OrdersHistory/>}/>
             <Route path="subcategory" element={<SubCategory/>}/>
+            <Route path="productlist" element={<Productlist/>}/>
+            <Route path="wishlist" element={<Wishlist/>}/>
+            <Route path="upload" element={<Uploadprescription/>}/>
+            <Route path="Delivery" element={<Homepage/>}/>
+
+
+
+
 
 
 

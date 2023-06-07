@@ -46,9 +46,9 @@ const Features = () => {
           style={{ padding: 30,marginTop:"20px" }}
         >
           <h1 className="fa fa-phone-volume text-primary m-0 mr-3" />
-          <a href="#"></a>
+          <a href="upload"></a>
           <h5 className="font-weight-semi-bold m-0">
-            <a href="#">Upload Prescription</a>
+            <a href="upload">Upload Prescription</a>
           </h5>
         </div>
       </div>

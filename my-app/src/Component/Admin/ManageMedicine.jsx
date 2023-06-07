@@ -14,6 +14,8 @@ const ManageMedicine = () => {
               <th>MEDICINE NAME</th>
               <th>MEDICINE CATEGORY</th>
               <th>MEDICINE SUBCATEGORY</th>
+              <th>Need Presciption</th>
+
               <th>PRICE</th>
 
               <th>DESCRIPTION</th>
@@ -27,6 +29,8 @@ const ManageMedicine = () => {
           <td>Product 1</td>
           <td>Product 1</td>
           <td>Product 1</td>
+          <td>Yes</td>
+
           <td>$19.99</td>
           <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
           <td>
@@ -43,6 +47,7 @@ const ManageMedicine = () => {
           <td>Product 1</td>
           <td>Product 1</td>
           <td>Product 1</td>
+          <td>Yes</td>
           <td>$19.99</td>
           <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
           <td>
@@ -59,6 +64,7 @@ const ManageMedicine = () => {
           <td>Product 1</td>
           <td>Product 1</td>
           <td>Product 1</td>
+          <td>Yes</td>
           <td>$19.99</td>
           <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
           <td>
@@ -75,6 +81,7 @@ const ManageMedicine = () => {
           <td>Product 1</td>
           <td>Product 1</td>
           <td>Product 1</td>
+          <td>Yes</td>
           <td>$19.99</td>
           <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
           <td>
