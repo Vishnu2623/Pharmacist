@@ -44,6 +44,7 @@ import Productlist from '../Navbar/Productlist'
 import Wishlist from '../Navbar/Wishlist'
 import Uploadprescription from '../Navbar/Uploadprescription'
 import Homepage from '../../Pages/DeliveryBoy/Homepage'
+import AssignDeliveryboy from '../Admin/AssignDeliveryboy'
 
 const Mainrouter = () => {
   return (
@@ -93,6 +94,8 @@ const Mainrouter = () => {
             <Route path="wishlist" element={<Wishlist/>}/>
             <Route path="upload" element={<Uploadprescription/>}/>
             <Route path="Delivery" element={<Homepage/>}/>
+            <Route path="Assign" element={<AssignDeliveryboy/>}/>
+
 
 
 

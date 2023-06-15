@@ -29,6 +29,16 @@ const RegisterDeliveryBoy = () => {
         placeholder="Enter your Address"/>
     </div>
     <div className="productform-group">
+      <label htmlFor="Pincode" className="productform-label">
+      Pincode
+      </label>
+      <input
+        type="number"
+        className="productform-control"
+        placeholder="Enter the Pincode"
+      />
+    </div>
+    <div className="productform-group">
       <label htmlFor="productPrice" className="productform-label">
       Phone No:
       </label>

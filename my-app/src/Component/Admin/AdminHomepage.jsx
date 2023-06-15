@@ -57,7 +57,7 @@ const AdminHomepage = () => {
           <ul style={{ paddingTop: '8px', marginLeft: '27px' }}>
             <li><a href="RegDeliveryBoy">Add</a></li>
             <li><a href="mngDeliveryBoy">Manage</a></li>
-            <li><a href="#">Assign</a></li>
+            <li><a href="Assign">Assign</a></li>
           </ul>
         )}
       </li>
