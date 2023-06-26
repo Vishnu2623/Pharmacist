@@ -17,6 +17,7 @@ const ApproveMedicalstore = () => {
               <th>ID</th>
               <th>Store Name</th>
               <th>License Number</th>
+              <th>Upload License</th>
               <th>Address</th>
               <th>Pincode</th>
               <th>City</th>
@@ -37,6 +38,9 @@ const ApproveMedicalstore = () => {
           <td>Product 1</td>
           <td>Name</td>
           <td>License Number</td>
+          <td>
+            <img src="product1.jpg" alt="Product 1" className="product-image" />
+          </td>
           <td>Address</td>
           <td>Pincode</td>
           <td>City</td>
@@ -45,8 +49,7 @@ const ApproveMedicalstore = () => {
           <td>Username</td>
           <td>
                 <i className="fa-sharp fa-solid fa-trash" />
-                &nbsp;&nbsp;&nbsp;
-                <i className="fa-sharp fa-solid fa-pen" />
+               
               </td>
 
         </tr>
@@ -60,6 +63,9 @@ const ApproveMedicalstore = () => {
             <td>Product 1</td>
           <td>Name</td>
           <td>License Number</td>
+          <td>
+            <img src="product1.jpg" alt="Product 1" className="product-image" />
+          </td>
           <td>Address</td>
           <td>Pincode</td>
           <td>City</td>
@@ -68,8 +74,7 @@ const ApproveMedicalstore = () => {
           <td>Username</td>
           <td>
                 <i className="fa-sharp fa-solid fa-trash" />
-                &nbsp;&nbsp;&nbsp;
-                <i className="fa-sharp fa-solid fa-pen" />
+               
               </td>
 
         </tr>
@@ -83,6 +88,9 @@ const ApproveMedicalstore = () => {
             <td>Product 1</td>
           <td>Name</td>
           <td>License Number</td>
+          <td>
+            <img src="product1.jpg" alt="Product 1" className="product-image" />
+          </td>
           <td>Address</td>
           <td>Pincode</td>
           <td>City</td>
@@ -91,8 +99,7 @@ const ApproveMedicalstore = () => {
           <td>Username</td>
           <td>
                 <a href=''><i className="fa-sharp fa-solid fa-trash" /></a>
-                &nbsp;&nbsp;&nbsp;
-                <i className="fa-sharp fa-solid fa-pen" />
+              
               </td>
 
         </tr>
@@ -106,6 +113,9 @@ const ApproveMedicalstore = () => {
             <td>Product 1</td>
           <td>Name</td>
           <td>License Number</td>
+          <td>
+            <img src="product1.jpg" alt="Product 1" className="product-image" />
+          </td>
           <td>Address</td>
           <td>Pincode</td>
           <td>City</td>
@@ -114,8 +124,8 @@ const ApproveMedicalstore = () => {
           <td>Username</td>
           <td>
                 <i className="fa-sharp fa-solid fa-trash" />
-                &nbsp;&nbsp;&nbsp;
-                <i className="fa-sharp fa-solid fa-pen" />
+               
+               
               </td>
 
         </tr>

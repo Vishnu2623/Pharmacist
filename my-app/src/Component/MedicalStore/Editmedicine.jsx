@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React,{useState} from 'react'
+import MedicalStorePage from '../../Pages/MedicalStore/MedicalStorePage'
 
-const Addproduct = () => {
+const Editmedicine = () => {
   const [inputs, setInputs] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -13,25 +14,31 @@ const Addproduct = () => {
   const handleImageUpload = (event) => {
     setSelectedImage(event.target.files[0]);
   };
- 
+  const handleReset = () => {
+    setInputs({});
+    setSelectedImage(null);
+  };
   const registersubmit =(event)=>{
     event.preventDefault();
     console.log("data",inputs);
     console.log('Selected image:', selectedImage);
+
   }
   return (<>
-    
+     <MedicalStorePage/>
+    <div className="main-content" style={{marginTop:'100px'}}>
     <div className="productcontainer">
-  <h2 className="text-center mb-4">Add Medicine</h2>
+  <h2 className="text-center mb-4">Update Medical Store Medicine</h2>
   <form onSubmit={registersubmit}>
-  <div className="productform-group">
-              <label htmlFor="category" className="productform-label">
+  
+            <div className="productform-group">
+              <label htmlFor="medicinecategory" className="productform-label">
                 Medicine Category:
               </label>
               <select
                 className="productform-control"
-                name="category"
-                value={inputs.category || ""}
+                name="medicinecategory"
+                value={inputs.medicinecategory || ""}
                 onChange={setRegister}
               >
                 <option value="">Select Medicine category</option>
@@ -63,8 +70,9 @@ const Addproduct = () => {
               <select
                 className="productform-control"
                 name="prescription"
-                value={inputs.prescription|| ""}
+                value={inputs.prescription || ""}
                 onChange={setRegister}
+                
               >
                 <option value="">Select </option>
                 <option value="Yes">Yes</option>
@@ -78,9 +86,9 @@ const Addproduct = () => {
       <input
         type="text"
         className="productform-control"
+        name="productName"
         placeholder="Enter Medicine name"
-        name="name"
-        value={inputs.name || ""}
+        value={inputs.productName || ""}
         onChange={setRegister}
       />
     </div>
@@ -90,11 +98,11 @@ const Addproduct = () => {
       </label>
       <textarea
         className="productform-control"
+        name="productDescription"
         rows={5}
         placeholder="Enter Medicine description"
-        name="description"
-                value={inputs.description || ""}
-                onChange={setRegister}        
+        value={inputs.productDescription || ""}
+        onChange={setRegister}
       />
     </div>
     <div className="productform-group">
@@ -104,10 +112,9 @@ const Addproduct = () => {
       <input
         type="number"
         className="productform-control"
+        name="medicineprice"
         placeholder="Enter Medicine price"
-        name="price"
-        value={inputs.price || ""}
-        onChange={setRegister}     
+        onChange={setRegister}
       />
     </div>
     <div className="productform-group">
@@ -119,17 +126,18 @@ const Addproduct = () => {
         className="form-control-file"
         accept="image/*"
         name="imageUpload"
-        onChange={handleImageUpload} 
+        onChange={handleImageUpload}
       />
     </div>
     <button type="submit" className="btn btn-primary productsubmit-btn">
-      Add  Medicine
+      Update Medicine
     </button>
   </form>
+</div>
 </div>
 </>
 
   )
 }
 
-export default Addproduct
+export default Editmedicine

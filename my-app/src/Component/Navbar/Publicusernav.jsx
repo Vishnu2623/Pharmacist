@@ -13,6 +13,11 @@ const Publicusernav = () => {
   const handleButtonClick = () => {
     setModalOpen(true);
   };
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
   const closeModal = () => {
     setModalOpen(false);
@@ -67,7 +72,7 @@ const Publicusernav = () => {
           <a href="">My Profile</a>
           <a href="Order">My Order</a>
           <a href="Orders">Orders History</a>
-          <a href="">Track Order</a>
+          <a href="ordertrack">Track Order</a>
           {/* <a href="">Add Address</a> */}
           {/* <a href="">Payment</a> */}
          
@@ -173,22 +178,25 @@ const Publicusernav = () => {
                 </a> */}
               </li>
              
-             <li>
+              <li>
+  <div className="dropdown">
+  
   <i className="fa fa-user" aria-hidden="true" />
   <a className="dropdown-toggle" data-toggle="dropdown">
-    <span className="name_user">User</span>
+    <span className="name_user" onClick={toggleDropdown}>User</span>
   </a>
-  <div className="dropdown-menu">
-    <a className="dropdown-item" href="">
-      My Profile
-    </a>
-    <a className="dropdown-item" href="">
-      Settings
-    </a>
-    <a className="dropdown-item" href="#">
-      <span>Log Out</span> <i className="fa fa-sign-out" />
-    </a>
-  </div>
+      <div className={`dropdown-menu ${isOpen ? 'show' : ''}`}>
+        <a className="dropdown-item" href="#">
+          My Profile
+        </a>
+        <a className="dropdown-item" href="#">
+          Settings
+        </a>
+        <a className="dropdown-item" href="#">
+          <span>Log Out</span> <i className="fa fa-sign-out" />
+        </a>
+      </div>
+    </div>
 </li>
 
             </ul>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Addproduct = () => {
+const AddMedicine = () => {
   const [inputs, setInputs] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -22,7 +22,7 @@ const Addproduct = () => {
   return (<>
     
     <div className="productcontainer">
-  <h2 className="text-center mb-4">Add Medicine</h2>
+  <h2 className="text-center mb-4">Add Medical Store Medicine</h2>
   <form onSubmit={registersubmit}>
   <div className="productform-group">
               <label htmlFor="category" className="productform-label">
@@ -132,4 +132,4 @@ const Addproduct = () => {
   )
 }
 
-export default Addproduct
+export default AddMedicine

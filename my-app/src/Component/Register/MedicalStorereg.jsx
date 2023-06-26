@@ -1,26 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 const MedicalStorereg = () => {
-  const[inputs, setinputs]=useState([]);
-  console.log("value==>",inputs);
-  const setRegister=(event)=>{
-    const name=event.target.name;
-    const value=event.target.value;
-    setinputs({...inputs,[name]:value});
-    console.log(inputs);
-  }
+  const [inputs, setInputs] = useState({});
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const setRegister = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs({ ...inputs, [name]: value });
+  };
+
+  const handleImageUpload = (event) => {
+    setSelectedImage(event.target.files[0]);
+  };
+  const handleReset = () => {
+    setInputs({});
+    setSelectedImage(null);
+  };
   const registersubmit =(event)=>{
     event.preventDefault();
     console.log("data",inputs);
+    console.log('Selected image:', selectedImage);
 
   }
   return (
-    <div className="page-wrapper bg-gra-01 p-t-180 p-b-100 font-poppins">
-    <div className="wrapper wrapper--w780">
+    <div className="page-wrapper bg-gra-01 p-t-90 p-b-100 font-poppins">
+    <div className="wrapper wrapper--w500">
       <div className="card card-3">
-        <div className="card-heading" />
         <div className="card-body">
-          <h2 className="title">Registration</h2>
+          <h3 className="title">Medical Store Registration</h3>
           <form method="POST" onSubmit={registersubmit}>
             <div className="input-group">
               <input
@@ -42,6 +50,17 @@ const MedicalStorereg = () => {
                 onChange={setRegister}
               />
             </div>
+            <label>Upload License</label>
+              <div className="input-group">
+                <input
+                  className="input--style-3"
+                  type="file"
+                  accept="image/*"
+                  name="imageUpload"
+                  onChange={handleImageUpload}
+                />
+              </div>
+
             <div className="input-group">
               <input
                 className="input--style-3"
@@ -85,7 +104,7 @@ const MedicalStorereg = () => {
             <div className="input-group">
               <input
                 className="input--style-3"
-                type="text"
+                type="number"
                 placeholder="Phone"
                 name="phone"
                 value={inputs.phone || ""}
@@ -126,6 +145,7 @@ const MedicalStorereg = () => {
   <button
     className="btn btn-primary"
     type="reset"
+    onClick={handleReset}
     style={{ fontSize: '12px' }}
   >
     Reset

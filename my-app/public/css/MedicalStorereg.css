@@ -180,8 +180,8 @@
     padding-top: 100px;
   }
   
-  .p-t-180 {
-    padding-top: 180px;
+  .p-t-90 {
+    padding-top: 90px;
   }
   
   .p-t-20 {
@@ -211,8 +211,8 @@
     max-width: 960px;
   }
   
-  .wrapper--w780 {
-    max-width: 780px;
+  .wrapper--w500 {
+    max-width: 500px;
     
   }
   
@@ -341,7 +341,15 @@
     position: relative;
     margin-bottom: 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    
   }
+  
+   input:focus,
+   input:active {
+  border: 2px solid lightblue;
+  
+  }
+  
   
   .input--style-3 {
     padding: 5px 0;
@@ -464,11 +472,10 @@
      #TITLE
      ========================================================================== */
   .title {
-    color: black;
+    color:#1C4966;
     font-weight: bold;
     font-size: 24px;
-   
- 
+    line-height: 35px;
     margin-bottom: 36px;
   }
   
@@ -496,12 +503,7 @@
     display: table;
   }
   
-  .card-3 .card-heading {
-    background: url("../images2/medicalstore.jpeg") top left/cover no-repeat;
-    background-size: 450px 720px;
-    display: table-cell;
-    width: 50%;
-  }
+  
   
   .card-3 .card-body {
     padding: 57px 65px;
@@ -513,12 +515,7 @@
     .card-3 {
       display: block;
     }
-    .card-3 .card-heading {
-      display: block;
-      width: 100%;
-      padding-top: 0px;
-      background-position: center center;
-    }
+    
     .card-3 .card-body {
       display: block;
       width: 100%;
@@ -529,6 +526,6 @@
   }
   .button-row {
     display: flex;
-    gap: 30px; /* Adjust the gap value as needed */
-    justify-content: space-between;
+    gap: 5px; /* Adjust the gap value as needed */
+    justify-content: space-around;
   }

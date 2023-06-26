@@ -1599,3 +1599,67 @@ h2 {
         align-items: center;
         text-align: center;
     }
+
+
+    /* Order Tracking */
+    .ordertrack {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 20px;
+      }
+      
+    
+    .orderheading {
+        text-align: center;
+        color: #333;
+        font-weight: bold;
+      }
+      
+      .tracking-container {
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+      
+      .custom-input-field {
+        width: 96%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+      }
+      
+      .custom-track-button {
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      
+      .custom-track-button:hover {
+        background-color: #45a049;
+      }
+      
+      .custom-order-status {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+      
+      .custom-shipment-details,
+      .custom-delivery-address,
+      .custom-item-details {
+        margin-top: 10px;
+      }
+      

@@ -9,10 +9,13 @@ const UserReg = () => {
     setinputs({...inputs,[name]:value});
     console.log(inputs);
   }
+  const handleReset = () => {
+    setinputs({});
+   
+  };
   const registersubmit =(event)=>{
     event.preventDefault();
     console.log("data",inputs);
-
   }
   return (
     <div style={{backgroundColor:'lightBlue',maxWidth:'100%'}}>
@@ -87,6 +90,7 @@ const UserReg = () => {
     <button
       className="btn btn-primary"
       type="reset"
+      onClick={handleReset}
       style={{ fontSize: '12px' }}
     >
       Reset

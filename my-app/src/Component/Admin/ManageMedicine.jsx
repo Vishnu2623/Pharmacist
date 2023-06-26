@@ -37,7 +37,7 @@ const ManageMedicine = () => {
             <img src="product1.jpg" alt="Product 1" className="product-image" />
           </td>
           <td class="d-flex">
-    <button class="btn btn-success edit-button mr-2 flex-fill">Edit</button>
+          <a href='editaddedmedicine'><button class="btn btn-success edit-button mr-2 flex-fill">Edit</button></a> 
     <button class="btn btn-danger delete-button flex-fill">Delete</button>
     </td>
 
@@ -54,7 +54,7 @@ const ManageMedicine = () => {
             <img src="product1.jpg" alt="Product 1" className="product-image" />
           </td>
           <td class="d-flex">
-    <button class="btn btn-success edit-button mr-2 flex-fill">Edit</button>
+   <a href='editaddedmedicine'><button class="btn btn-success edit-button mr-2 flex-fill">Edit</button></a> 
     <button class="btn btn-danger delete-button flex-fill">Delete</button>
     </td>
 
@@ -71,7 +71,7 @@ const ManageMedicine = () => {
             <img src="product1.jpg" alt="Product 1" className="product-image" />
           </td>
           <td class="d-flex">
-    <button class="btn btn-success edit-button mr-2 flex-fill">Edit</button>
+          <a href='editaddedmedicine'><button class="btn btn-success edit-button mr-2 flex-fill">Edit</button></a> 
     <button class="btn btn-danger delete-button flex-fill">Delete</button>
     </td>
 
@@ -88,7 +88,7 @@ const ManageMedicine = () => {
             <img src="product1.jpg" alt="Product 1" className="product-image" />
           </td>
           <td class="d-flex">
-    <button class="btn btn-success edit-button mr-2 flex-fill">Edit</button>
+          <a href='editaddedmedicine'><button class="btn btn-success edit-button mr-2 flex-fill">Edit</button></a> 
     <button class="btn btn-danger delete-button flex-fill">Delete</button>
     </td>
 

@@ -1,12 +1,12 @@
 import React from 'react'
 import MedicalStorePage from './MedicalStorePage'
-import Addproduct from '../../Component/Admin/Addproduct'
+import AddMedicine from '../../Component/MedicalStore/AddMedicine'
 
 const AddMed = () => {
   return (<>
 <MedicalStorePage/>
     <div className="main-content" style={{marginTop:'100px'}}>
-     <Addproduct/>
+     <AddMedicine/>
  </div></>
   )
 }

@@ -1,89 +1,80 @@
 import React from 'react'
-import AdminPage from '../../Pages/ADMIN/AdminPage'
+import MedicalStorePage from '../../Pages/MedicalStore/MedicalStorePage'
 
-const ManageDeliveryboy = () => {
+const PaymentCustomers = () => {
   return (
-    <>
-    <AdminPage/>
-    <div className="main-content" style={{marginTop:'-600px'}}>
-
+  <>
+   <MedicalStorePage/>
+    <div className="main-content" style={{marginTop:'100px'}}>
     <div className="container">
-    <h2 className="text-center mb-4">Manage Delivery Boy</h2>
+    <h2 className="text-center mb-4">View Payment Customers </h2>
     <table className="table table-hover">
           {/*Table head*/}
           <thead className="table-dark">
             <tr className="text-white">
-              
               <th>ID</th>
-              <th>NAME</th>
-
-              <th>EMAIL</th>
-              <th>PHONE</th>
-              <th>USERNAME</th>
-            <th>Action</th>
+              <th>Customer Name</th>
+              <th>Order ID</th>
+              <th>Payment Type</th>
+              <th>Amount</th>
+              <th>Transaction ID</th>
+             <th>Date and Time</th>
+              <th>Status</th>
+            
             </tr>
           </thead>
       <tbody>
         <tr>
-        
           <td> 1</td>
-          <td>Delivery Boy</td>
-          <td>deliveryboy@gmail.com</td>
-          <td>9072823381</td>
-          <td>Username</td>
-          <td>
-                <i className="fa-sharp fa-solid fa-trash" />
-               
-              </td>
-
+          <td>Vishnu</td>
+          <td>101</td>
+          <td>card</td>
+          <td>1000</td>
+          <td>1234</td>
+          <td>01/02/2023 10:35</td>
+          <td>success</td>
         </tr>
         <tr>
-        <td> 2</td>
-          <td>Delivery Boy</td>
-          <td>deliveryboy@gmail.com</td>
-          <td>9072823381</td>
-          <td>Username</td>
-          <td>
-                <i className="fa-sharp fa-solid fa-trash" />
-               
-              </td>
-
+          <td> 1</td>
+          <td>Vishnu</td>
+          <td>101</td>
+          <td>card</td>
+          <td>1000</td>
+          <td>1234</td>
+          <td>01/02/2023 10:35</td>
+          <td>success</td>
         </tr>
         <tr>
-        
-        <td> 3</td>
-          <td>Delivery Boy</td>
-          <td>deliveryboy@gmail.com</td>
-          <td>9072823381</td>
-          <td>Username</td>
-          <td>
-                <a href=''><i className="fa-sharp fa-solid fa-trash" /></a>
-                
-              </td>
+          <td> 1</td>
+          <td>Vishnu</td>
+          <td>101</td>
+          <td>card</td>
+          <td>1000</td>
+          <td>1234</td>
 
+          <td>01/02/2023 10:35</td>
+          <td>success</td>
         </tr>
-        <tr> 
-          <td> 4</td>
-          <td>Delivery Boy</td>
-          <td>deliveryboy@gmail.com</td>
-          <td>9072823381</td>
-          <td>Username</td>
-          <td>
-                <i className="fa-sharp fa-solid fa-trash" />
-                
-              </td>
+        <tr>
+          <td> 1</td>
+          <td>Vishnu</td>
+          <td>101</td>
+          <td>card</td>
+          <td>1000</td>
+          <td>1234</td>
+
+          <td>01/02/2023 10:35</td>
+          <td>success</td> 
 
         </tr>
         {/* Add more product rows here */}
       </tbody>
     </table>
-  </div></div>
+  </div>
   <div className="d-flex justify-content-center">
-
       {/*Pagination */}
       <nav className="my-4 pt-2">
-      
-        <ul className="pagination pagination-circle pg-blue mb-0" style={{marginLeft:"400px"}}>
+        <ul className="pagination pagination-circle pg-blue mb-0">
           {/*First*/}
           <li className="page-item disabled clearfix d-none d-md-block">
             <a className="page-link">First</a>
@@ -123,10 +114,10 @@ const ManageDeliveryboy = () => {
             <a className="page-link">Last</a>
           </li>
         </ul>
-      </nav>
+      </nav>  </div>
       </div>
-  </>
+      </>
   )
 }
 
-export default ManageDeliveryboy
+export default PaymentCustomers

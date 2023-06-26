@@ -67,16 +67,11 @@ const MedicalStorehome = () => {
         </a>
         {activeDropdown === 'Payment' && (
           <ul style={{ paddingTop: '8px', marginLeft: '27px' }}>
-            <li><a href="#">View Payment Customer</a></li>
+            <li><a href="viewpaymentcustomers">View Payment Customer</a></li>
           </ul>
         )}
       </li>
-      <li>
-          <a href="">
-            <span className="las la-shopping-bag" />
-            <span>View Customer Review</span>
-          </a>
-        </li>
+    
         <li>
           <a href="">
             <span className="las la-shopping-bag" />

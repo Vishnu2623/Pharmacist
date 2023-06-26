@@ -45,6 +45,16 @@ import Wishlist from '../Navbar/Wishlist'
 import Uploadprescription from '../Navbar/Uploadprescription'
 import Homepage from '../../Pages/DeliveryBoy/Homepage'
 import AssignDeliveryboy from '../Admin/AssignDeliveryboy'
+import EditCategory from '../Admin/EditCategory'
+import Editsubcategory from '../Admin/Editsubcategory'
+import Editaddedmedicine from '../Admin/Editaddedmedicine'
+import Editmedicine from '../MedicalStore/Editmedicine'
+import OrderTracking from '../Navbar/Ordertracking'
+import Deliveryboyhome from '../DeliveryBoymodule/Deliveryboyhome'
+import BoyProfile from '../DeliveryBoymodule/BoyProfile'
+import Deliverboychangepassword from '../DeliveryBoymodule/Deliveryboychangepassword'
+import ManageDelivery from '../DeliveryBoymodule/ManageDelivery'
+import PaymentCustomers from '../MedicalStore/PaymentCustomers'
 
 const Mainrouter = () => {
   return (
@@ -95,6 +105,23 @@ const Mainrouter = () => {
             <Route path="upload" element={<Uploadprescription/>}/>
             <Route path="Delivery" element={<Homepage/>}/>
             <Route path="Assign" element={<AssignDeliveryboy/>}/>
+            <Route path="editcategory" element={<EditCategory/>}/>
+            <Route path="editsubcategory" element={<Editsubcategory/>}/>
+            <Route path="editaddedmedicine" element={<Editaddedmedicine/>}/>
+            <Route path="editmedicine" element={<Editmedicine/>}/>
+            <Route path="ordertrack" element={<OrderTracking/>}/>
+            <Route path="deliveryboyprofile" element={<BoyProfile/>}/>
+            <Route path="DBchangepassword" element={<Deliverboychangepassword/>}/>
+            <Route path="managedelivery" element={<ManageDelivery/>}/>
+            <Route path="viewpaymentcustomers" element={<PaymentCustomers/>}/>
+
+
+
+
+
+
+
+
 
 
 

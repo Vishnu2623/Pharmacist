@@ -1,12 +1,12 @@
 import React from 'react'
 import MedicalStorePage from './MedicalStorePage'
-import ManageMedicine from '../../Component/Admin/ManageMedicine'
+import ManageStock from '../../Component/MedicalStore/ManageStock'
 
 const MngMedicine = () => {
   return (<>
     <MedicalStorePage/>
     <div className="main-content" style={{marginTop:'100px'}}>
-     <ManageMedicine/>
+     <ManageStock/>
  </div></>
   )
 }

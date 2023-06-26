@@ -1,6 +1,90 @@
-import React from 'react'
+import React, { useState } from 'react';
 
 const Cart = () => {
+  const [products, setProducts] = useState([
+    { id: 1, name: "Product 1", quantity: 1 },
+    { id: 2, name: "Product 2", quantity: 1 },
+    // Add more products as needed
+  ]);
+
+  const handleDecrement = (productId) => {
+    setProducts((prevProducts) => {
+      const updatedProducts = prevProducts.map((product) => {
+        if (product.id === productId && product.quantity > 1) {
+          return { ...product, quantity: product.quantity - 1 };
+        }
+        return product;
+      });
+      // Update the products array with the updated quantities
+      return updatedProducts;
+    });
+  };
+
+  const handleIncrement = (productId) => {
+    setProducts((prevProducts) => {
+      const updatedProducts = prevProducts.map((product) => {
+        if (product.id === productId) {
+          return { ...product, quantity: product.quantity + 1 };
+        }
+        return product;
+      });
+      // Update the products array with the updated quantities
+      return updatedProducts;
+    });
+  };
+
+  // Render the products and their quantities
+  const renderProducts = () => {
+    return products.map((product) => (
+      <tr key={product.id}>
+        <td className="product-thumbnail">
+          <img src="images/product_01.png" alt="Image" className="img-fluid" />
+        </td>
+        <td className="product-name">
+          <h2 className="h5 text-black">{product.name}</h2>
+        </td>
+        <td>$55.00</td>
+        <td>
+          <div className="input-group mb-3" style={{ width: '200px' }}>
+            <div className="input-group-prepend">
+              <button
+                className="btn btn-danger btn-md btn-block js-btn-minus"
+                type="button"
+                style={{ height: '33px' }}
+                onClick={() => handleDecrement(product.id)}
+              >
+                −
+              </button>
+            </div>
+            <input
+              type="text"
+              className="form-control text-center"
+              value={product.quantity}
+              placeholder=""
+              aria-label="Example text with button addon"
+              aria-describedby="button-addon1"
+            />
+            <div className="input-group-append">
+              <button
+                className="btn btn-success btn-md btn-block js-btn-plus"
+                type="button"
+                style={{ height: '33px' }}
+                onClick={() => handleIncrement(product.id)}
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </td>
+        <td>$49.00</td>
+        <td>
+          <a href="#" className="btn btn-primary height-auto btn-sm">
+            X
+          </a>
+        </td>
+      </tr>
+    ));
+  };
   return (
     <div className="site-wrap">
   <div className="site-navbar py-2">
@@ -57,121 +141,28 @@ const Cart = () => {
     </div>
   </div>
   <div className="site-section">
-    <div className="container">
-      <div className="row mb-5">
-        <form className="col-md-12" method="post">
-          <div className="site-blocks-table">
-            <table className="table table-bordered">
-              <thead>
-                <tr>
-                  <th className="product-thumbnail">Image</th>
-                  <th className="product-name">Product</th>
-                  <th className="product-price">Price</th>
-                  <th className="product-quantity">Quantity</th>
-                  <th className="product-total">Total</th>
-                  <th className="product-remove">Remove</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="product-thumbnail">
-                    <img
-                      src="images/product_01.png"
-                      alt="Image"
-                      className="img-fluid"
-                    />
-                  </td>
-                  <td className="product-name">
-                    <h2 className="h5 text-black">Ibuprofen</h2>
-                  </td>
-                  <td>$55.00</td>
-                  <td>
-                    <div className="input-group mb-3" style={{ maxWidth: 120 }}>
-                      <div className="input-group-prepend">
-                        <button
-                          className="btn btn-primary btn-md btn-block js-btn-minus"
-                          type="button"
-                        >
-                          −
-                        </button>
-                      </div>
-                      <input
-                        type="text"
-                        className="form-control text-center"
-                        defaultValue={1}
-                        placeholder=""
-                        aria-label="Example text with button addon"
-                        aria-describedby="button-addon1"
-                      />
-                      <div className="input-group-append">
-                        <button
-                          className="btn btn-primary btn-md btn-block js-btn-plus"
-                          type="button"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </td>
-                  <td>$49.00</td>
-                  <td>
-                    <a href="#" className="btn btn-primary height-auto btn-sm">
-                      X
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="product-thumbnail">
-                    <img
-                      src="images/product_01.png"
-                      alt="Image"
-                      className="img-fluid"
-                    />
-                  </td>
-                  <td className="product-name">
-                    <h2 className="h5 text-black">Bioderma</h2>
-                  </td>
-                  <td>$49.00</td>
-                  <td>
-                    <div className="input-group mb-3" style={{ maxWidth: 120 }}>
-                      <div className="input-group-prepend">
-                        <button
-                          className="btn btn-primary btn-md btn-block js-btn-minus"
-                          type="button"
-                        >
-                          −
-                        </button>
-                      </div>
-                      <input
-                        type="text"
-                        className="form-control text-center"
-                        defaultValue={1}
-                        placeholder=""
-                        aria-label="Example text with button addon"
-                        aria-describedby="button-addon1"
-                      />
-                      <div className="input-group-append">
-                        <button
-                          className="btn btn-primary btn-md btn-block js-btn-plus"
-                          type="button"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </td>
-                  <td>$49.00</td>
-                  <td>
-                    <a href="#" className="btn btn-primary height-auto btn-sm">
-                      X
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        <div className="container">
+          <div className="row mb-5">
+            <form className="col-md-12" method="post">
+              <div className="site-blocks-table">
+                <table className="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th className="product-thumbnail">Image</th>
+                      <th className="product-name">Product</th>
+                      <th className="product-price">Price</th>
+                      <th className="product-quantity">Quantity</th>
+                      <th className="product-total">Total</th>
+                      <th className="product-remove">Remove</th>
+                    </tr>
+                  </thead>
+                  <tbody>{renderProducts()}</tbody>
+                </table>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
+          {/* Rest of the code */}
+        
       <div className="row">
         <div className="col-md-6">
           <div className="row mb-5">

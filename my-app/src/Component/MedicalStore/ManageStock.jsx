@@ -1,24 +1,24 @@
 import React from 'react'
-import AdminPage from '../../Pages/ADMIN/AdminPage'
 
-const Managesubcategory = () => {
+const ManageStock = () => {
   return (
-    <>
-    <AdminPage/>
-    <div className="main-content" style={{marginTop:'-600px'}}>
-
-    <div className="container">
+  <>
    
-    <h2 className="text-center mb-4">Manage Medicine Subcategory </h2>
+    <div className="container">
+    <h2 className="text-center mb-4">Manage Medical Store Medicine </h2>
     <table className="table table-hover">
           {/*Table head*/}
           <thead className="table-dark">
             <tr className="text-white">
               <th>ID</th>
-            
+              <th>MEDICINE NAME</th>
               <th>MEDICINE CATEGORY</th>
               <th>MEDICINE SUBCATEGORY</th>
-             
+              <th>Need Presciption</th>
+
+              <th>PRICE</th>
+
+              <th>DESCRIPTION</th>
               <th>IMAGE</th>
             <th>Action</th>
             </tr>
@@ -28,12 +28,16 @@ const Managesubcategory = () => {
           <td>Product 1</td>
           <td>Product 1</td>
           <td>Product 1</td>
-          
+          <td>Product 1</td>
+          <td>Yes</td>
+
+          <td>$19.99</td>
+          <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
           <td>
             <img src="product1.jpg" alt="Product 1" className="product-image" />
           </td>
           <td class="d-flex">
-    <a href='editsubcategory'><button class="btn btn-success edit-button mr-2 flex-fill">Edit</button></a>
+          <a href='editmedicine'><button class="btn btn-success edit-button mr-2 flex-fill">Edit</button></a> 
     <button class="btn btn-danger delete-button flex-fill">Delete</button>
     </td>
 
@@ -42,12 +46,15 @@ const Managesubcategory = () => {
           <td>Product 1</td>
           <td>Product 1</td>
           <td>Product 1</td>
-          
+          <td>Product 1</td>
+          <td>Yes</td>
+          <td>$19.99</td>
+          <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
           <td>
             <img src="product1.jpg" alt="Product 1" className="product-image" />
           </td>
           <td class="d-flex">
-          <a href='editsubcategory'><button class="btn btn-success edit-button mr-2 flex-fill">Edit</button></a>
+   <a href='editmedicine'><button class="btn btn-success edit-button mr-2 flex-fill">Edit</button></a> 
     <button class="btn btn-danger delete-button flex-fill">Delete</button>
     </td>
 
@@ -56,12 +63,15 @@ const Managesubcategory = () => {
           <td>Product 1</td>
           <td>Product 1</td>
           <td>Product 1</td>
-          
+          <td>Product 1</td>
+          <td>Yes</td>
+          <td>$19.99</td>
+          <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
           <td>
             <img src="product1.jpg" alt="Product 1" className="product-image" />
           </td>
           <td class="d-flex">
-          <a href='editsubcategory'><button class="btn btn-success edit-button mr-2 flex-fill">Edit</button></a>
+          <a href='editmedicine'><button class="btn btn-success edit-button mr-2 flex-fill">Edit</button></a> 
     <button class="btn btn-danger delete-button flex-fill">Delete</button>
     </td>
 
@@ -70,12 +80,15 @@ const Managesubcategory = () => {
           <td>Product 1</td>
           <td>Product 1</td>
           <td>Product 1</td>
-          
+          <td>Product 1</td>
+          <td>Yes</td>
+          <td>$19.99</td>
+          <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
           <td>
             <img src="product1.jpg" alt="Product 1" className="product-image" />
           </td>
           <td class="d-flex">
-          <a href='editsubcategory'><button class="btn btn-success edit-button mr-2 flex-fill">Edit</button></a>
+          <a href='editmedicine'><button class="btn btn-success edit-button mr-2 flex-fill">Edit</button></a> 
     <button class="btn btn-danger delete-button flex-fill">Delete</button>
     </td>
 
@@ -83,7 +96,7 @@ const Managesubcategory = () => {
         {/* Add more product rows here */}
       </tbody>
     </table>
-  </div></div>
+  </div>
   <div className="d-flex justify-content-center">
       {/*Pagination */}
       <nav className="my-4 pt-2">
@@ -127,10 +140,9 @@ const Managesubcategory = () => {
             <a className="page-link">Last</a>
           </li>
         </ul>
-      </nav>
-      </div>
-  </>
+      </nav>  </div>
+      </>
   )
 }
 
-export default Managesubcategory
+export default ManageStock

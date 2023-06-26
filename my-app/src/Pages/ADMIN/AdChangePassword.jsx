@@ -8,7 +8,6 @@ const AdChangePassword = () => {
     <AdminHomepage/>
     <div className="main-content" style={{marginTop:'-600px'}}>
      <ChangePassword/>
-     <Publicuserfooter/>
  </div></>
   )
 }

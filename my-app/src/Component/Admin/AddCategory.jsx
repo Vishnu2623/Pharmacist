@@ -1,7 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react';
 import AdminPage from '../../Pages/ADMIN/AdminPage'
 
 const AddCategory = () => {
+  const [inputs, setInputs] = useState({});
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const setRegister = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs({ ...inputs, [name]: value });
+  };
+
+  const handleImageUpload = (event) => {
+    setSelectedImage(event.target.files[0]);
+  };
+ 
+  const registersubmit =(event)=>{
+    event.preventDefault();
+    console.log("data",inputs);
+    console.log('Selected image:', selectedImage);
+
+  }
   return (
     <>
      <AdminPage/>
@@ -9,7 +28,7 @@ const AddCategory = () => {
 
     <div className="productcontainer">
   <h2 className="text-center mb-4">Add Medicine Category</h2>
-  <form>
+  <form onSubmit={registersubmit}>
   <div className="productform-group">
       <label htmlFor="productName" className="productform-label">
         Medicine Category Name:
@@ -17,9 +36,10 @@ const AddCategory = () => {
       <input
         type="text"
         className="productform-control"
-        id="productName"
+           name="name" 
         placeholder="Enter Medicine Category name"
-        required=""
+        value={inputs.name || ""}
+        onChange={setRegister}
       />
     </div>
     <div className="productform-group">
@@ -29,8 +49,9 @@ const AddCategory = () => {
       <input
         type="file"
         className="form-control-file"
-        id="productImage"
-        required=""
+        accept="image/*"
+        name="imageUpload"
+        onChange={handleImageUpload}
       />
     </div>
     <button type="submit" className="btn btn-primary productsubmit-btn">

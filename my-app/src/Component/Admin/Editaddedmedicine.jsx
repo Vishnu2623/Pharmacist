@@ -1,38 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react'
+import AdminPage from '../../Pages/ADMIN/AdminPage'
 
-const Addproduct = () => {
-  const [inputs, setInputs] = useState({});
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  const setRegister = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs({ ...inputs, [name]: value });
-  };
-
-  const handleImageUpload = (event) => {
-    setSelectedImage(event.target.files[0]);
-  };
- 
-  const registersubmit =(event)=>{
-    event.preventDefault();
-    console.log("data",inputs);
-    console.log('Selected image:', selectedImage);
-  }
+const Editaddedmedicine = () => {
   return (<>
-    
+  <AdminPage/>
+  <div className="main-content" style={{marginTop:'-600px'}}>
+
     <div className="productcontainer">
-  <h2 className="text-center mb-4">Add Medicine</h2>
-  <form onSubmit={registersubmit}>
+  <h2 className="text-center mb-4">Update Medicine</h2>
+  <form>
   <div className="productform-group">
               <label htmlFor="category" className="productform-label">
                 Medicine Category:
               </label>
               <select
                 className="productform-control"
-                name="category"
-                value={inputs.category || ""}
-                onChange={setRegister}
+                id="category"
+                required=""
               >
                 <option value="">Select Medicine category</option>
                 <option value="category1">Category 1</option>
@@ -46,9 +30,8 @@ const Addproduct = () => {
               </label>
               <select
                 className="productform-control"
-                name="subcategory"
-                value={inputs.subcategory || ""}
-                onChange={setRegister}
+                id="subcategory"
+                required=""
               >
                 <option value="">Select Medicine subcategory</option>
                 <option value="subcategory1">Subcategory 1</option>
@@ -62,13 +45,12 @@ const Addproduct = () => {
               </label>
               <select
                 className="productform-control"
-                name="prescription"
-                value={inputs.prescription|| ""}
-                onChange={setRegister}
+                id="subcategory"
+                required=""
               >
                 <option value="">Select </option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
+                <option value="subcategory1">Yes</option>
+                <option value="subcategory2">No</option>
               </select>
             </div>
     <div className="productform-group">
@@ -78,10 +60,9 @@ const Addproduct = () => {
       <input
         type="text"
         className="productform-control"
+        id="productName"
         placeholder="Enter Medicine name"
-        name="name"
-        value={inputs.name || ""}
-        onChange={setRegister}
+        required=""
       />
     </div>
     <div className="productform-group">
@@ -90,11 +71,11 @@ const Addproduct = () => {
       </label>
       <textarea
         className="productform-control"
+        id="productDescription"
         rows={5}
         placeholder="Enter Medicine description"
-        name="description"
-                value={inputs.description || ""}
-                onChange={setRegister}        
+        required=""
+        defaultValue={""}
       />
     </div>
     <div className="productform-group">
@@ -104,10 +85,9 @@ const Addproduct = () => {
       <input
         type="number"
         className="productform-control"
+        id="productPrice"
         placeholder="Enter Medicine price"
-        name="price"
-        value={inputs.price || ""}
-        onChange={setRegister}     
+        required=""
       />
     </div>
     <div className="productform-group">
@@ -117,19 +97,19 @@ const Addproduct = () => {
       <input
         type="file"
         className="form-control-file"
-        accept="image/*"
-        name="imageUpload"
-        onChange={handleImageUpload} 
+        id="productImage"
+        required=""
       />
     </div>
     <button type="submit" className="btn btn-primary productsubmit-btn">
-      Add  Medicine
+      Update  Medicine
     </button>
   </form>
+</div>
 </div>
 </>
 
   )
 }
 
-export default Addproduct
+export default Editaddedmedicine
