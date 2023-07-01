@@ -57,9 +57,10 @@ medicinecatgoryRouter.post('/medicine_category', async (req, res) => {
 });
 
 
-medicinecatgoryRouter.get('/view-subcategory',async(req,res)=>{
+medicinecatgoryRouter.get('/view-subcategory/:id',async(req,res)=>{
   try {
-      const subcategory = await medicinesubcategoryModel.find()
+    const id = req.params.id
+      const subcategory = await medicinesubcategoryModel.find({category_id:id})
       if(subcategory[0]!=undefined){
           return res.status(200).json({
               success:true,
@@ -82,7 +83,7 @@ medicinecatgoryRouter.get('/view-subcategory',async(req,res)=>{
       })
   }
   })
-medicinecatgoryRouter.post('/medicine_subcategory', async (req, res) => {
+medicinecatgoryRouter.post('/medicine_subcategory/', async (req, res) => {
   try {
     const data = {
       category_id:req.body.category_id,

@@ -230,12 +230,12 @@ const Cart = () => {
               </div>
               <div className="row">
                 <div className="col-md-12">
-                  <button
-                    className="btn btn-primary btn-lg btn-block"
-                    onclick="window.location='checkout.html'"
-                  >
-                    Proceed To Checkout
-                  </button>
+                <div className="col-md-12">
+  <a href="pay" className="btn btn-primary btn-lg btn-block">
+    Proceed To Checkout
+  </a>
+</div>
+
                 </div>
               </div>
             </div>

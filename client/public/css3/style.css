@@ -3427,6 +3427,7 @@ table.projects tr td:first-child {
   .statush1 {
     color: #333;
     text-align: center;
+    margin-bottom: 20px;
   }
 
   .statustable {
@@ -3508,3 +3509,51 @@ table.projects tr td:first-child {
     margin-right: 50px;
   }
   
+/* View Prescription Order css */
+
+.uniquebody {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .uniqueh1 {
+    margin-bottom: 20px;
+  }
+
+  .unique-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .unique-table th, .unique-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .unique-table th {
+    background-color: #f5f5f5;
+  }
+
+  .unique-table tr:hover {
+    background-color: #f9f9f9;
+  }
+
+  .unique-btn {
+    padding: 5px 10px;
+    margin-right: 5px;
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
+  .unique-delete-btn {
+    background-color: #f44336;
+  }
+
+  .unique-prescription-image {
+    max-width: 100px;
+    max-height: 100px;
+  }

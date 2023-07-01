@@ -26,7 +26,7 @@ const Products = () => {
   <p class="price">
     <del>95.00</del> — $55.00
   </p>
-  <a href="pay" class="btn btn-primary">Buy Now</a>
+  <a href="Ecart" class="btn btn-primary">ADD TO CART</a>
 </div>
         <div className="col-sm-6 col-lg-4 text-center item mb-4">
           <a href="addcart">
@@ -39,7 +39,7 @@ const Products = () => {
             <a href="addcart">Chanca Piedra</a>
           </h3>
           <p className="price">$70.00</p>
-          <a href="pay" class="btn btn-primary">Buy Now</a>
+          <a href="Ecart" class="btn btn-primary">ADD TO CART</a>
         </div>
 
         <div className="col-sm-6 col-lg-4 text-center item mb-4">
@@ -53,7 +53,7 @@ const Products = () => {
             <a href="addcart">Umcka Cold Care</a>
           </h3>
           <p className="price">$120.00</p>
-          <a href="pay" class="btn btn-primary">Buy Now</a>
+          <a href="Ecart" class="btn btn-primary">ADD TO CART</a>
         </div>
         <div className="col-sm-6 col-lg-4 text-center item mb-4">
           <a href="addcart">
@@ -68,7 +68,7 @@ const Products = () => {
           <p className="price">
             <del>45.00</del> — $20.00
           </p>
-          <a href="pay" class="btn btn-primary">Buy Now</a>
+          <a href="Ecart" class="btn btn-primary">ADD TO CART</a>
         </div>
         <div className="col-sm-6 col-lg-4 text-center item mb-4">
           <a href="addcart">
@@ -81,7 +81,7 @@ const Products = () => {
             <a href="addcart">CLA Core</a>
           </h3>
           <p className="price">$38.00</p>
-          <a href="pay" class="btn btn-primary">Buy Now</a>
+          <a href="Ecart" class="btn btn-primary">ADD TO CART</a>
         </div>
         <div className="col-sm-6 col-lg-4 text-center item mb-4">
           <span className="tag">Sale</span>
@@ -97,7 +97,7 @@ const Products = () => {
           <p className="price">
             <del>$89</del> — $38.00
           </p>
-          <a href="pay" class="btn btn-primary">Buy Now</a>
+          <a href="Ecart" class="btn btn-primary">ADD TO CART</a>
         </div>
       </div>
       <div className="row mt-5">

@@ -1,33 +1,36 @@
 import React, { useState } from 'react';
-import Homepage from '../../Pages/DeliveryBoy/Homepage';
+import MedicalStorehome from './MedicalStorehome';
 
-const ManageDelivery = () => {
+const Managemedicineorder = () => {
   const [orders, setOrders] = useState([
     {
       id: 1,
       itemName: 'Paracetamol',
       customerName: 'John Doe',
+      Amount: '1000',
       deliveryAddress: 'pattattil house pariyapuram po mukkola tanur',
       phoneNo: '9072823381',
-      status: 'Delivered',
+      status: 'shipped',
       isEditing: false
     },
     {
       id: 2,
       itemName: 'Paracetamol',
       customerName: 'Jane Smith',
+      Amount: '1000',
       deliveryAddress: 'pattattil house pariyapuram po mukkola tanur',
       phoneNo: '9072823381',
-      status: 'Not Delivered',
+      status: 'processing',
       isEditing: false
     },
     {
       id: 3,
       itemName: 'Paracetamol',
       customerName: 'Alex Johnson',
+      Amount: '1000',
       deliveryAddress: 'pattattil house pariyapuram po mukkola tanur',
       phoneNo: '9072823381',
-      status: 'Delivered',
+      status: 'shipped',
       isEditing: false
     }
   ]);
@@ -54,7 +57,7 @@ const ManageDelivery = () => {
 
   return (
     <>
-      <Homepage />
+      <MedicalStorehome />
       <div className="main-content" style={{ marginTop: '100px' }}>
         <div className="statusbody">
           <h1 className="statush1">Order Delivery Management</h1>
@@ -63,6 +66,7 @@ const ManageDelivery = () => {
               <tr>
                 <th className="statusth">Order ID</th>
                 <th className="statusth">Order Item Name</th>
+                <th className="statusth">Amount</th>
                 <th className="statusth">Customer Name</th>
                 <th className="statusth">Delivery Address</th>
                 <th className="statusth">Phone No</th>
@@ -75,6 +79,7 @@ const ManageDelivery = () => {
                 <tr key={order.id}>
                   <td className="statustd">{order.id}</td>
                   <td className="statustd">{order.itemName}</td>
+                  <td className="statustd">{order.Amount}</td>
                   <td className="statustd">{order.customerName}</td>
                   <td className="statustd">{order.deliveryAddress}</td>
                   <td className="statustd">{order.phoneNo}</td>
@@ -85,8 +90,8 @@ const ManageDelivery = () => {
                         value={order.status}
                         onChange={(e) => handleStatusChange(e, order.id)}
                       >
-                        <option value="Delivered">Delivered</option>
-                        <option value="Not Delivered">Not Delivered</option>
+                        <option value="Processing">Processing</option>
+                        <option value="Shipped">Shipped</option>
                       </select>
                     ) : (
                       order.status
@@ -110,4 +115,4 @@ const ManageDelivery = () => {
   );
 };
 
-export default ManageDelivery;
+export default Managemedicineorder;

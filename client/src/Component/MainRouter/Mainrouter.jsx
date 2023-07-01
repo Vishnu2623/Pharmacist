@@ -55,6 +55,8 @@ import BoyProfile from '../DeliveryBoymodule/BoyProfile'
 import Deliverboychangepassword from '../DeliveryBoymodule/Deliveryboychangepassword'
 import ManageDelivery from '../DeliveryBoymodule/ManageDelivery'
 import PaymentCustomers from '../MedicalStore/PaymentCustomers'
+import Managemedicineorder from '../MedicalStore/Managemedicineorder'
+import Viewprescriptionorder from '../MedicalStore/Viewprescriptionorder'
 
 const Mainrouter = () => {
   return (
@@ -114,7 +116,9 @@ const Mainrouter = () => {
             <Route path="DBchangepassword" element={<Deliverboychangepassword/>}/>
             <Route path="managedelivery" element={<ManageDelivery/>}/>
             <Route path="viewpaymentcustomers" element={<PaymentCustomers/>}/>
-
+            <Route path="managemedicineorder" element={<Managemedicineorder/>}/>
+            <Route path="viewprescriptionorder" element={<Viewprescriptionorder/>}/>
+            
 
 
 

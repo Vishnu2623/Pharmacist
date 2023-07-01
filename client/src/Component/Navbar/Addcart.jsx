@@ -80,12 +80,7 @@ const Addcart = () => {
             >
               Add To Cart
             </a>
-            <a
-              href="pay"
-              className="buy-now btn btn-sm height-auto px-4 py-3 btn-primary"
-            >
-              Buy Now
-            </a>
+          
           </p>
           
           </div>

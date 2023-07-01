@@ -5,7 +5,7 @@ const Addproduct = () => {
   const [inputs, setInputs] = useState({});
   const [category, setCategory] = useState([]);
   const [subcategory, setSubcategory] = useState([]);
-
+console.log(subcategory);
   const setRegister = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -39,18 +39,22 @@ const Addproduct = () => {
       })
       .catch((error) => {
         console.log('Error:', error);
+       
       });
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/category/view-subcategory')
+    axios.get(`http://localhost:5000/category/view-subcategory/${inputs.category}`)
       .then((response) => {
         setSubcategory(response.data.data);
       })
       .catch((error) => {
         console.log('Error:', error);
+        if(error.response.data.success==false){
+          setSubcategory([]);
+        }
       });
-  }, []);
+  }, [inputs.category]);
   return (<>
     
     <div className="productcontainer">
