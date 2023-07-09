@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const ViewUser = () => {
   const [users, setUsers] = useState([]);
@@ -27,6 +28,30 @@ const ViewUser = () => {
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+
+  const approve = (id) => {
+    axios
+      .get(`http://localhost:5000/register/approve/${id}`)
+      .then((data) => {
+        console.log(data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const reject = (id) => {
+    axios
+      .get(`http://localhost:5000/register/reject/${id}`)
+      .then((data) => {
+        console.log(data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -60,68 +85,64 @@ const ViewUser = () => {
                       <td>{user.email}</td>
                       <td>{user.phone}</td>
                       <td className="d-flex">
-                        <button className="btn btn-success edit-button mr-2 flex-fill">Approve</button>
-                        <button className="btn btn-danger delete-button flex-fill">Reject</button>
+                        {user.status === '0' ? (
+                          <>
+                            <button
+                              className="btn btn-success edit-button mr-2 flex-fill"
+                              onClick={() => {
+                                approve(user.login_id);
+                              }}
+                            >
+                              Approve
+                            </button>
+                            <button
+                              className="btn btn-danger delete-button flex-fill"
+                              onClick={() => {
+                                reject(user.login_id);
+                              }}
+                            >
+                              Reject
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button className="btn btn-success edit-button mr-2 flex-fill">
+                              Approved
+                            </button>
+                          </>
+                        )}
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="6" className="text-center">
-                      No users found
-                    </td>
+                    <td colSpan="5">No users found</td>
                   </tr>
                 )}
               </tbody>
             </table>
-            {/* Table */}
+
+            {/* Pagination */}
+            <nav aria-label="Users Pagination">
+              <ul className="pagination justify-content-center">
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <li
+                    key={index}
+                    className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => handlePageClick(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
         </div>
-        {/* Pagination */}
-        <div className="d-flex justify-content-center">
-          <nav className="my-4 pt-2">
-            <ul className="pagination pagination-circle pg-blue mb-0">
-              {/* First */}
-              <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                <button className="page-link" onClick={() => handlePageClick(1)}>
-                  First
-                </button>
-              </li>
-              {/* Previous */}
-              <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                <button className="page-link" onClick={() => handlePageClick(currentPage - 1)}>
-                  &laquo;
-                </button>
-              </li>
-              {/* Page numbers */}
-              {Array.from({ length: totalPages }, (_, index) => index + 1).map((pageNumber) => (
-                <li
-                  key={pageNumber}
-                  className={`page-item ${pageNumber === currentPage ? 'active' : ''}`}
-                >
-                  <button className="page-link" onClick={() => handlePageClick(pageNumber)}>
-                    {pageNumber}
-                  </button>
-                </li>
-              ))}
-              {/* Next */}
-              <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                <button className="page-link" onClick={() => handlePageClick(currentPage + 1)}>
-                  &raquo;
-                </button>
-              </li>
-              {/* Last */}
-              <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                <button className="page-link" onClick={() => handlePageClick(totalPages)}>
-                  Last
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </div>
       </div>
-      {/* Bottom Table UI */}
-      {/* MDB Tables */}
     </>
   );
 };

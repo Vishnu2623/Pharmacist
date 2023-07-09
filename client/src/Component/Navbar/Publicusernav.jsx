@@ -1,6 +1,8 @@
-import React,{useState} from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 
 const Publicusernav = () => {
+  const navigate = useNavigate()
   const openNav = () => {
     document.getElementById("mySidenav").style.width = "250px";
   };
@@ -22,6 +24,19 @@ const Publicusernav = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+
+  const logout = () => {
+    localStorage.removeItem('user_id')
+    localStorage.removeItem('login_id')
+    localStorage.removeItem('role')
+    navigate('/')
+  }
+  useEffect(() => {
+    const users_id = localStorage.getItem('user_id')
+    if (!users_id) {
+      navigate('/')
+    }
+  }, [])
   
   return (
     <>
@@ -80,7 +95,7 @@ const Publicusernav = () => {
           <a href="wishlist">Wishlist</a>
           {/* <a href="">Privacy policy</a>
           <a href="">Terms &amp; Conditions</a> */}
-          <a href="">Log Out</a>
+          <a onClick={logout}>Log Out</a>
         </div>
         <span className="toggle_icon" onClick={openNav}>
   <img
@@ -112,12 +127,20 @@ const Publicusernav = () => {
                 </button>
               </div>
               <div className="modal-body">
-                {/* Add your form components here */}
+               
                 <form>
-                  <input type="text" placeholder='Enter the pincode or store name'></input>
-              
-              
-                  </form>
+                <input
+                type="text"
+                list="choosestore"
+                placeholder="Enter Here"
+              autoComplete="off"
+                />
+              <datalist id="choosestore">
+              <option value="Store" />slnsk
+            <option value="Store2" />
+  </datalist>
+</form>
+
               </div>
               <div className="modal-footer">
                 
@@ -151,31 +174,19 @@ const Publicusernav = () => {
           </div>
         </div>
         <div className="header_box">
-          {/* <div class="lang_box ">
-                  <a href="#" title="Language" class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                  <img src="images/flag-uk.png" alt="flag" class="mr-2 " title="United Kingdom"> English <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
-                  </a>
-                  <div class="dropdown-menu ">
-                     <a href="#" class="dropdown-item">
-                     <img src="images/flag-france.png" class="mr-2" alt="flag">
-                     French
-                     </a>
-                  </div>
-               </div> */}
+         
           <div className="login_menu">
             <ul>
               <li>
               <div class="icons">
-            <a href="Ecart" class="icons-btn d-inline-block bag">
+              <Link to={`/Ecart/:id`} className="icons-btn d-inline-block bag">            
               <span class="icon-shopping-bag"></span>
               <span class="number">2</span>
-            </a>
+            </Link>  
+            
             <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
                 class="icon-menu"></span></a></div>
-                {/* <a href="#">
-                  <i className="fa fa-shopping-cart" aria-hidden="true" />
-                  <span className="padding_10">Cart</span>
-                </a> */}
+               
               </li>
              
               <li>
@@ -192,7 +203,7 @@ const Publicusernav = () => {
         <a className="dropdown-item" href="#">
           Settings
         </a>
-        <a className="dropdown-item" href="#">
+        <a className="dropdown-item" onClick={logout}>
           <span>Log Out</span> <i className="fa fa-sign-out" />
         </a>
       </div>

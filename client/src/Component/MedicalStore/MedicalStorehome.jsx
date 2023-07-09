@@ -23,6 +23,10 @@ const MedicalStorehome = () => {
       navigate('/login')
     }
   }, [])
+const medical_store_id=  localStorage.getItem('medical_store_id')
+if(!medical_store_id){
+  navigate('/login')
+}
   return (
     <>
       <input type="checkbox" id="nav-toggle" />
@@ -85,7 +89,7 @@ const MedicalStorehome = () => {
             </li>
 
             <li>
-              <a href="">
+              <a onClick={logout}>
                 <span className="las la-shopping-bag" />
                 <span>Log Out</span>
               </a>

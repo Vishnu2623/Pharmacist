@@ -1,78 +1,124 @@
-import React, { useState } from 'react';
-import AdminPage from '../../Pages/ADMIN/AdminPage'
+import React, { useState, useEffect } from 'react';
+import AdminPage from '../../Pages/ADMIN/AdminPage';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const Editsubcategory = () => {
-  const[inputs, setinputs]=useState({});
-  console.log("value==>",inputs);
-  const setRegister=(event)=>{
-    const name=event.target.name;
-    const value=event.target.value;
-    setinputs({...inputs,[name]:value});
-    console.log(inputs);
-  }
-  const registersubmit =(event)=>{
-    event.preventDefault();
-    console.log("data",inputs);
+  const { id } = useParams();
+  const [subcategory, setSubcategory] = useState({ subcategoryname: '', subcategoryimage: '', category: '' });
+  const [categories, setCategories] = useState([]);
+console.log(subcategory);
+  useEffect(() => {
+    fetch(`http://localhost:5000/category/edit-subcategory/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setSubcategory(data.data);
+        }
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  }, [id]);
 
-  }
+  const handleInputChange = (e) => {
+    setSubcategory({ ...subcategory, [e.target.name]: e.target.value });
+  };
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:5000/category/view-category')
+      .then((response) => {
+        setCategories(response.data.data);
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:5000/category/edit-subcategory/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(subcategory),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          console.log(data.message);
+        } else {
+          console.log(data.message);
+        }
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  };
+
   return (
     <>
-     <AdminPage/>
-    <div className="main-content" style={{marginTop:'-600px'}}>
-
-    <div className="productcontainer">
-  <h2 className="text-center mb-4">Update Medicine Sub Category</h2>
-  <form onSubmit={registersubmit}>
-  <div className="productform-group">
+      <AdminPage />
+      <div className="main-content" style={{ marginTop: '-600px' }}>
+        <div className="productcontainer">
+          <h2 className="text-center mb-4">Update Medicine Sub Category</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="productform-group">
               <label htmlFor="category" className="productform-label">
                 Medicine Category:
               </label>
               <select
                 className="productform-control"
                 name="category"
-                value={inputs.category || ""}
-                onChange={setRegister}
+                value={subcategory.category}
+                onChange={handleInputChange}
               >
-                <option value="">Select Medicine category</option>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
-                <option value="category3">Category 3</option>
+                <option value="">Select Medicine Category</option>
+                {categories.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.categoryname}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="productform-group">
-      <label htmlFor="productName" className="productform-label">
-        Medicine Sub Category Name:
-      </label>
-      <input
-        type="text"
-        className="productform-control"
-        placeholder="Enter Medicine name"
-        name="name"
-        value={inputs.name || ""}
-        onChange={setRegister}
-      />
-    </div>
-    <div className="productform-group">
-      <label htmlFor="subcategoryimage" className="productform-label">
-      Medicine SubCategory Image:
-      </label>
-      <input
-        type="file"
-        className="form-control-file"
-        accept="image/*"
-        name="subcategoryimage"
-        value={inputs.subcategoryimage || ""}
-        onChange={setRegister}
-      />
-    </div>
-    <button type="submit" className="btn btn-primary productsubmit-btn">
-      Update SubCategory
-    </button>
-    </form>
-    </div>
-    </div>
+              <label htmlFor="subcategoryName" className="productform-label">
+                Medicine Sub Category Name:
+              </label>
+              <input
+                type="text"
+                className="productform-control"
+                id="subcategoryName"
+                placeholder="Enter Medicine Sub Category name"
+                name="subcategoryname"
+                value={subcategory.subcategoryname || ''}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="productform-group">
+              <label htmlFor="subcategoryImage" className="productform-label">
+                Medicine SubCategory Image:
+              </label>
+              <input
+                type="file"
+                className="form-control-file"
+                id="subcategoryImage"
+                accept="image/*"
+                name="subcategoryimage"
+                value={subcategory.subcategoryimage || ''}
+                onChange={handleInputChange}
+              />
+            </div>
+            <button type="submit" className="btn btn-primary productsubmit-btn">
+              Update Sub Category
+            </button>
+          </form>
+        </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Editsubcategory
+export default Editsubcategory;

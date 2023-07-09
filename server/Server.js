@@ -6,6 +6,11 @@ const bodyParser = require('body-parser')
 const medicinecatgoryRouter = require('./src/Routes/medicinecategoryRouter')
 const addmedicineRouter = require('./src/Routes/addmedicineRouter')
 const assigndeliveryboyRouter = require('./src/Routes/assigndeliveryboyRouter')
+const storemedicinestockRouter = require('./src/Routes/storemedicinestockRouter')
+const uploadprescriptionRouter = require('./src/Routes/uploadprescriptionRouter')
+const addcartRouter = require('./src/Routes/addcartRouter')
+const wishlistRouter = require('./src/Routes/wishlistRouter')
+
 
 const app = express()
 app.use(bodyParser())
@@ -29,8 +34,11 @@ app.use('/register',UserregRouter)
 app.use('/category',medicinecatgoryRouter)
 app.use('/addmedicine',addmedicineRouter)
 app.use('/add',assigndeliveryboyRouter)
-
-
+app.use('/addstock',storemedicinestockRouter)
+app.use('/upload',uploadprescriptionRouter)
+app.use('/addcart',addcartRouter)
+app.use('/wishlist',wishlistRouter)
+app.use('/prescriptions',uploadprescriptionRouter)
 
 
 

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Addproduct = () => {
   const [inputs, setInputs] = useState({});
   const [category, setCategory] = useState([]);
+  const [file, setFile] = useState('');
   const [subcategory, setSubcategory] = useState([]);
 console.log(subcategory);
   const setRegister = (event) => {
@@ -24,13 +26,16 @@ console.log(subcategory);
     
 
     axios.post('http://localhost:5000/addmedicine/add_medicine', finalInputs)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log('Error:', error);
-      });
-  };
+    .then((response) => {
+      console.log(response.data);
+      toast.success('Medicine successfully added');
+      setInputs({});
+    })
+    .catch((error) => {
+      console.log('Error:', error);
+      toast.error('Failed to add medicine');
+    });
+};
 
   useEffect(() => {
     axios.get('http://localhost:5000/category/view-category')

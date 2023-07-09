@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Category = () => {
   const [categories, setCategories] = useState([]);
@@ -25,23 +26,18 @@ const Category = () => {
       <div className="row px-xl-5 pb-3">
         {categories.map((category, index) => (
           <div className="col-lg-3 col-md-4 col-sm-6 pb-1" key={index}>
-            <a className="text-decoration-none" href="subcategory">
+            <Link className="text-decoration-none" to={`/subcategory/${category._id}`}>
               <div className="cat-item img-zoom d-flex align-items-center mb-4">
-                <div
-                  className="overflow-hidden"
-                  style={{ width: 100, height: 100 }}
-                >
-                  <img
-                    className="img-fluid"
-                    src={category.categoryimage}
-                  />
-                </div>
+              <div className="overflow-hidden" style={{ width: 100, height: 100 }}>
+  <img src={`/upload/${category.categoryimage}`} style={{ width: '100%', height: '100%' }} alt="Category Image" />
+</div>
+
                 <div className="flex-fill pl-3">
                   <h4>{category.categoryname}</h4>
                   <small className="text-body">100 Products</small>
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
         ))}
       </div>

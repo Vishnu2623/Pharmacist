@@ -1,6 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 const Features = () => {
+  const { id } = useParams();
+  const [medicines, setMedicines] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/addmedicine/view-medicine')
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setMedicines(data.data);
+        }
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  }, []);
+
   return (
     <div className="featurecontainer-fluid pt-5" style={{backgroundColor:"lightblue"}} >
     <div className="row px-xl-5 pb-3">
@@ -12,7 +29,9 @@ const Features = () => {
           <h1 className="fa fa-check text-primary m-0 mr-3" />
           <a href="#" />
           <h5 className="font-weight-semi-bold m-0">
-            <a href="shop">Medicines</a>
+         <Link to={'/shop'}>
+          Medicines</Link>
+
           </h5>
         </div>
       </div>
@@ -48,7 +67,8 @@ const Features = () => {
           <h1 className="fa fa-phone-volume text-primary m-0 mr-3" />
           <a href="upload"></a>
           <h5 className="font-weight-semi-bold m-0">
-            <a href="upload">Upload Prescription</a>
+
+<Link to="/upload">Upload Prescription</Link>
           </h5>
         </div>
       </div>

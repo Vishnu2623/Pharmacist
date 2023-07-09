@@ -78,8 +78,10 @@ const Mainrouter = () => {
             <Route path="Cpassword" element={<AdChangePassword/>}/>
             <Route path="Cpasswor" element={<ChangePassword/>}/>
 
-            <Route path="Ecart" element={<Cart/>}/>
-            <Route path="Subcategory" element={<SubCategory/>}/>
+            <Route path="Ecart/:id" element={<Cart/>}/>
+            <Route path="/subcategory/:id" element={<SubCategory/>}/>
+           
+
             <Route path="Viewuser" element={<AdViewUser/>}/>
             <Route path="Approve" element={<ApproveMedicalstore/>}/>
             <Route path="AProfile" element={<AdProfile/>}/>
@@ -95,8 +97,10 @@ const Mainrouter = () => {
             <Route path="managestock" element={<MngMedicine/>}/>
             <Route path="storeprofile" element={<MyProfile/>}/>
             <Route path="storepasschange" element={<Changepass/>}/>
+            <Route path="shop/:id" element={<ShopProduct/>}/>
             <Route path="shop" element={<ShopProduct/>}/>
-            <Route path="addcart" element={<Addcart/>}/>
+
+            <Route path="addcart/:id" element={<Addcart/>}/>
             <Route path="pay" element={<Payment/>}/>
             <Route path="thanks" element={<Orderconformation/>}/>
             <Route path="Order" element={<Myorder/>}/>
@@ -107,10 +111,10 @@ const Mainrouter = () => {
             <Route path="upload" element={<Uploadprescription/>}/>
             <Route path="Delivery" element={<Homepage/>}/>
             <Route path="Assign" element={<AssignDeliveryboy/>}/>
-            <Route path="editcategory" element={<EditCategory/>}/>
-            <Route path="editsubcategory" element={<Editsubcategory/>}/>
-            <Route path="editaddedmedicine" element={<Editaddedmedicine/>}/>
-            <Route path="editmedicine" element={<Editmedicine/>}/>
+            <Route path="editcategory/:id" element={<EditCategory/>}/>
+            <Route path="editsubcategory/:id" element={<Editsubcategory/>}/>
+            <Route path="editaddedmedicine/:id" element={<Editaddedmedicine/>}/>
+            <Route path="editmedicine/:id" element={<Editmedicine/>}/>
             <Route path="ordertrack" element={<OrderTracking/>}/>
             <Route path="deliveryboyprofile" element={<BoyProfile/>}/>
             <Route path="DBchangepassword" element={<Deliverboychangepassword/>}/>

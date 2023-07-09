@@ -1,28 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddMedicine = () => {
   const [inputs, setInputs] = useState({});
-  const [selectedImage, setSelectedImage] = useState(null);
-
+  const [category, setCategory] = useState([]);
+  const [subcategory, setSubcategory] = useState([]);
+  console.log(subcategory);
   const setRegister = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setInputs({ ...inputs, [name]: value });
   };
 
-  const handleImageUpload = (event) => {
-    setSelectedImage(event.target.files[0]);
-  };
- 
-  const registersubmit =(event)=>{
+  const registersubmit = (event) => {
     event.preventDefault();
-    console.log("data",inputs);
-    console.log('Selected image:', selectedImage);
-  }
+    console.log('data', inputs);
+
+    const category_id = inputs.category;
+    const updatedInputs = { ...inputs, category_id };
+
+    const subcategory_id = inputs.subcategory;
+    const finalInputs = { ...updatedInputs, subcategory_id };
+
+    axios
+      .post('http://localhost:5000/addstock/add_medicinestock',finalInputs)
+      .then((response) => {
+        console.log(response.data);
+        toast.success('Medicine successfully added');
+        setInputs({});
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+        toast.error('Failed to add medicine');
+      });
+  };
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:5000/category/view-category')
+      .then((response) => {
+        setCategory(response.data.data);
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/category/view-subcategory/${inputs.category}`)
+      .then((response) => {
+        setSubcategory(response.data.data);
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+        if (error.response.data.success == false) {
+          setSubcategory([]);
+        }
+      });
+  }, [inputs.category]);
   return (<>
     
+   
     <div className="productcontainer">
-  <h2 className="text-center mb-4">Add Medical Store Medicine</h2>
+  <h2 className="text-center mb-4">Add Medicine</h2>
   <form onSubmit={registersubmit}>
   <div className="productform-group">
               <label htmlFor="category" className="productform-label">
@@ -35,9 +78,9 @@ const AddMedicine = () => {
                 onChange={setRegister}
               >
                 <option value="">Select Medicine category</option>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
-                <option value="category3">Category 3</option>
+                {category.map((data)=>(
+                  <option value={data._id}>{data.categoryname}</option>
+                ))}  
               </select>
             </div>
             <div className="productform-group">
@@ -50,20 +93,20 @@ const AddMedicine = () => {
                 value={inputs.subcategory || ""}
                 onChange={setRegister}
               >
-                <option value="">Select Medicine subcategory</option>
-                <option value="subcategory1">Subcategory 1</option>
-                <option value="subcategory2">Subcategory 2</option>
-                <option value="subcategory3">Subcategory 3</option>
+                <option value="">Select Medicine category</option>
+                {subcategory.map((data)=>(
+                  <option value={data._id}>{data.subcategoryname}</option>
+                ))}
               </select>
             </div>
             <div className="productform-group">
-              <label htmlFor="subcategory" className="productform-label">
+              <label htmlFor="needprescription" className="productform-label">
                 Need a Prescription?:
               </label>
               <select
                 className="productform-control"
-                name="prescription"
-                value={inputs.prescription|| ""}
+                name="needprescription"
+                value={inputs.needprescription|| ""}
                 onChange={setRegister}
               >
                 <option value="">Select </option>
@@ -72,61 +115,76 @@ const AddMedicine = () => {
               </select>
             </div>
     <div className="productform-group">
-      <label htmlFor="productName" className="productform-label">
+      <label htmlFor="medicinename" className="productform-label">
         Medicine Name:
       </label>
       <input
         type="text"
         className="productform-control"
         placeholder="Enter Medicine name"
-        name="name"
-        value={inputs.name || ""}
+        name="medicinename"
+        value={inputs.medicinename || ""}
         onChange={setRegister}
       />
     </div>
     <div className="productform-group">
-      <label htmlFor="productDescription" className="productform-label">
+      <label htmlFor="medicinedescription" className="productform-label">
         Medicine Description:
       </label>
       <textarea
         className="productform-control"
         rows={5}
         placeholder="Enter Medicine description"
-        name="description"
-                value={inputs.description || ""}
+        name="medicinedescription"
+                value={inputs.medicinedescription || ""}
                 onChange={setRegister}        
       />
     </div>
     <div className="productform-group">
-      <label htmlFor="productPrice" className="productform-label">
+      <label htmlFor="medicinequantity" className="productform-label">
+      Medicine Quantity:
+      </label>
+      <input
+        type="number"
+        className="productform-control"
+        placeholder="Enter Medicine price"
+        name="medicinequantity"
+        value={inputs.medicinequantity || ""}
+        onChange={setRegister}     
+      />
+    </div>
+    <div className="productform-group">
+      <label htmlFor="medicineprice" className="productform-label">
       Medicine Price:
       </label>
       <input
         type="number"
         className="productform-control"
         placeholder="Enter Medicine price"
-        name="price"
-        value={inputs.price || ""}
+        name="medicineprice"
+        value={inputs.medicineprice || ""}
         onChange={setRegister}     
       />
     </div>
     <div className="productform-group">
-      <label htmlFor="productImage" className="productform-label">
+      <label htmlFor="medicineimage" className="productform-label">
       Medicine Image:
       </label>
       <input
         type="file"
         className="form-control-file"
-        accept="image/*"
-        name="imageUpload"
-        onChange={handleImageUpload} 
+        name="medicineimage"
+        value={inputs.medicineimage || ""}
+        onChange={setRegister}
       />
     </div>
     <button type="submit" className="btn btn-primary productsubmit-btn">
       Add  Medicine
     </button>
-  </form>
+  </form> <ToastContainer />
 </div>
+ 
+
 </>
 
   )

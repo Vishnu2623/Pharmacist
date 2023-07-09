@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import AdminPage from '../../Pages/ADMIN/AdminPage';
+import axios from 'axios';
 
 const ApproveMedicalstore = () => {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-
+  
   useEffect(() => {
     fetch('http://localhost:5000/register/view-medicalstore')
       .then((response) => response.json())
@@ -28,6 +29,29 @@ const ApproveMedicalstore = () => {
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+  const approve = (id) => {
+    axios
+      .get(`http://localhost:5000/register/approve/${id}`)
+      .then((data) => {
+        console.log(data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const reject = (id) => {
+    axios
+      .get(`http://localhost:5000/register/reject/${id}`)
+      .then((data) => {
+        console.log(data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -44,11 +68,12 @@ const ApproveMedicalstore = () => {
                 <th>Store Name</th>
                 <th>License Number</th>
                 <th>Upload License</th>
-                <th>Address</th>
-                <th>Pincode</th>
+               
                 <th>City</th>
                 <th>Email</th>
                 <th>Phone No</th>
+                <th>Action</th>
+
               </tr>
             </thead>
             <tbody>
@@ -65,20 +90,44 @@ const ApproveMedicalstore = () => {
                     <td>{user.name}</td>
                     <td>{user.licensenumber}</td>
                     <td>{user.Uploadlicense}</td>
-                    <td>{user.address}</td>
-                    <td>{user.pincode}</td>
                     <td>{user.city}</td>
                     <td>{user.email}</td>
                     <td>{user.phone}</td>
+                    <td className="d-flex">
+                        {user.status === '0' ? (
+                          <>
+                            <button
+                              className="btn btn-success edit-button mr-2 flex-fill"
+                              onClick={() => {
+                                approve(user.login_id);
+                              }}
+                            >
+                              Approve
+                            </button>
+                            <button
+                              className="btn btn-danger delete-button flex-fill"
+                              onClick={() => {
+                                reject(user.login_id);
+                              }}
+                            >
+                              Reject
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button className="btn btn-success edit-button mr-2 flex-fill">
+                              Approved
+                            </button>
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5">No users found</td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="9" className="text-center">
-                    No users found
-                  </td>
-                </tr>
-              )}
+                )}
             </tbody>
           </table>
         </div>
@@ -86,7 +135,6 @@ const ApproveMedicalstore = () => {
       <div className="d-flex justify-content-center">
         {/* Pagination */}
         <nav className="my-4 pt-2">
-          <button className="btn btn-success edit-button mr-2 flex-fill">Approve</button>
           <button className="btn btn-danger delete-button flex-fill">Reject</button>
           <ul className="pagination pagination-circle pg-blue mb-0" style={{ marginLeft: '400px' }}>
             {/* First */}

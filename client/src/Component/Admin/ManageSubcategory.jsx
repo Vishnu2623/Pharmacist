@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AdminPage from '../../Pages/ADMIN/AdminPage'
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Managesubcategory = () => {
   const [users, setUsers] = useState([]);
@@ -28,6 +30,17 @@ const Managesubcategory = () => {
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+
+  const removesubCategory = (id) => {
+    axios
+      .delete(`http://localhost:5000/category/delete-subcategory/${id}`)
+      .then(() => {
+        setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  };
   return (
     <>
     <AdminPage/>
@@ -57,9 +70,13 @@ const Managesubcategory = () => {
                       <td>{user.subcategoryimage}</td>
                  
                       <td className="d-flex">
-                        <button className="btn btn-success edit-button mr-2 flex-fill">Edit</button>
-                        <button className="btn btn-danger delete-button flex-fill">Delete</button>
-                      </td>
+                      <Link className="btn btn-success edit-button mr-2 flex-fill" to={`/editsubcategory/${user._id}`}>Edit</Link>
+                        <button
+                        className="btn btn-danger delete-button flex-fill"
+                        onClick={() => removesubCategory(user._id)}
+                      >
+                        Delete
+                      </button></td>
                     </tr>
                   ))
                 ) : (
@@ -71,26 +88,26 @@ const Managesubcategory = () => {
                 )}
               </tbody>
             </table>
-            {/* Table */}
+           
           </div>
         </div>
-        {/* Pagination */}
+        
         <div className="d-flex justify-content-center">
           <nav className="my-4 pt-2">
             <ul className="pagination pagination-circle pg-blue mb-0">
-              {/* First */}
+        
               <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
                 <button className="page-link" onClick={() => handlePageClick(1)}>
                   First
                 </button>
               </li>
-              {/* Previous */}
+              
               <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
                 <button className="page-link" onClick={() => handlePageClick(currentPage - 1)}>
                   &laquo;
                 </button>
               </li>
-              {/* Page numbers */}
+             
               {Array.from({ length: totalPages }, (_, index) => index + 1).map((pageNumber) => (
                 <li
                   key={pageNumber}
@@ -101,7 +118,7 @@ const Managesubcategory = () => {
                   </button>
                 </li>
               ))}
-              {/* Next */}
+            
               <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
                 <button className="page-link" onClick={() => handlePageClick(currentPage + 1)}>
                   &raquo;

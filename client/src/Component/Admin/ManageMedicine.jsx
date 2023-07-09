@@ -1,4 +1,6 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const ManageMedicine = () => {
   const [users, setUsers] = useState([]);
@@ -27,7 +29,16 @@ const ManageMedicine = () => {
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
-  
+  const removemedicine = (id) => {
+    axios
+      .delete(`http://localhost:5000/addmedicine/delete-medicine/${id}`)
+      .then(() => {
+        setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  };
   return (
     <>
       <div className="container">
@@ -54,17 +65,22 @@ const ManageMedicine = () => {
                 <tr key={user._id}>
                   <th scope="row">{(currentPage - 1) * usersPerPage + index + 1}</th>
                   <td>{user.medicinename}</td>
-                  <td>{user.category}</td>
-                  <td>{user.subcategory}</td>
+                  <td>{user.categoryname}</td>
+                  <td>{user.subcategoryname}</td>
                   <td>{user.needPrescription ? 'Yes' : 'No'}</td>
                   <td>{user.medicinequantity}</td>
                   <td>{user.medicineprice}</td>
                   <td>{user.medicinedescription}</td>
                   <td>{user.medicineimage}</td>
                   <td className="d-flex">
-                    <button className="btn btn-success edit-button mr-2 flex-fill">Edit</button>
-                    <button className="btn btn-danger delete-button flex-fill">Delete</button>
-                  </td>
+                  <Link className="btn btn-success edit-button mr-2 flex-fill" to={`/editaddedmedicine/${user._id}`}>Edit</Link>
+
+                    <button
+                        className="btn btn-danger delete-button flex-fill"
+                        onClick={() => removemedicine(user._id)}
+                      >
+                        Delete
+                      </button>                  </td>
                 </tr>
               ))
             ) : (
@@ -78,7 +94,7 @@ const ManageMedicine = () => {
         </table>
         {/* Table */}
       </div>
-      
+
       {/* Pagination */}
       <div className="d-flex justify-content-center">
         <nav className="my-4 pt-2">

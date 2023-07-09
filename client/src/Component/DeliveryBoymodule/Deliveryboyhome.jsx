@@ -1,6 +1,19 @@
-import React from 'react'
-
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 const Deliveryboyhome = () => {
+  const navigate = useNavigate()
+  const logout = () => {
+    localStorage.removeItem('delivery_boy_id')
+    localStorage.removeItem('login_id')
+    localStorage.removeItem('role')
+    navigate('/')
+  }
+  useEffect(() => {
+    const delivery_boy_id = localStorage.getItem('delivery_boy_id')
+    if (!delivery_boy_id) {
+      navigate('/')
+    }
+  }, [])
   return (
     <>
     <input type="checkbox" id="nav-toggle" />
@@ -33,14 +46,11 @@ const Deliveryboyhome = () => {
             </a>
           </li>
           <li>
-            <a href="">
+            <a onClick={logout}>
               <span className="las la-shopping-bag" />
               <span>Log Out</span>
             </a>
           </li>
-          {/* <li><a href=""><span class="las la-receipt"></span><span>Inventory</span></a></li>
-            <li><a href=""><span class="las la-user-circle"></span><span>Accounts</span></a></li>
-            <li><a href=""><span class="las la-clipboard-list"></span><span>Tasks</span></a></li> */}
         </ul>
       </div>
     </div>
@@ -66,7 +76,7 @@ const Deliveryboyhome = () => {
     </button>
     <div className="dropdown-content">
       <a href="DBchangepassword">Setting</a>
-      <a href="#">Logout</a>
+      <a onClick={logout}>Logout</a>
     </div>
   </div>
 </div>

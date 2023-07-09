@@ -1,27 +1,88 @@
-import React,{useState} from 'react'
-import AdminPage from '../../Pages/ADMIN/AdminPage'
+import React, { useState, useEffect } from 'react';
+import AdminPage from '../../Pages/ADMIN/AdminPage';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const Editaddedmedicine = () => {
-  const[inputs, setinputs]=useState({});
-  console.log("value==>",inputs);
-  const setRegister=(event)=>{
-    const name=event.target.name;
-    const value=event.target.value;
-    setinputs({...inputs,[name]:value});
-    console.log(inputs);
-  }
-  const registersubmit =(event)=>{
-    event.preventDefault();
-    console.log("data",inputs);
+  const { id } = useParams();
+  const [medicine, setMedicine] = useState({ medicinesubcategory: '', needprescription: '', medicinename: '',medicinedescription: '',medicineprice: '',medicinequantity: '',medicineprice: '', });
+  const [categories, setCategory] = useState([]);
+  const [subcategory, setsubCategory] = useState([]);
+  const [inputs, setInputs] = useState({});
+console.log(medicine);
+  useEffect(() => {
+    fetch(`http://localhost:5000/addmedicine/edit-medicine/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setMedicine(data.data);
+        }
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  }, [id]);
 
-  }
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setMedicine({ ...medicine, [name]: value });
+    setInputs({ ...inputs, [name]: value });
+  };
+  
+  useEffect(() => {
+    axios.get('http://localhost:5000/category/view-category')
+      .then((response) => {
+        setCategory(response.data.data);
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+       
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get(`http://localhost:5000/category/view-subcategory/${inputs.category}`)
+      .then((response) => {
+        setsubCategory(response.data.data);
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+        if(error.response.data.success==false){
+          setsubCategory([]);
+        }
+      });
+  }, [inputs.category]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:5000/addmedicine/edit-medicine/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(inputs),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          console.log(data.message);
+        } else {
+          console.log(data.message);
+        }
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  };
+  
+
   return (<>
   <AdminPage/>
   <div className="main-content" style={{marginTop:'-600px'}}>
 
     <div className="productcontainer">
   <h2 className="text-center mb-4">Update Medicine</h2>
-  <form  onSubmit={registersubmit}>
+  <form onSubmit={handleSubmit}>
   <div className="productform-group">
               <label htmlFor="category" className="productform-label">
                 Medicine Category:
@@ -29,13 +90,15 @@ const Editaddedmedicine = () => {
               <select
                 className="productform-control"
                 name="category"
-                value={inputs.category || ""}
-                onChange={setRegister}
+                value={medicine.category}
+                onChange={handleInputChange}
               >
-                <option value="">Select Medicine category</option>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
-                <option value="category3">Category 3</option>
+                <option value="">Select Medicine Category</option>
+                {categories.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.categoryname}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="productform-group">
@@ -44,25 +107,25 @@ const Editaddedmedicine = () => {
               </label>
               <select
                 className="productform-control"
-                name="subcategory"
-                value={inputs.subcategory || ""}
-                onChange={setRegister}
+                name="medicinesubcategory"
+                value={medicine.medicinesubcategory}
+                onChange={handleInputChange}
               >
-                <option value="">Select Medicine subcategory</option>
-                <option value="subcategory1">Subcategory 1</option>
-                <option value="subcategory2">Subcategory 2</option>
-                <option value="subcategory3">Subcategory 3</option>
+                <option value="">Select Medicine category</option>
+                {subcategory.map((data)=>(
+                  <option value={data._id}>{data.subcategoryname}</option>
+                ))}
               </select>
             </div>
             <div className="productform-group">
-              <label htmlFor="prescription" className="productform-label">
+              <label htmlFor="needprescription" className="productform-label">
                 Need a Prescription?:
               </label>
               <select
                 className="productform-control"
-                name="prescription"
-                value={inputs.prescription|| ""}
-                onChange={setRegister}
+                name="needprescription"
+                value={medicine.needprescription}
+                onChange={handleInputChange}
               >
                 <option value="">Select </option>
                 <option value="Yes">Yes</option>
@@ -76,23 +139,36 @@ const Editaddedmedicine = () => {
       <input
         type="text"
         className="productform-control"
-        name="name"
+        name="medicinename"
         placeholder="Enter Medicine name"
-        value={inputs.name || ""}
-        onChange={setRegister}
+        value={medicine.medicinename}
+        onChange={handleInputChange}
       />
     </div>
     <div className="productform-group">
-      <label htmlFor="description" className="productform-label">
+      <label htmlFor="medicinedescription" className="productform-label">
         Medicine Description:
       </label>
       <textarea
         className="productform-control"
-        name="description"
+        name="medicinedescription"
         rows={5}
         placeholder="Enter Medicine description"
-        value={inputs.description || ""}
-        onChange={setRegister}
+        value={medicine.medicinedescription}
+        onChange={handleInputChange}
+      />
+    </div>
+    <div className="productform-group">
+      <label htmlFor="medicinequantity" className="productform-label">
+      Medicine Quantity:
+      </label>
+      <input
+        type="number"
+        className="productform-control"
+        placeholder="Enter Medicine price"
+        name="medicinequantity"
+        value={medicine.medicinequantity}
+        onChange={handleInputChange} 
       />
     </div>
     <div className="productform-group">
@@ -102,10 +178,10 @@ const Editaddedmedicine = () => {
       <input
         type="number"
         className="productform-control"
-        name="price"
+        name="medicineprice"
         placeholder="Enter Medicine price"
-        value={inputs.price || ""}
-        onChange={setRegister}
+        value={medicine.medicineprice}
+        onChange={handleInputChange}
       />
     </div>
     <div className="productform-group">
@@ -116,8 +192,8 @@ const Editaddedmedicine = () => {
         type="file"
         className="form-control-file"
         name="medicineimage"
-        value={inputs.medicineimage || ""}
-        onChange={setRegister}
+        value={medicine.medicineimage}
+        onChange={handleInputChange}
       />
     </div>
     <button type="submit" className="btn btn-primary productsubmit-btn">
