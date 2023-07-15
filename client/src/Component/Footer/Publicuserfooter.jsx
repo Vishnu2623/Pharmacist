@@ -29,12 +29,11 @@ const Publicuserfooter = () => {
             <h3 className="footer-heading mb-4">Contact Info</h3>
             <ul className="list-unstyled">
               <li className="address">
-                203 Fake St. Mountain View, San Francisco, California, USA
-              </li>
+              Nostrum Pharma,203 Fake St. Mountain View, Kochi, Ernakulam, Kerala            </li>
               <li className="phone">
                 <a href="tel://23923929210">+2 392 3929 210</a>
               </li>
-              <li className="email">emailaddress@domain.com</li>
+              <li className="email">nostrumpharma@gmail.com</li>
             </ul>
           </div>
         </div>
@@ -43,15 +42,8 @@ const Publicuserfooter = () => {
         <div className="col-md-12">
           <p>
             {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-            Copyright © All rights reserved | This template is made with{" "}
-            <i className="icon-heart" aria-hidden="true" /> by{" "}
-            <a
-              href="https://colorlib.com"
-              target="_blank"
-              className="text-primary"
-            >
-              Colorlib
-            </a>
+            Copyright © 2023 All rights reserved | This Website is Developed by Nostrum Pharma
+          
             {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
           </p>
         </div>

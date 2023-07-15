@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import Shopnavbar from './Shopnavbar';
 import { Link, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const ShopProduct = () => {
+  const login_id = localStorage.getItem('login_id');
+  const navigate = useNavigate()
   const { id } = useParams();
   const [medicines, setMedicines] = useState([]);
   const [wishlistData, setWishlistData] = useState([]);
+  const [medicalstore, setMedicalstore] = useState([]);
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState('');
+  console.log(search);
+  const [inputs, setInputs] = useState({
+    login_id: login_id
+  });
 
-  useEffect(() => {
-    fetch(`http://localhost:5000/addmedicine/view-medicine`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          setMedicines(data.data);
-        }
-      })
-      .catch((error) => {
-        console.log('Error:', error);
-      });
-  }, []);
   useEffect(() => {
     fetch(`http://localhost:5000/addmedicine/view-medicine/${id}`)
       .then((response) => response.json())
@@ -30,24 +31,26 @@ const ShopProduct = () => {
       .catch((error) => {
         console.log('Error:', error);
       });
-  }, []);
+  }, []); console.log(medicines);
   const handleAddToCart = (medicine) => {
-    
+    const login_id = localStorage.getItem('login_id')
     const cartData = {
+      login_id: login_id,
       medicine_id: medicine._id,
       medicinename: medicine.medicinename,
       medicineimage: medicine.medicineimage,
       medicinequantity: 1,
       medicineprice: medicine.medicineprice,
     };
-  
+
     const wishlistData = {
+      login_id: login_id,
       medicine_id: medicine._id,
       medicinename: medicine.medicinename,
       medicineimage: medicine.medicineimage,
       medicineprice: medicine.medicineprice,
     };
-  
+
     fetch('http://localhost:5000/addcart/add-to-cart', {
       method: 'POST',
       headers: {
@@ -66,7 +69,7 @@ const ShopProduct = () => {
       .catch((error) => {
         console.log('Error:', error);
       });
-  
+
     fetch('http://localhost:5000/wishlist/add-to-wishlist', {
       method: 'POST',
       headers: {
@@ -87,7 +90,43 @@ const ShopProduct = () => {
         console.log('Error:', error);
       });
   };
-  
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleButtonClick = () => {
+    setModalOpen(true);
+  };
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/register/view-medicalstore/${id}`)
+      .then((response) => {
+        setMedicalstore(response.data.data);
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  }, []);
+
+  const searching =(e)=>{
+  e.preventDefault()
+  axios
+      .get(`http://localhost:5000/store/view-store-medicine/${search}`)
+      .then((response) => {
+        console.log(data);
+        setMedicines(response.data.data);
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  }
 
   return (
     <>
@@ -134,17 +173,74 @@ const ShopProduct = () => {
                 </div>
               </div>
             </div>
+            <div className="dropdown" style={{ marginLeft: '-150px' }}>
+              <button
+                className="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                onClick={handleButtonClick}
+              >
+                Choose Stores
+              </button>
+
+              {isModalOpen && (
+                <div className="modal" style={{ display: 'block', marginTop: '50px' }}>
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <div className="modal-header" style={{ textAlign: "center" }}>
+                        <h5 className="modal-title">Choose Nearest Medical Store</h5>
+                        <button type="button" className="close" onClick={closeModal}>
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div className="modal-body">
+
+                        <form >
+                          <input
+                            type="text"
+                            list="choosestore"
+                            placeholder="Enter Here"
+                            autoComplete="off"
+                            name='medicalstore'
+                            onChange={(e)=>{setSearch(e.target.value)}}
+                          />
+                          <datalist id="choosestore" >
+                            <option value="choose store" />
+                            {medicalstore.map((data) => (
+                              <option value={data.name}>{data.name}</option>
+                            ))}
+                          </datalist>
+                          <div className="modal-footer">
+
+                            <button type="submit" onClick={searching} className="btn btn-primary" >
+                              Submit
+                            </button>
+
+                          </div>
+                        </form>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
         <div className="container">
           <div className="row">
+
             {medicines.map((medicine, index) => (
               <div className="col-sm-6 col-lg-4 text-center item mb-4" key={index}>
                 <span className="tag">Sale</span>
                 <div className="product-image">
-                  <Link to={`/addcart/${medicine.id}`}>
-                    <img src={medicine.medicineimage} alt="Image" />
+                  <Link to={`/addcart/${medicine._id}`}>
+                    <img src={`/upload/${medicine.medicineimage}`} alt="Image" />
                   </Link>
                   {/* <a href="#" className="wishlist-icon">
                     <i className="fas fa-heart" />
@@ -152,25 +248,25 @@ const ShopProduct = () => {
 
 
 
-<Link to="" className="wishlist-icon" onClick={() => handleAddToCart(medicine)}>
-  <i className="fas fa-heart" />
-</Link>
+                  <Link to="" className="wishlist-icon" onClick={() => handleAddToCart(medicine)}>
+                    <i className="fas fa-heart" />
+                  </Link>
 
-                 
+
                 </div>
                 <h3 className="text-dark">
-                <Link
-  to={`/addcart/${medicine.id}?description=${medicine.medicinedescription}&medicine=${medicine.medicinename}&image=${medicine.medicineimage}`}
->
-  {medicine.medicinename}
-</Link>
+                  <Link
+                    to={`/addcart/${medicine.id}?description=${medicine.medicinedescription}&medicine=${medicine.medicinename}&image=${medicine.medicineimage}&price=${medicine.medicineprice}`}
+                  >
+                    {medicine.medicinename}
+                  </Link>
 
 
-</h3>
+                </h3>
 
                 <p className="price">Rs{medicine.medicineprice}</p>
                 <Link
-                  to={`/Ecart/${medicine.id}`}
+                  to={`/Ecart/${medicine._id}`}
                   className="btn btn-primary"
                   onClick={() => handleAddToCart(medicine)}
                 >
@@ -178,6 +274,7 @@ const ShopProduct = () => {
                 </Link>
               </div>
             ))}
+
           </div>
         </div>
       </div>

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import AdminPage from '../../Pages/ADMIN/AdminPage';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const AddCategory = () => {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({});
@@ -33,11 +34,13 @@ const AddCategory = () => {
         }
     axios.post('http://localhost:5000/category/medicine_category', inputs)
       .then((response) => {
-       
+        console.log(response.data);
+        toast.success('Medicine category successfully added');
+        setInputs({});
       })
       .catch((error) => {
-        
-        console.error(error);
+        console.log('Error:', error);
+        toast.error('Failed to add category');
       });
   };
   
@@ -46,6 +49,7 @@ const AddCategory = () => {
       <AdminPage />
       <div className="main-content" style={{ marginTop: '-600px' }}>
         <div className="productcontainer">
+        <ToastContainer />
           <h2 className="text-center mb-4">Add Medicine Category</h2>
           <form onSubmit={registerSubmit} encType="multipart/form-data">
             <div className="productform-group">
@@ -59,6 +63,7 @@ const AddCategory = () => {
                 placeholder="Enter Medicine Category name"
                 value={inputs.categoryname || ''}
                 onChange={setRegister}
+                required
               />
             </div>
             <div className="productform-group">
@@ -74,6 +79,7 @@ const AddCategory = () => {
                   console.log(e.target.files[0].name);
                   setInputs({ ...inputs, categoryimage: e.target.files[0].name });
                 }}
+                required
               />
             </div>
             <button type="submit" className="btn btn-primary productsubmit-btn">

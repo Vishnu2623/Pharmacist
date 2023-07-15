@@ -4,10 +4,11 @@ import Publicuserfooter from '../Footer/Publicuserfooter';
 import { Link } from 'react-router-dom';
 
 const Wishlist = () => {
+  const id=localStorage.getItem('login_id')
   const [categories, setCategories] = useState([]);
-
+console.log(categories);
   useEffect(() => {
-    fetch('http://localhost:5000/wishlist/view-wishlist')
+    fetch(`http://localhost:5000/wishlist/view-wishlist/${id}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -68,7 +69,7 @@ const Wishlist = () => {
                             <img
                               className="img-responsive"
                               alt=""
-                              src={category.medicinemimage}
+                              src={`/upload/${category.medicineimage}`}
                             />
                           </div>
                           <div className="thumb-content">
@@ -93,7 +94,7 @@ const Wishlist = () => {
                               </ul>
                             </div> */}
                             <p className="item-price">
-                              <strike>$400.00</strike> <b>$369.00</b>
+                              <b>Rs.{category.medicineprice}</b>
                             </p>
                             <Link to={`/Ecart/:id`} className="btn btn-primary"> Add to Cart</Link>
                             {/* <a href="addcart" className="btn btn-primary">

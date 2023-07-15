@@ -29,21 +29,22 @@ loginRouter.post('/login', async (req, res) => {
                     details: oldUser
                 })
             }
+          
             if (oldUser.role == '1') {
-                const user = await userRegisterModel.findOne({ login_id: oldUser._id })
+                console.log(oldUser);
+                const user= await userRegisterModel.findOne({ login_id: oldUser._id });
                 if (user) {
-                    return res.status(200).json({
-                        success: true,
-                        error: false,
-                        login_id: oldUser._id,
-                        user_id: user._id,
-                        role:oldUser.role,
-                        status: oldUser.status,
-                        details: oldUser
-                    })
+                  return res.status(200).json({
+                    success: true,
+                    error: false,
+                    login_id: oldUser._id,
+                    role:oldUser.role,
+                    user_id: user._id,
+                    status: oldUser.status,
+                    details: oldUser
+                  })
                 }
-
-            }
+              }
             if (oldUser.role == '2') {
                 console.log(oldUser);
                 const medicalStore = await storeRegisterModel.findOne({ login_id: oldUser._id });

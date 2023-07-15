@@ -4,7 +4,8 @@ const addcartRouter = express.Router();
 addcartRouter.post('/add-to-cart', async (req, res) => {
   try {
     const data = {
-      medicine_id: req.body.medicine_id, // Use the correct property name that corresponds to the foreign key
+      login_id:req.body.login_id,
+      medicine_id: req.body.medicine_id, 
       medicinename: req.body.medicinename,
       medicineimage: req.body.medicineimage,
       medicinequantity: req.body.medicinequantity,
@@ -38,9 +39,10 @@ addcartRouter.post('/add-to-cart', async (req, res) => {
   }
 });
 
-addcartRouter.get('/view-cart', async (req, res) => {
+addcartRouter.get('/view-cart/:id', async (req, res) => {
   try {
-    const cart = await addcartModel.find();
+    const id = req.params.id;
+    const cart = await addcartModel.find({login_id:id});
     if (cart.length > 0) {
       return res.status(200).json({
         success: true,
@@ -63,6 +65,32 @@ addcartRouter.get('/view-cart', async (req, res) => {
     });
   }
 });
+// addcartRouter.get('/view-cart/:id', async (req, res) => {
+//   try {
+    
+//     const cardItems = await  addcartModel.find();
+//     if (cardItems.length > 0) {
+//       return res.status(200).json({
+//         success: true,
+//         error: false,
+//         data: cardItems,
+//       });
+//     } else {
+//       return res.status(400).json({
+//         success: false,
+//         error: true,
+//         message: 'No items found in wishlist',
+//       });
+//     }
+//   } catch (error) {
+//     return res.status(400).json({
+//       success: false,
+//       error: true,
+//       message: 'Something went wrong',
+//       details: error,
+//     });
+//   }
+// });
 
 addcartRouter.delete('/delete-cart/:id', async (req, res) => {
   try {

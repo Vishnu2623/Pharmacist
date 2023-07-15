@@ -1,8 +1,17 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Publicusernav = () => {
+  const login_id=localStorage.getItem('login_id');
   const navigate = useNavigate()
+  const [medicalstore, setMedicalstore] = useState([]);
+  const [inputs, setInputs] = useState({
+    login_id:login_id
+  });
+  console.log('value==>', inputs);
+  const {id}=useParams();
   const openNav = () => {
     document.getElementById("mySidenav").style.width = "250px";
   };
@@ -37,7 +46,40 @@ const Publicusernav = () => {
       navigate('/')
     }
   }, [])
-  
+const users_id=  localStorage.getItem('user_id')
+if(!users_id){
+  navigate('/Ecommerce')
+}
+useEffect(() => {
+  axios
+    .get(`http://localhost:5000/register/view-medicalstore/${id}`)
+    .then((response) => {
+      setMedicalstore(response.data.data);
+    })
+    .catch((error) => {
+      console.log('Error:', error);
+    });
+}, []);
+const setRegister = (event) => {
+  const name = event.target.name;
+  const value = event.target.value;
+  setInputs({ ...inputs, [name]: value });
+  console.log(inputs);
+};
+const registerSubmit = (event) => {
+  event.preventDefault();
+  console.log('hii');
+  axios.post('http://localhost:5000/store/add-to-store', inputs)
+  .then((response) => {
+    console.log(response.data);
+    toast.success('store successfully added');
+    setInputs({});
+  })
+  .catch((error) => {
+    console.log('Error:', error);
+    toast.error('Failed to add store');
+  });
+};
   return (
     <>
     <div className="banner_bg_main">
@@ -104,7 +146,7 @@ const Publicusernav = () => {
   />
 </span>
 <div className="dropdown">
-      <button
+      {/* <button
         className="btn btn-secondary dropdown-toggle"
         type="button"
         id="dropdownMenuButton"
@@ -114,9 +156,9 @@ const Publicusernav = () => {
         onClick={handleButtonClick}
       >
         Choose Stores
-      </button>
+      </button> */}
 
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <div className="modal" style={{ display: 'block' }}>
           <div className="modal-dialog">
             <div className="modal-content">
@@ -128,23 +170,28 @@ const Publicusernav = () => {
               </div>
               <div className="modal-body">
                
-                <form>
+                <form >
                 <input
                 type="text"
                 list="choosestore"
                 placeholder="Enter Here"
               autoComplete="off"
+              name='medicalstore'
+              value={inputs.medicalstore|| ""}
+                onChange={setRegister}
                 />
-              <datalist id="choosestore">
-              <option value="Store" />slnsk
-            <option value="Store2" />
+              <datalist id="choosestore" >
+              <option value="choose store" />
+              {medicalstore.map((data)=>(
+                  <option value={data.name}>{data.name}</option>
+                ))}
   </datalist>
 </form>
 
               </div>
               <div className="modal-footer">
                 
-                <button type="button" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary" onClick={registerSubmit}>
                   Submit
                 </button>
                 
@@ -152,7 +199,7 @@ const Publicusernav = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
         <div className="main">
           {/* Another variation with a button */}

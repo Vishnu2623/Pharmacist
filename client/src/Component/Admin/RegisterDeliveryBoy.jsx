@@ -138,7 +138,7 @@ const RegisterDeliveryBoy = () => {
       Password:
       </label>
       <input
-        type="text"
+        type="password"
         name='password'
         className="productform-control"      
         placeholder="Enter your Password"
@@ -151,7 +151,7 @@ const RegisterDeliveryBoy = () => {
       Conform Password:
       </label>
       <input
-        type="text"
+        type="password"
         name='cpassword'
         className="productform-control"      
         placeholder="Enter your Conform Password"

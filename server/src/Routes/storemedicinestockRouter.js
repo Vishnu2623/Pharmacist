@@ -1,7 +1,22 @@
 const express = require('express');
 const addmedicinestockModel = require('../Models/MedicalstoreaddstockModel');
-
+const multer = require('multer');
 const storemedicinestockRouter = express.Router();
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      cb(null, "../client/public/upload")
+  },
+  filename: function (req, file, cb) {
+      cb(null, file.originalname)
+  }
+})
+
+var upload = multer({ storage: storage })
+storemedicinestockRouter.post('/upload', upload.single("file"), (req, res) => {
+  return res.json("file uploaded")
+})
+
 storemedicinestockRouter.get('/view-medicinestock',async(req,res)=>{
   try {
     const users = await addmedicinestockModel.aggregate([
@@ -67,7 +82,8 @@ storemedicinestockRouter.get('/view-medicinestock',async(req,res)=>{
 storemedicinestockRouter.post('/add_medicinestock', async (req, res) => {
   try {
     const data = {
-      category_id: req.body.category_id,
+      login_id:req.body.login_id,
+      category_id:req.body.category_id,
       subcategory_id: req.body.subcategory_id,
       needprescription: req.body.needprescription,
       medicinename: req.body.medicinename,
@@ -136,6 +152,7 @@ storemedicinestockRouter.put('/edit-medicine/:id', async (req, res) => {
   try {
     const medicineId = req.params.id;
     const updatedData = {
+      login_id: req.body.login_id,
       category_id: req.body.category,
       subcategory_id: req.body.medicinesubcategory,
       needprescription: req.body.needprescription,

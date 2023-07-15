@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import AdminPage from '../../Pages/ADMIN/AdminPage';
 import axios from 'axios';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const AddSubcategory = () => {
   const [inputs, setInputs] = useState({});
   const [category, setCategory] = useState([]);
@@ -39,9 +40,12 @@ const AddSubcategory = () => {
     axios.post('http://localhost:5000/category/medicine_subcategory', updatedInputs)
       .then((response) => {
         console.log(response.data);
+        toast.success('Medicine subcategory successfully added');
+        setInputs({});
       })
       .catch((error) => {
         console.log('Error:', error);
+        toast.error('Failed to add subcategory');
       });
   };
   
@@ -61,6 +65,7 @@ const AddSubcategory = () => {
       <div className="main-content" style={{ marginTop: '-600px' }}>
 
         <div className="productcontainer">
+        <ToastContainer />
           <h2 className="text-center mb-4">Add Medicine Sub Category</h2>
           <form onSubmit={registersubmit}>
             <div className="productform-group">
@@ -72,6 +77,7 @@ const AddSubcategory = () => {
                 name="category"
                 value={inputs.category || ""}
                 onChange={setRegister}
+                required
               >
                 <option value="">Select Medicine category</option>
                 {category.map((data)=>(
@@ -92,6 +98,7 @@ const AddSubcategory = () => {
                 name="subcategoryname"
                 value={inputs.subcategoryname || ""}
                 onChange={setRegister}
+                required
               />
             </div>
             <div className="productform-group">
@@ -108,6 +115,7 @@ const AddSubcategory = () => {
                   console.log(e.target.files[0].name);
                   setInputs({ ...inputs,subcategoryimage: e.target.files[0].name });
                 }}
+                required
               />
             </div>
             <button type="submit" className="btn btn-primary productsubmit-btn">

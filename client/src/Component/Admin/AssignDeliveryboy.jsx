@@ -57,6 +57,7 @@ const AssignDeliveryboy = () => {
                 className="productform-control"
                 value={inputs.choose || ""}
                 onChange={setRegister}
+                required
               >
                 <option value="">Select Delivery Boy</option>
                 {deliveryboy.map((data) => (
@@ -75,6 +76,7 @@ const AssignDeliveryboy = () => {
                 placeholder="Enter Working Pincodes"
                 value={inputs.pincode || ""}
                 onChange={setRegister}
+                required
               />
             </div>
             <button type="submit" className="btn btn-primary mr-2 productsubmit-btn">

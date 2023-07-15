@@ -54,7 +54,7 @@ const ManageMedicine = () => {
               <th>Need Prescription</th>
               <th>QUANTITY</th>
               <th>PRICE</th>
-              <th>DESCRIPTION</th>
+              {/* <th>DESCRIPTION</th> */}
               <th>IMAGE</th>
               <th>Action</th>
             </tr>
@@ -70,7 +70,7 @@ const ManageMedicine = () => {
                   <td>{user.needPrescription ? 'Yes' : 'No'}</td>
                   <td>{user.medicinequantity}</td>
                   <td>{user.medicineprice}</td>
-                  <td>{user.medicinedescription}</td>
+                  {/* <td>{user.medicinedescription}</td> */}
                   <td>{user.medicineimage}</td>
                   <td className="d-flex">
                   <Link className="btn btn-success edit-button mr-2 flex-fill" to={`/editaddedmedicine/${user._id}`}>Edit</Link>

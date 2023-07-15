@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams,useNavigate } from 'react-router-dom';
 
 const Features = () => {
+  const navigate = useNavigate()
   const { id } = useParams();
   const [medicines, setMedicines] = useState([]);
 
@@ -17,7 +18,10 @@ const Features = () => {
         console.log('Error:', error);
       });
   }, []);
-
+  const users_id=  localStorage.getItem('user_id')
+  if(!users_id){
+    navigate('/upload')
+  }
   return (
     <div className="featurecontainer-fluid pt-5" style={{backgroundColor:"lightblue"}} >
     <div className="row px-xl-5 pb-3">

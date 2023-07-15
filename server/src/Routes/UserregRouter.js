@@ -3,8 +3,50 @@ const userRegisterModel = require('../Models/userRegisterModel')
 const loginModel = require('../Models/loginModel')
 const storeRegisterModel = require('../Models/medicalstoreModel')
 const dbRegisterModel = require('../Models/deliveryboyregisterModel')
+const multer = require('multer');
 const UserregRouter = express.Router()
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../client/public/upload")
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+  })
+  
+  var upload = multer({ storage: storage })
+  UserregRouter.post('/upload', upload.single("file"), (req, res) => {
+    return res.json("file uploaded")
+  })
 
+
+  UserregRouter.get('/view-single-user/:id', async (req, res) => {
+    try {
+      const id = req.params.id;
+      const medicine = await userRegisterModel.findOne({_id:id });
+      if (medicine) {
+        return res.status(200).json({
+          success: true,
+          error: false,
+          data:medicine,
+        });
+      } else {
+        return res.status(400).json({
+          success: false,
+          error: true,
+          message: 'No data found',
+        });
+      }
+    } catch (error) {
+      return res.status(400).json({
+        success: false,
+        error: true,
+        message: 'Something went wrong',
+        details: error,
+      });
+    }
+  });  
+  
 UserregRouter.get('/approve/:id', async (req, res) => {
     try {
       const id = req.params.id;
@@ -172,7 +214,8 @@ UserregRouter.post('/userreg', async (req, res) => {
             details:error
         })
     }
-})
+}) 
+
 
 UserregRouter.get('/view-medicalstore',async(req,res)=>{
     try {
@@ -226,6 +269,116 @@ UserregRouter.get('/view-medicalstore',async(req,res)=>{
         })
     }
     })
+    UserregRouter.get('/view-medicalstore/:id',async(req,res)=>{
+      try {
+          const users = await storeRegisterModel.aggregate([
+              {
+                '$lookup': {
+                  'from': 'login_tbs', 
+                  'localField': 'login_id', 
+                  'foreignField': '_id', 
+                  'as': 'login'
+                }
+              },
+              {
+                  "$unwind":"$login"
+              },
+              {
+                  "$group":{
+                      '_id':"$_id",
+                      'name':{"$first":"$name"},
+                      'licensenumber':{"$first":"$licensenumber"},
+                      'Uploadlicense':{"$first":"$Uploadlicense"},
+                      'address':{"$first":"$address"},
+                      'pincode':{"$first":"$pincode"},
+                      'city':{"$first":"$city"},
+                      'email':{"$first":"$email"},
+                      'phone':{"$first":"$phone"},
+                      'status':{"$first":"$login.status"},
+                      'login_id':{"$first":"$login._id"},
+                  }
+              }
+            ])
+          if(users[0]!=undefined){
+              return res.status(200).json({
+                  success:true,
+                  error:false,
+                  data:users
+              })
+          }else{
+              return res.status(400).json({
+                  success:false,
+                  error:true,
+                  message:"No data found"
+              })
+          }
+      } catch (error) {
+          return res.status(400).json({
+              success:false,
+              error:true,
+              message:"Something went wrong",
+              details:error
+          })
+      }
+      })
+  
+    UserregRouter.get('/view-profile/:id',async(req,res)=>{
+      try {
+        const id = req.params.id;
+        const users = await storeRegisterModel.aggregate([
+          
+              {
+                '$lookup': {
+                  'from': 'login_tbs', 
+                  'localField': 'login_id', 
+                  'foreignField': '_id', 
+                  'as': 'login'
+                }
+              },
+              {
+                  "$unwind":"$login"
+              },
+              {'$match':{
+                medical_store_id:new objectId(id)
+              }},
+              {
+                  "$group":{
+                      '_id':"$_id",
+                      'name':{"$first":"$name"},
+                      'licensenumber':{"$first":"$licensenumber"},
+                      'Uploadlicense':{"$first":"$Uploadlicense"},
+                      'address':{"$first":"$address"},
+                      'pincode':{"$first":"$pincode"},
+                      'city':{"$first":"$city"},
+                      'email':{"$first":"$email"},
+                      'phone':{"$first":"$phone"},
+                      'status':{"$first":"$login.status"},
+                      'login_id':{"$first":"$login._id"},
+                  }
+              }
+            ])
+          if(users[0]!=undefined){
+              return res.status(200).json({
+                  success:true,
+                  error:false,
+                  data:users
+              })
+          }else{
+              return res.status(400).json({
+                  success:false,
+                  error:true,
+                  message:"No data found"
+              })
+          }
+      } catch (error) {
+          return res.status(400).json({
+              success:false,
+              error:true,
+              message:"Something went wrong",
+              details:error
+          })
+      }
+      })
 UserregRouter.post('/storereg', async (req, res) => {
     try {
 

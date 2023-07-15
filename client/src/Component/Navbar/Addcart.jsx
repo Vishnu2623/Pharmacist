@@ -10,6 +10,7 @@ const Addcart = () => {
   const medicineDescription = searchParams.get('description');
   const medicinename = searchParams.get('medicine');
   const medicineimage = searchParams.get('image');
+  const medicineprice = searchParams.get('price');
 
   return (
     <>
@@ -32,7 +33,7 @@ const Addcart = () => {
             <div className="col-md-5 mr-auto">
               <div className="border text-center">
                 <img
-                  src={medicineimage}
+                 src={`/upload/${medicineimage}`}
                   alt="Image"
                   className="img-fluid p-5"
                 />
@@ -43,7 +44,7 @@ const Addcart = () => {
   <p>{medicineDescription}</p>
   <p>
           
-            <strong className="text-primary h4">Amount:55.00</strong>
+            <strong className="text-primary h4">Amount{medicineprice}</strong>
           </p><div className="mb-5">
           <div className="input-group mb-3" style={{ maxWidth: 220 }}>
   <div className="input-group-prepend">
@@ -76,7 +77,7 @@ const Addcart = () => {
 </div>
 
           </div> <p>
-          <Link
+          <Link 
                   to={`/Ecart/:id`}
                   className="btn btn-primary"
                  

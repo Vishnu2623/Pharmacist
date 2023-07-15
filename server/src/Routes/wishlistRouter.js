@@ -1,7 +1,20 @@
 const express = require('express');
 const WishlistModel = require('../Models/WishlistModel');
-
+const multer = require('multer');
 const wishlistRouter = express.Router();
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      cb(null, "../client/public/upload")
+  },
+  filename: function (req, file, cb) {
+      cb(null, file.originalname)
+  }
+})
+
+var upload = multer({ storage: storage })
+wishlistRouter.post('/upload', upload.single("file"), (req, res) => {
+  return res.json("file uploaded")
+})
 
 
 wishlistRouter.post('/add-to-wishlist', async (req, res) => {
@@ -43,9 +56,10 @@ wishlistRouter.post('/add-to-wishlist', async (req, res) => {
 });
 
 
-wishlistRouter.get('/view-wishlist', async (req, res) => {
+wishlistRouter.get('/view-wishlist/:id', async (req, res) => {
   try {
-    const wishlistItems = await WishlistModel.find();
+    const id = req.params.id;
+    const wishlistItems = await WishlistModel.find({login_id:id});
     if (wishlistItems.length > 0) {
       return res.status(200).json({
         success: true,

@@ -14,6 +14,10 @@ const Deliveryboyhome = () => {
       navigate('/')
     }
   }, [])
+  const delivery_boy_id=  localStorage.getItem('delivery_boy_id')
+if(!delivery_boy_id){
+  navigate('/login')
+}
   return (
     <>
     <input type="checkbox" id="nav-toggle" />

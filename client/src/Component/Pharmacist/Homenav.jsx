@@ -52,9 +52,9 @@ const Homenav = () => {
                   <li>
                     <a href="Userreg">User</a>
                   </li>
-                  <li>
+                  {/* <li>
                     <a href="Deliveryboy">Delivery Boy</a>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
             </ul>

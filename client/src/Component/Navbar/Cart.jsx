@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate, useParams } from 'react-router-dom';
 
-const Cart = () => {
+const Cart = () => {  
+ const id=localStorage.getItem('login_id')
+  const navigate = useNavigate()
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/addcart/view-cart')
-      .then((response) => response.json())
+    fetch(`http://localhost:5000/addcart/view-cart/${id}`)
+    .then((response) => response.json())
       .then((data) => {
         if (data.success) {
           setCartItems(data.data);
@@ -16,6 +18,7 @@ const Cart = () => {
         console.log('Error:', error);
       });
   }, []);
+
 
   const handleRemove = (productId) => {
     fetch(`http://localhost:5000/addcart/delete-cart/${productId}`, {
@@ -53,10 +56,11 @@ const Cart = () => {
   };
 
   const renderCartItems = () => {
+    
     return cartItems.map((item) => (
       <tr key={item._id}>
         <td className="product-thumbnail">
-          <img src={item.medicineimage} alt="Image" className="img-fluid" />
+          <img src={`/upload/${item.medicineimage}`} alt="Image" className="img-fluid" />
         </td>
         <td className="product-name">
           <h2 className="h5 text-black">{item.medicinename}</h2>
@@ -116,7 +120,7 @@ const Cart = () => {
     return calculateSubtotal();
   };
 
-
+ 
   return (
     <div className="site-wrap">
       <div className="site-navbar py-2">

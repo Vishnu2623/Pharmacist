@@ -18,6 +18,7 @@ const Uploadprescription = () => {
 
   const registerSubmit = (event) => {
     event.preventDefault();
+    const id=localStorage.getItem('login_id')
     if (file) {
       const data = new FormData();
       const filename = file.name;
@@ -37,7 +38,7 @@ const Uploadprescription = () => {
     const formattedDate = currentDate.toISOString(); 
   
     const newPrescription = {
-      login_id: inputs.login_id,
+      login_id:id,
       prescriptionimage: inputs.prescriptionimage,
       date_time: formattedDate, // Set the formatted date and time
     };

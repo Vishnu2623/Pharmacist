@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Category = () => {
+  const navigate = useNavigate()
+
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -17,6 +20,7 @@ const Category = () => {
         console.log('Error:', error);
       });
   }, []);
+ 
 
   return (
     <div className="container-fluid pt-5">

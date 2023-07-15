@@ -30,7 +30,7 @@ const SubCategory = () => {
     <div className="col-md-3" key={index}>
       <div className="catproduct-card">
         <div className="catproduct-tumb">
-          <img   src={subcategory.subcategoryimage} alt="" />
+          <img  src={`/upload/${subcategory.subcategoryimage}`} alt="" />
         </div>
         <div className="catproduct-details">
           <h4>

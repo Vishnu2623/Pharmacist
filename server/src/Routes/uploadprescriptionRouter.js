@@ -72,23 +72,28 @@ uploadprescriptionRouter.post('/add-prescription', async (req, res) => {
   try {
     const { login_id, prescriptionimage, date_time } = req.body;
     const newPrescription = new uploadprescriptionModel({
-      user_id:req.body.user_id,
-      prescriptionimage:req.body.prescriptionimage,
-      date_time:req.body.date_time,
+      login_id: req.body.login_id,
+      prescriptionimage: req.body.prescriptionimage,
+      date_time: req.body.date_time,
     });
     const savedPrescription = await newPrescription.save();
+
+    await userModel.findByIdAndUpdate(login_id, {
+      $push: { prescriptions: savedPrescription._id },
+    });
+
     return res.status(201).json({
       success: true,
       error: false,
       message: "Prescription added successfully",
-      data: savedPrescription
+      data: savedPrescription,
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
       error: true,
       message: "Something went wrong",
-      details: error
+      details: error,
     });
   }
 });

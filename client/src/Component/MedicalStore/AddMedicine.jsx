@@ -2,27 +2,52 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const AddMedicine = () => {
-  const [inputs, setInputs] = useState({});
+  const login_id=localStorage.getItem('login_id');
+  const navigate = useNavigate()
+  const [inputs, setInputs] = useState({
+    login_id:login_id,
+  });
+  const [file, setFile] = useState('');
   const [category, setCategory] = useState([]);
   const [subcategory, setSubcategory] = useState([]);
   console.log(subcategory);
+  
+console.log('value==>', inputs);
+console.log("value==>",file.name);
+console.log("value==>",file);
   const setRegister = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setInputs({ ...inputs, [name]: value });
+    console.log(inputs);
   };
 
   const registersubmit = (event) => {
     event.preventDefault();
-    console.log('data', inputs);
+    console.log("data", inputs);
+    if (file) {
+      const data = new FormData();
+      const filename = file.name
+      data.append('file', file);
+      data.append('name', filename);
+      axios.post('http://localhost:5000/addstock/upload', data)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
 
     const category_id = inputs.category;
-    const updatedInputs = { ...inputs, category_id };
+const updatedInputs = { ...inputs, category_id };
+const login_id = localStorage.getItem('login_id');
+const subcategory_id = inputs.subcategory;
+const finalInputs = { ...updatedInputs, subcategory_id, login_id };
 
-    const subcategory_id = inputs.subcategory;
-    const finalInputs = { ...updatedInputs, subcategory_id };
 
     axios
       .post('http://localhost:5000/addstock/add_medicinestock',finalInputs)
@@ -61,6 +86,7 @@ const AddMedicine = () => {
         }
       });
   }, [inputs.category]);
+  
   return (<>
     
    
@@ -76,6 +102,7 @@ const AddMedicine = () => {
                 name="category"
                 value={inputs.category || ""}
                 onChange={setRegister}
+                required
               >
                 <option value="">Select Medicine category</option>
                 {category.map((data)=>(
@@ -92,6 +119,7 @@ const AddMedicine = () => {
                 name="subcategory"
                 value={inputs.subcategory || ""}
                 onChange={setRegister}
+                required
               >
                 <option value="">Select Medicine category</option>
                 {subcategory.map((data)=>(
@@ -108,6 +136,7 @@ const AddMedicine = () => {
                 name="needprescription"
                 value={inputs.needprescription|| ""}
                 onChange={setRegister}
+                required
               >
                 <option value="">Select </option>
                 <option value="Yes">Yes</option>
@@ -125,6 +154,7 @@ const AddMedicine = () => {
         name="medicinename"
         value={inputs.medicinename || ""}
         onChange={setRegister}
+        required
       />
     </div>
     <div className="productform-group">
@@ -137,7 +167,8 @@ const AddMedicine = () => {
         placeholder="Enter Medicine description"
         name="medicinedescription"
                 value={inputs.medicinedescription || ""}
-                onChange={setRegister}        
+                onChange={setRegister} 
+                required       
       />
     </div>
     <div className="productform-group">
@@ -150,7 +181,8 @@ const AddMedicine = () => {
         placeholder="Enter Medicine price"
         name="medicinequantity"
         value={inputs.medicinequantity || ""}
-        onChange={setRegister}     
+        onChange={setRegister}  
+        required   
       />
     </div>
     <div className="productform-group">
@@ -163,7 +195,8 @@ const AddMedicine = () => {
         placeholder="Enter Medicine price"
         name="medicineprice"
         value={inputs.medicineprice || ""}
-        onChange={setRegister}     
+        onChange={setRegister}   
+        required  
       />
     </div>
     <div className="productform-group">
@@ -174,8 +207,11 @@ const AddMedicine = () => {
         type="file"
         className="form-control-file"
         name="medicineimage"
-        value={inputs.medicineimage || ""}
-        onChange={setRegister}
+        onChange={(e) => {
+          setFile(e.target.files[0]);
+          console.log(e.target.files[0].name);
+          setInputs({ ...inputs, medicineimage: e.target.files[0].name });
+        }}
       />
     </div>
     <button type="submit" className="btn btn-primary productsubmit-btn">

@@ -78,7 +78,7 @@ const Mainrouter = () => {
             <Route path="Cpassword" element={<AdChangePassword/>}/>
             <Route path="Cpasswor" element={<ChangePassword/>}/>
 
-            <Route path="Ecart/:id" element={<Cart/>}/>
+            <Route path="/Ecart/:id" element={<Cart/>}/>
             <Route path="/subcategory/:id" element={<SubCategory/>}/>
            
 
