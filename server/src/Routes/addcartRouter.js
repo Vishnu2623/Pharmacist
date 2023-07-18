@@ -119,6 +119,39 @@ addcartRouter.delete('/delete-cart/:id', async (req, res) => {
     });
   }
 });
+addcartRouter.put('/update-cart/:id', async (req, res) => {
+  try {
+    const itemId = req.params.id;
+    const updatedQuantity = req.body.medicinequantity;
 
+    const updatedCartItem = await addcartModel.findByIdAndUpdate(
+      itemId,
+      { medicinequantity: updatedQuantity },
+      { new: true }
+    );
+
+    if (updatedCartItem) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        message: 'Cart item updated successfully',
+        data: updatedCartItem,
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        error: true,
+        message: 'Cart item not found',
+      });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      error: true,
+      message: 'Something went wrong',
+      details: error,
+    });
+  }
+});
 
 module.exports = addcartRouter;

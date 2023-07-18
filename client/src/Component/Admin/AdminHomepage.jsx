@@ -87,6 +87,12 @@ const AdminHomepage = () => {
           </ul>
         )}
       </li>
+      <li>
+            <a href="vieworder">
+              <span className="bi bi-eye" />
+              <span style={{ marginLeft: '8px' }}>View Orders</span>
+            </a>
+          </li>
     </ul>
              <li><a href=""><span class="bi bi-box-arrow-right"></span><span style={{ marginLeft: '8px' }}>Log Out</span></a></li>
             {/* <li><a href=""><span class="las la-clipboard-list"></span><span>Tasks</span></a></li> */} 

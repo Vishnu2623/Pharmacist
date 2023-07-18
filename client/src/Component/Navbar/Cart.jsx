@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link,useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Cart = () => {  
- const id=localStorage.getItem('login_id')
-  const navigate = useNavigate()
+const Cart = () => {
+  const id = localStorage.getItem('login_id');
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:5000/addcart/view-cart/${id}`)
-    .then((response) => response.json())
+      .then((response) => response.json())
       .then((data) => {
         if (data.success) {
           setCartItems(data.data);
@@ -19,21 +19,56 @@ const Cart = () => {
       });
   }, []);
 
-
   const handleRemove = (productId) => {
     fetch(`http://localhost:5000/addcart/delete-cart/${productId}`, {
       method: 'DELETE',
-    });
-    setCartItems((prevItems) => prevItems.filter((item) => item._id !== productId));
+    })
+      .then(() => {
+        setCartItems((prevItems) => prevItems.filter((item) => item._id !== productId));
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  };
+
+  const handleUpdateQuantity = (itemId, newQuantity) => {
+    fetch(`http://localhost:5000/addcart/update-cart/${itemId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ medicinequantity: newQuantity }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setCartItems((prevItems) =>
+            prevItems.map((item) => {
+              if (item._id === itemId) {
+                return {
+                  ...item,
+                  medicinequantity: newQuantity,
+                };
+              }
+              return item;
+            })
+          );
+        }
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
   };
 
   const handleDecrement = (itemId) => {
     setCartItems((prevItems) =>
       prevItems.map((item) => {
         if (item._id === itemId) {
+          const newQuantity = item.medicinequantity > 1 ? item.medicinequantity - 1 : 1;
+          handleUpdateQuantity(itemId, newQuantity);
           return {
             ...item,
-            medicinequantity: item.medicinequantity > 1 ? item.medicinequantity - 1 : 1,
+            medicinequantity: newQuantity,
           };
         }
         return item;
@@ -45,9 +80,11 @@ const Cart = () => {
     setCartItems((prevItems) =>
       prevItems.map((item) => {
         if (item._id === itemId) {
+          const newQuantity = parseInt(item.medicinequantity, 10) + 1;
+          handleUpdateQuantity(itemId, newQuantity);
           return {
             ...item,
-            medicinequantity: parseInt(item.medicinequantity, 10) + 1,
+            medicinequantity: newQuantity,
           };
         }
         return item;
@@ -56,7 +93,6 @@ const Cart = () => {
   };
 
   const renderCartItems = () => {
-    
     return cartItems.map((item) => (
       <tr key={item._id}>
         <td className="product-thumbnail">

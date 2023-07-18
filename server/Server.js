@@ -11,6 +11,7 @@ const uploadprescriptionRouter = require('./src/Routes/uploadprescriptionRouter'
 const addcartRouter = require('./src/Routes/addcartRouter')
 const wishlistRouter = require('./src/Routes/wishlistRouter')
 const chooseStoreRouter = require('./src/Routes/chooseStoreRouter')
+const paymentRouter = require('./src/Routes/PaymentRouter')
 
 
 const app = express()
@@ -41,6 +42,8 @@ app.use('/addcart',addcartRouter)
 app.use('/wishlist',wishlistRouter)
 app.use('/prescriptions',uploadprescriptionRouter)
 app.use('/store',chooseStoreRouter)
+app.use('/payment',paymentRouter)
+
 
 
 const mongoDBurl='mongodb+srv://vishnup4ever:vishnup4ever@cluster0.lqhrtkp.mongodb.net/pharmacist?retryWrites=true&w=majority'

@@ -210,7 +210,7 @@ const ShopProduct = () => {
                           <datalist id="choosestore" >
                             <option value="choose store" />
                             {medicalstore.map((data) => (
-                              <option value={data.name}>{data.name}</option>
+                              <option value={data.name}>{data.name},{data.pincode}</option>
                             ))}
                           </datalist>
                           <div className="modal-footer">

@@ -57,6 +57,7 @@ import ManageDelivery from '../DeliveryBoymodule/ManageDelivery'
 import PaymentCustomers from '../MedicalStore/PaymentCustomers'
 import Managemedicineorder from '../MedicalStore/Managemedicineorder'
 import Viewprescriptionorder from '../MedicalStore/Viewprescriptionorder'
+import Vieworder from '../Admin/viewmedicineorder'
 
 const Mainrouter = () => {
   return (
@@ -122,7 +123,8 @@ const Mainrouter = () => {
             <Route path="viewpaymentcustomers" element={<PaymentCustomers/>}/>
             <Route path="managemedicineorder" element={<Managemedicineorder/>}/>
             <Route path="viewprescriptionorder" element={<Viewprescriptionorder/>}/>
-            
+            <Route path="vieworder" element={<Vieworder/>}/>
+
 
 
 
