@@ -4,6 +4,7 @@ const loginModel = require('../Models/loginModel')
 const storeRegisterModel = require('../Models/medicalstoreModel')
 const dbRegisterModel = require('../Models/deliveryboyregisterModel')
 const multer = require('multer');
+const mongoose = require('mongoose'); 
 const UserregRouter = express.Router()
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -338,9 +339,9 @@ UserregRouter.get('/view-medicalstore',async(req,res)=>{
               {
                   "$unwind":"$login"
               },
-              {'$match':{
-                medical_store_id:new objectId(id)
-              }},
+              {
+                $match: { 'login_id':new mongoose.Types.ObjectId(id) },
+              },
               {
                   "$group":{
                       '_id':"$_id",
@@ -379,6 +380,45 @@ UserregRouter.get('/view-medicalstore',async(req,res)=>{
           })
       }
       })
+UserregRouter.put('/edit-profile/:id', async (req, res) => {
+        try {
+          const login_id = req.params.id;
+          const updatedData = {
+            name: req.body.name,
+            licensenumber:req.body.licensenumber,
+            Uploadlicense:req.body.image,
+            address:req.body.address,
+            pincode:req.body.pincode,
+            city:req.body.city,
+            email:req.body.email,
+            phone:req.body.phone,
+          };
+        
+const updatedmyprofile = await storeRegisterModel.updateOne({login_id:login_id}, {$set:updatedData});
+      
+          if (updatedmyprofile) {
+            return res.status(200).json({
+              success: true,
+              error: false,
+              message: 'Profile updated successfully',
+              data: updatedmyprofile,
+            });
+          } else {
+            return res.status(404).json({
+              success: false,
+              error: true,
+              message: 'Profile not found',
+            });
+          }
+        } catch (error) {
+          return res.status(500).json({
+            success: false,
+            error: true,
+            message: 'Something went wrong',
+            details: error,
+          });
+        }
+      });
 UserregRouter.post('/storereg', async (req, res) => {
     try {
 
@@ -447,7 +487,61 @@ UserregRouter.post('/storereg', async (req, res) => {
         })
     }
 })       
-
+UserregRouter.get('/view-dbprofile/:id',async(req,res)=>{
+  try {
+    const id = req.params.id;
+    const users = await dbRegisterModel.aggregate([
+      
+          {
+            '$lookup': {
+              'from': 'login_tbs', 
+              'localField': 'login_id', 
+              'foreignField': '_id', 
+              'as': 'login'
+            }
+          },
+          {
+              "$unwind":"$login"
+          },
+          {
+            $match: { 'login_id':new mongoose.Types.ObjectId(id) },
+          },
+          {
+              "$group":{
+                  '_id':"$_id",
+                  'name':{"$first":"$name"},
+                  'address':{"$first":"$address"},
+                  'pincode':{"$first":"$pincode"},
+                  'city':{"$first":"$city"},
+                  'email':{"$first":"$email"},
+                  'phone':{"$first":"$phone"},
+                  'status':{"$first":"$login.status"},
+                  'login_id':{"$first":"$login._id"},
+              }
+          }
+        ])
+      if(users[0]!=undefined){
+          return res.status(200).json({
+              success:true,
+              error:false,
+              data:users
+          })
+      }else{
+          return res.status(400).json({
+              success:false,
+              error:true,
+              message:"No data found"
+          })
+      }
+  } catch (error) {
+      return res.status(400).json({
+          success:false,
+          error:true,
+          message:"Something went wrong",
+          details:error
+      })
+  }
+  })
 UserregRouter.get('/view-deliveryboy',async(req,res)=>{
     try {
         const users = await dbRegisterModel.find()
@@ -565,5 +659,43 @@ UserregRouter.delete('/deliveryboy/:id', async (req, res) => {
       });
     }
   });
+  
+UserregRouter.put('/edit-dbprofile/:id', async (req, res) => {
+        try {
+          const login_id = req.params.id;
+          const updatedData = {
+            name: req.body.name,
+                address: req.body.address,
+                pincode: req.body.pincode,
+                city: req.body.city,
+                email: req.body.email,
+                phone: req.body.phone,
+          };
+        
+const updatedmyprofile = await storeRegisterModel.updateOne({login_id:login_id}, {$set:updatedData});
+      
+          if (updatedmyprofile) {
+            return res.status(200).json({
+              success: true,
+              error: false,
+              message: 'Profile updated successfully',
+              data: updatedmyprofile,
+            });
+          } else {
+            return res.status(404).json({
+              success: false,
+              error: true,
+              message: 'Profile not found',
+            });
+          }
+        } catch (error) {
+          return res.status(500).json({
+            success: false,
+            error: true,
+            message: 'Something went wrong',
+            details: error,
+          });
+        }
+      });
   
 module.exports = UserregRouter

@@ -53,6 +53,7 @@ const Login = () => {
         localStorage.setItem('role',data.data.role)
         navigate('/Delivery')
       }
+     
       
     }).catch((error) => {
 

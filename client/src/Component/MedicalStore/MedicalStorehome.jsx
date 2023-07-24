@@ -71,7 +71,7 @@ if(!medical_store_id){
                 <ul style={{ paddingTop: '8px', marginLeft: '27px' }}>
                   <li><a href="managemedicineorder">View Order</a></li>
                   <li><a href="viewprescriptionorder">View Prescription</a></li>
-                  <li><a href="#">Connect to Delivery Boy</a></li>
+                  {/* <li><a href="#">Connect to Delivery Boy</a></li> */}
                   <li><a href="#">View Delivey Status</a></li>
                 </ul>
               )}

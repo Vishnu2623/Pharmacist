@@ -74,6 +74,7 @@ loginRouter.post('/login', async (req, res) => {
                   })
                 }
               }
+             
               
             } else {
             return res.status(406).json({
@@ -91,4 +92,45 @@ loginRouter.post('/login', async (req, res) => {
         })
     }
 })
+
+loginRouter.post('/change-password/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { login_id, oldPassword, newPassword } = req.body;
+
+    const user = await loginModel.findOne({ _id: id });
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        error: true,
+        message: "User not found!"
+      });
+    }
+
+    if (user.password !== oldPassword) {
+      return res.status(406).json({
+        success: false,
+        error: true,
+        message: "Old password is incorrect!"
+      });
+    }
+
+    user.password = newPassword;
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      error: false,
+      message: "Password changed successfully!"
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      error: true,
+      message: "Something went wrong",
+      details: error
+    });
+  }
+});
 module.exports = loginRouter

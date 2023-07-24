@@ -1,23 +1,52 @@
-import React,{useState} from 'react'
-import MedicalStorePage from '../../Pages/MedicalStore/MedicalStorePage'
+import React, { useEffect, useState } from 'react';
+import MedicalStorePage from '../../Pages/MedicalStore/MedicalStorePage';
+import axios from 'axios';
 
 const MyProfile = () => {
-  const[inputs, setinputs]=useState([]);
-  console.log("value==>",inputs);
-  const setRegister=(event)=>{
-    const name=event.target.name;
-    const value=event.target.value;
-    setinputs({...inputs,[name]:value});
-    console.log(inputs);
-  }
-  const handleReset = () => {
-    setinputs({});
-   
+  const id = localStorage.getItem('login_id');
+  const [inputs, setInputs] = useState({
+    login_id: id,
+    
+  });
+
+  const setRegister = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs({ ...inputs, [name]: value });
   };
-  const registersubmit =(event)=>{
+
+  const handleReset = () => {
+    setInputs({
+      login_id: id,
+    });
+  };
+
+  const registersubmit = (event) => {
     event.preventDefault();
-    console.log("data",inputs);
-  }
+    console.log('data', inputs);
+    axios
+      .put(`http://localhost:5000/register/edit-profile/${id}`, inputs)
+      .then((response) => {
+        console.log(response.data);
+        setInputs(response.data.data[0] || {});
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  };
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/register/view-profile/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setInputs(data.data[0]);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, [id]);
   return (<>
    <MedicalStorePage/>
     <div className="main-content" style={{marginTop:'100px'}}>

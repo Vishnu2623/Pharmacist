@@ -32,16 +32,15 @@ const Orderconformation = () => {
             <div className="col-md-12 text-center">
               <span className="icon-check_circle display-3 text-success" />
               <h2 className="display-3 text-black">Thank you!</h2>
-
-                <div>
+                <div style={{marginTop:'20px'}}>
                   <h2>Order ID: {order.order_id}</h2>
-                  <h4>Order Medicine Name</h4>
+                  {/* <h4>Order Medicine Name</h4> */}
                   {/* ... */}
                   <p>
                     {/* Displaying payment details */}
                     Payment Method: {order.paymentMethod}<br />
                     Total Amount: {order.totalAmount}<br />
-                    Transaction ID: {order.transactionID}<br />
+                    Order Date: {order.date}<br />
                   </p>
                 </div>
            

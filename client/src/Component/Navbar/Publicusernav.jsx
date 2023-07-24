@@ -80,6 +80,7 @@ const registerSubmit = (event) => {
     toast.error('Failed to add store');
   });
 };
+
   return (
     <>
     <div className="banner_bg_main">

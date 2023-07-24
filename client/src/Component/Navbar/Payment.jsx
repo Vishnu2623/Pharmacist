@@ -188,6 +188,7 @@ const Payment = () => {
                 name='addressline'
                 value={inputs.addressline || ""}
                 onChange={setRegister}
+               
               />
             </div>
             <div className="form-group row">

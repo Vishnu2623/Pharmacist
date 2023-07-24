@@ -1,40 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MedicalStorehome from './MedicalStorehome';
 
 const Managemedicineorder = () => {
-  const [orders, setOrders] = useState([
-    {
-      id: 1,
-      itemName: 'Paracetamol',
-      customerName: 'John Doe',
-      Amount: '1000',
-      deliveryAddress: 'pattattil house pariyapuram po mukkola tanur',
-      phoneNo: '9072823381',
-      status: 'shipped',
-      isEditing: false
-    },
-    {
-      id: 2,
-      itemName: 'Paracetamol',
-      customerName: 'Jane Smith',
-      Amount: '1000',
-      deliveryAddress: 'pattattil house pariyapuram po mukkola tanur',
-      phoneNo: '9072823381',
-      status: 'processing',
-      isEditing: false
-    },
-    {
-      id: 3,
-      itemName: 'Paracetamol',
-      customerName: 'Alex Johnson',
-      Amount: '1000',
-      deliveryAddress: 'pattattil house pariyapuram po mukkola tanur',
-      phoneNo: '9072823381',
-      status: 'shipped',
-      isEditing: false
-    }
-  ]);
-
+  
+  const [orders, setOrders] = useState([]);
+  useEffect(() => {
+    fetch('http://localhost:5000/payment/store-orders')
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setOrders(data.data);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching users:', error);
+      });
+  }, []);
   const handleStatusChange = (event, orderId) => {
     const updatedOrders = orders.map((order) => {
       if (order.id === orderId) {
@@ -77,12 +58,12 @@ const Managemedicineorder = () => {
             <tbody>
               {orders.map((order) => (
                 <tr key={order.id}>
-                  <td className="statustd">{order.id}</td>
-                  <td className="statustd">{order.itemName}</td>
-                  <td className="statustd">{order.Amount}</td>
-                  <td className="statustd">{order.customerName}</td>
-                  <td className="statustd">{order.deliveryAddress}</td>
-                  <td className="statustd">{order.phoneNo}</td>
+                  <td className="statustd">{order.order_id}</td>
+                  <td className="statustd">{order.medicinename}</td>
+                  <td className="statustd">{order.totalAmount}</td>
+                  <td className="statustd">{order.firstname}</td>
+                  <td className="statustd">{order.address}</td>
+                  <td className="statustd">{order.phone}</td>
                   <td className="statustd">
                     {order.isEditing ? (
                       <select

@@ -24,7 +24,8 @@ const Cart = () => {
       method: 'DELETE',
     })
       .then(() => {
-        setCartItems((prevItems) => prevItems.filter((item) => item._id !== productId));
+        // setCartItems((prevItems) => prevItems.filter((item) => item._id !== productId));
+        window.location.reload()
       })
       .catch((error) => {
         console.log('Error:', error);

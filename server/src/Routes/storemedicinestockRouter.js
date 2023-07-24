@@ -81,6 +81,16 @@ storemedicinestockRouter.get('/view-medicinestock',async(req,res)=>{
 });
 storemedicinestockRouter.post('/add_medicinestock', async (req, res) => {
   try {
+    const { subcategory_id, medicinename } = req.body;
+    const existingMedicine = await addmedicinestockModel.findOne({ subcategory_id, medicinename });
+
+    if (existingMedicine) {
+      return res.status(409).json({
+        success: false,
+        error: true,
+        message: 'Medicine already exists'
+      });
+    }
     const data = {
       login_id:req.body.login_id,
       category_id:req.body.category_id,

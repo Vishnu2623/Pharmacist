@@ -29,6 +29,14 @@ assigndeliveryboyRouter.get('/view-assigndeliveryboy',async(req,res)=>{
     })
 assigndeliveryboyRouter.post('/assign_deliveryboy', async (req, res) => {
   try {
+    const oldUser = await assigndeliveryboyModel.findOne({ pincode:req.body.pincode })
+    if(oldUser){
+       return res.status(400).json({
+            success:false,
+            error:true,
+            message:"Delivery boy already exists"
+        })
+    }
     const data = {
         deliveryboy_id: req.body.deliveryboy_id,
         pincode: req.body.pincode,

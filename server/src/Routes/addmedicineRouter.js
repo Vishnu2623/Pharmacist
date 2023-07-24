@@ -107,6 +107,16 @@ addmedicineRouter.get('/view-medicine/:id', async (req, res) => {
 });
 addmedicineRouter.post('/add_medicine', async (req, res) => {
   try {
+    const { category_id, medicinename } = req.body;
+    const existingMedicine = await adminaddmedicineModel.findOne({ category_id, medicinename });
+
+    if (existingMedicine) {
+      return res.status(409).json({
+        success: false,
+        error: true,
+        message: 'Medicine already exists'
+      });
+    }
     const data = {
       category_id: req.body.category_id,
       subcategory_id: req.body.subcategory_id,

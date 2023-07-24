@@ -38,7 +38,7 @@ const Vieworder = () => {
   return (
     <>
       <AdminHomepage/>
-      <div className="main-content" style={{ marginTop: '-700px' }}>
+      <div className="main-content" style={{ marginTop: '-600px' }}>
         <div className="statusbody">
           <h1 className="statush1">Order Delivery Management</h1>
           <table id="orderTable" className="statustable">
@@ -46,6 +46,8 @@ const Vieworder = () => {
               <tr>
                 <th className="statusth">Order ID</th>
                 <th className="statusth">Order Item Name</th>
+                <th className="statusth">Quantity</th>
+                <th className="statusth">Price</th>
                 <th className="statusth">Customer Name</th>
                 <th className="statusth">Delivery Address</th>
                 <th className="statusth">Email</th>
@@ -57,8 +59,10 @@ const Vieworder = () => {
             <tbody>
               {orders.map((order) => (
                 <tr key={order.id}>
-                  <td className="statustd">{order.id}</td>
-                  <td className="statustd">{order.cartItems}</td>
+                  <td className="statustd">{order.order_id}</td>
+                  <td className="statustd">{order.medicinename}</td>
+                  <td className="statustd">{order.medicinequantity}</td>
+                  <td className="statustd">{order.totalAmount}</td>
                   <td className="statustd">{order.firstname}</td>
                   <td className="statustd">{order.address}</td>
                   <td className="statustd">{order.email}</td>

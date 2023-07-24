@@ -5,20 +5,28 @@ import Shopnavbar from './Shopnavbar';
 import Publicuserfooter from '../Footer/Publicuserfooter';
 
 const Uploadprescription = () => {
+  const id = localStorage.getItem('login_id');
+  const currentDate = new Date();
+  const formattedDate = currentDate.toISOString();
   const navigate = useNavigate();
   const [prescriptions, setPrescriptions] = useState([]);
-  const [inputs, setInputs] = useState({});
+  const [medicalstore, setmedicalstore] = useState([]);
+  const [inputs, setInputs] = useState({
+    login_id: id,
+    date_time: formattedDate,
+  });
   const [file, setFile] = useState('');
-
+  console.log(inputs);
   const setRegister = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
+    const { name, value } = event.target;
     setInputs({ ...inputs, [name]: value });
+   
   };
 
   const registerSubmit = (event) => {
     event.preventDefault();
-    const id=localStorage.getItem('login_id')
+   
+
     if (file) {
       const data = new FormData();
       const filename = file.name;
@@ -33,32 +41,28 @@ const Uploadprescription = () => {
           console.error(error);
         });
     }
-  
-    const currentDate = new Date();
-    const formattedDate = currentDate.toISOString(); 
-  
-    const newPrescription = {
-      login_id:id,
-      prescriptionimage: inputs.prescriptionimage,
-      date_time: formattedDate, // Set the formatted date and time
-    };
-  
+
+   
+
+   
+
     axios
-      .post('http://localhost:5000/prescriptions/add-prescription', newPrescription)
+      .post('http://localhost:5000/prescriptions/add-prescription',inputs)
       .then((response) => {
         console.log(response);
-        fetchPrescriptions(); // Fetch the updated prescriptions after adding a new one
+        fetchPrescriptions();
       })
       .catch((error) => {
         console.error(error);
       });
   };
+
   const deletePrescription = (id) => {
     axios
       .delete(`http://localhost:5000/prescriptions/prescriptions/${id}`)
       .then((response) => {
         console.log(response);
-        fetchPrescriptions(); // Fetch the updated prescriptions after deleting one
+        fetchPrescriptions();
       })
       .catch((error) => {
         console.error(error);
@@ -71,7 +75,7 @@ const Uploadprescription = () => {
 
   const fetchPrescriptions = () => {
     axios
-      .get('http://localhost:5000/prescriptions/view-prescriptions')
+      .get(`http://localhost:5000/prescriptions/view-prescriptions/${id}`)
       .then((response) => {
         setPrescriptions(response.data.data);
       })
@@ -80,7 +84,15 @@ const Uploadprescription = () => {
       });
   };
 
-
+  useEffect(() => {
+    axios.get('http://localhost:5000/register/view-medicalstore')
+      .then((response) => {
+        setmedicalstore(response.data.data);
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  }, []);
   return (
     <>
       <Shopnavbar />
@@ -91,9 +103,28 @@ const Uploadprescription = () => {
           </h1>
         </div>
         <div className="frame">
+        
           <div className="uploadcenter">
+   
             <div className="uploadtitle">
               <h1>Drop file to upload</h1>
+            </div>
+            <div className="select-box" style={{border:'2px solid black'}}>
+          <input
+                            type="text"
+                            list="choosestore"
+                            placeholder="Choose Store"
+                            onChange={setRegister}
+                            autoComplete="off"
+                            name='medicalstore'
+                            style={{width:'100%'}}
+                          />
+                          <datalist id="choosestore" name='medicalstore' onChange={setRegister}>
+                            <option value="choose store" />
+                            {medicalstore.map((data) => (
+                              <option value={data._id}>{data.name},{data.pincode}</option>
+                            ))}
+                          </datalist>
             </div>
             <div className="dropzone">
               <img
@@ -128,6 +159,7 @@ const Uploadprescription = () => {
         <table className="ptable">
           <thead>
             <tr>
+            <th>Order ID</th>
               <th>File Name</th>
               <th>Uploaded On</th>
               <th>Action</th>
@@ -136,6 +168,7 @@ const Uploadprescription = () => {
           <tbody>
           {prescriptions.map((prescription) => (
             <tr key={prescription._id}>
+              <td>{prescription.order_id}</td>
               <td>{prescription.prescriptionimage}</td>
               <td>
                 {new Date(prescription.date_time).toLocaleDateString()}{' '}

@@ -109,6 +109,14 @@ medicinecatgoryRouter.delete('/delete-category/:id', async (req, res) => {
 
 medicinecatgoryRouter.post('/medicine_category', async (req, res) => {
   try {
+    const oldUser = await medicinecategoryModel.findOne({ categoryname: req.body.categoryname })
+    if(oldUser){
+       return res.status(400).json({
+            success:false,
+            error:true,
+            message:"medicine category already exists"
+        })
+    }
     const data = {
       categoryname: req.body.categoryname,
       categoryimage: req.body.categoryimage,
@@ -208,6 +216,14 @@ medicinecatgoryRouter.get('/view-subcategory/:id', async (req, res) => {
 
 medicinecatgoryRouter.post('/medicine_subcategory/', async (req, res) => {
   try {
+    const oldUser = await medicinesubcategoryModel.findOne({subcategoryname: req.body.subcategoryname })
+    if(oldUser){
+       return res.status(400).json({
+            success:false,
+            error:true,
+            message:"medicine category already exists"
+        })
+    }
     const data = {
       category_id: req.body.category_id,
       subcategoryname: req.body.subcategoryname,

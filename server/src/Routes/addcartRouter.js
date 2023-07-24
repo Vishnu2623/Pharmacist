@@ -3,8 +3,19 @@ const addcartModel = require('../Models/addcartModel');
 const addcartRouter = express.Router();
 addcartRouter.post('/add-to-cart', async (req, res) => {
   try {
+    const { login_id, medicine_id, medicinename, medicineimage, medicinequantity, medicineprice } = req.body;
+    const existingCartItem = await addcartModel.findOne({ login_id, medicine_id });
+
+    if (existingCartItem) {
+      return res.status(400).json({
+        success: false,
+        error: true,
+        message: "Medicine already exists in the cart",
+      });
+    }
     const data = {
       login_id:req.body.login_id,
+      medical_store_id:req.body.medical_store_id,
       medicine_id: req.body.medicine_id, 
       medicinename: req.body.medicinename,
       medicineimage: req.body.medicineimage,

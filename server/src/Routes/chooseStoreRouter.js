@@ -31,7 +31,7 @@ chooseStoreRouter.get('/view-store-medicine/:name',async(req,res)=>{
                   'medicinename':{"$first":"$medicinename"},
                   'medicinedescription':{"$first":"$medicinedescription"},
                   'medicinequantity':{"$first":"$medicinequantity"},
-                  ' medicineprice':{"$first":"$medicineprice"},
+                  'medicineprice':{"$first":"$medicineprice"},
                   'medicineimage':{"$first":"$medicineimage"},
                   'login_id':{"$first":"$login._id"},
               }

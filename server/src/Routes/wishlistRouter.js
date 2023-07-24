@@ -28,6 +28,19 @@ wishlistRouter.post('/add-to-wishlist', async (req, res) => {
       medicineprice: req.body.medicineprice,
     };
 
+    const existingWishlistItem = await WishlistModel.findOne({
+      login_id: data.login_id,
+      medicine_id: data.medicine_id
+    });
+
+    if (existingWishlistItem) {
+      return res.status(409).json({
+        success: false,
+        error: true,
+        message: 'Item already exists in the wishlist'
+      });
+    }
+
     const newWishlistItem = new WishlistModel(data);
     const savedData = await newWishlistItem.save();
 
@@ -54,6 +67,7 @@ wishlistRouter.post('/add-to-wishlist', async (req, res) => {
     });
   }
 });
+
 
 
 wishlistRouter.get('/view-wishlist/:id', async (req, res) => {
