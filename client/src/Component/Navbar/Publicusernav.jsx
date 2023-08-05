@@ -7,6 +7,8 @@ const Publicusernav = () => {
   const login_id=localStorage.getItem('login_id');
   const navigate = useNavigate()
   const [medicalstore, setMedicalstore] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+
   const [inputs, setInputs] = useState({
     login_id:login_id
   });
@@ -81,6 +83,20 @@ const registerSubmit = (event) => {
   });
 };
 
+  useEffect(() => {
+    fetch(`http://localhost:5000/addcart/view-cart/${login_id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setCartItems(data.data);
+        }
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  }, [login_id]);
+  const totalQuantity = cartItems.reduce((total, item) => total + item.medicinequantity, 0);
+
   return (
     <>
     <div className="banner_bg_main">
@@ -127,9 +143,9 @@ const registerSubmit = (event) => {
 </a>
 
           <a href="index">Home</a>
-          <a href="">My Profile</a>
+          <a href="usermyprofile">My Profile</a>
           <a href="Order">My Order</a>
-          <a href="Orders">Orders History</a>
+          
           <a href="ordertrack">Track Order</a>
           {/* <a href="">Add Address</a> */}
           {/* <a href="">Payment</a> */}
@@ -138,6 +154,7 @@ const registerSubmit = (event) => {
           <a href="wishlist">Wishlist</a>
           {/* <a href="">Privacy policy</a>
           <a href="">Terms &amp; Conditions</a> */}
+          <a href="userchangepassword">Change Password</a>
           <a onClick={logout}>Log Out</a>
         </div>
         <span className="toggle_icon" onClick={openNav}>
@@ -204,7 +221,7 @@ const registerSubmit = (event) => {
     </div>
         <div className="main">
           {/* Another variation with a button */}
-          <div className="input-group">
+          {/* <div className="input-group">
             <input
               type="text"
               className="form-control"
@@ -219,7 +236,7 @@ const registerSubmit = (event) => {
                 <i className="fa fa-search"/>
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="header_box">
          
@@ -229,7 +246,7 @@ const registerSubmit = (event) => {
               <div class="icons">
               <Link to={`/Ecart/:id`} className="icons-btn d-inline-block bag">            
               <span class="icon-shopping-bag"></span>
-              <span class="number">2</span>
+              <span class="number" style={{color:'white'}}>{cartItems.medicinequantity}cart</span>
             </Link>  
             
             <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
@@ -245,10 +262,10 @@ const registerSubmit = (event) => {
     <span className="name_user" onClick={toggleDropdown}>User</span>
   </a>
       <div className={`dropdown-menu ${isOpen ? 'show' : ''}`}>
-        <a className="dropdown-item" href="#">
+        <a className="dropdown-item" href="usermyprofile">
           My Profile
         </a>
-        <a className="dropdown-item" href="#">
+        <a className="dropdown-item" href="userchangepassword">
           Settings
         </a>
         <a className="dropdown-item" onClick={logout}>
@@ -278,7 +295,8 @@ const registerSubmit = (event) => {
                   Your favriot shoping
                 </h1>
                 <div className="buynow_bt">
-                  <a href="shop">Buy Now</a>
+                <Link to={'/shop/64ac21a0d32f4c2d5f3e45e5'}>
+          Buy Now</Link>
                 </div>
               </div>
             </div>

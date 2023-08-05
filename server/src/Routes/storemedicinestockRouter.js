@@ -198,6 +198,32 @@ storemedicinestockRouter.put('/edit-medicine/:id', async (req, res) => {
     });
   }
 });
+storemedicinestockRouter.get('/store-view-medicine/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const userprofile = await addmedicinestockModel.find({_id:id});
+    if (userprofile.length > 0) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        data: userprofile,
+      });
+    } else {
+      return res.status(400).json({
+        success: false,
+        error: true,
+        message: 'No items found in wishlist',
+      });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      error: true,
+      message: 'Something went wrong',
+      details: error,
+    });
+  }
+});
 
 
 

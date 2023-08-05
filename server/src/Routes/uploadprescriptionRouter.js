@@ -72,6 +72,7 @@ uploadprescriptionRouter.get('/viewprescription/:id', async (req, res) => {
           store_id:{$first:'$store_id'},
           prescriptionimage:{$first:'$prescriptionimage'},
           date_time:{$first:'$date_time'},
+          status:{$first:'$status'},
           order_id:{$first:'$order_id'},
           name:{$first:'$result.name'},
           email:{$first:'$result.email'},
@@ -153,6 +154,39 @@ uploadprescriptionRouter.delete('/prescriptions/:id', async (req, res) => {
     });
   }
 });
+uploadprescriptionRouter.post('/update-prescription-status/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const updatedData = { 
+      status: 'Shipped',
+    };
+
+    const updatedApplication = await uploadprescriptionModel.updateOne({ order_id: id }, { $set: updatedData });
+
+    if (updatedApplication.nModified > 0) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        message: "Status updated successfully",
+        details: updatedApplication,
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        error: true,
+        message: "Status not found",
+      });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      error: true,
+      message: "Something went wrong",
+      details: error,
+    });
+  }
+});
 
 uploadprescriptionRouter.post('/add-prescription', async (req, res) => {
   try {
@@ -164,6 +198,7 @@ uploadprescriptionRouter.post('/add-prescription', async (req, res) => {
       prescriptionimage: req.body.prescriptionimage,
       date_time: req.body.date_time,
       order_id:orderId,
+      status:'processing'
     });
     const savedPrescription = await newPrescription.save();
 
@@ -186,6 +221,7 @@ uploadprescriptionRouter.post('/add-prescription', async (req, res) => {
     });
   }
 });
+
 const generateRandomNumberString = (length) => {
   const numbers = '0123456789';
   let result = '';

@@ -43,14 +43,20 @@ const DeliveryBoy = () => {
             />
           </div>
           <div className="input-group">
-            <input
-              className="input--style-3"
-              type="text"
-              placeholder="Phone"
-              name="phone"
-              value={inputs.phone || ""}
-              onChange={setRegister}
-            />
+          <input
+  className="input--style-3"
+  type="text"
+  placeholder="Phone"
+  name="phone"
+  value={inputs.phone}
+  onChange={setRegister}
+  onKeyPress={(event) => {
+    if (!/[0-9]/.test(event.key) || event.target.value.length >= 10) {
+      event.preventDefault();
+    }
+  }}
+  required
+/>
           </div>
           <div className="input-group">
             <input

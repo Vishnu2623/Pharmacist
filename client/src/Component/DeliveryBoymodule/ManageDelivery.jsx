@@ -1,55 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Homepage from '../../Pages/DeliveryBoy/Homepage';
+import axios from 'axios';
 
 const ManageDelivery = () => {
-  const [orders, setOrders] = useState([
-    {
-      id: 1,
-      itemName: 'Paracetamol',
-      customerName: 'John Doe',
-      deliveryAddress: 'pattattil house pariyapuram po mukkola tanur',
-      phoneNo: '9072823381',
-      status: 'Delivered',
-      isEditing: false
-    },
-    {
-      id: 2,
-      itemName: 'Paracetamol',
-      customerName: 'Jane Smith',
-      deliveryAddress: 'pattattil house pariyapuram po mukkola tanur',
-      phoneNo: '9072823381',
-      status: 'Not Delivered',
-      isEditing: false
-    },
-    {
-      id: 3,
-      itemName: 'Paracetamol',
-      customerName: 'Alex Johnson',
-      deliveryAddress: 'pattattil house pariyapuram po mukkola tanur',
-      phoneNo: '9072823381',
-      status: 'Delivered',
-      isEditing: false
-    }
-  ]);
+  const id = localStorage.getItem('delivery_boy_id');
+  const [orders, setOrders] = useState([]);
 
-  const handleStatusChange = (event, orderId) => {
-    const updatedOrders = orders.map((order) => {
-      if (order.id === orderId) {
-        return { ...order, status: event.target.value };
-      }
-      return order;
-    });
-    setOrders(updatedOrders);
+  useEffect(() => {
+    fetch(`http://localhost:5000/payment/vieworders/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setOrders(data.data);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching orders:', error);
+      });
+  }, [id]);
+
+  const updateOrderStatus = (orderId, newStatus) => {
+    axios
+      .post(`http://localhost:5000/payment/update-delivery-status/${orderId}`, { status: newStatus })
+      .then((response) => {
+        if (response.data.success) {
+          setOrders((prevOrders) =>
+            prevOrders.map((order) =>
+              order.order_id === orderId ? { ...order, status: newStatus, isEditing: false } : order
+            )
+          );
+        }
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
   };
 
-  const toggleEditing = (orderId) => {
-    const updatedOrders = orders.map((order) => {
-      if (order.id === orderId) {
-        return { ...order, isEditing: !order.isEditing };
-      }
-      return order;
-    });
-    setOrders(updatedOrders);
+  const handleEditClick = (order) => {
+    const updatedOrder = { ...order, isEditing: !order.isEditing };
+    setOrders((prevOrders) =>
+      prevOrders.map((o) => (o.order_id === order.order_id ? updatedOrder : o))
+    );
   };
 
   return (
@@ -61,33 +52,40 @@ const ManageDelivery = () => {
           <table id="orderTable" className="statustable">
             <thead>
               <tr>
+                <th className="statusth">SL No</th>
                 <th className="statusth">Order ID</th>
-                <th className="statusth">Order Item Name</th>
+                <th className="statusth">Amount</th>
                 <th className="statusth">Customer Name</th>
                 <th className="statusth">Delivery Address</th>
                 <th className="statusth">Phone No</th>
                 <th className="statusth">Status</th>
-                 <th className="statusth">Action</th>
+                <th className="statusth">Action</th>
               </tr>
             </thead>
             <tbody>
-              {orders.map((order) => (
+              {orders.filter(order => order.delivery_pincode === order.pincode).map((order, index) => (
                 <tr key={order.id}>
-                  <td className="statustd">{order.id}</td>
-                  <td className="statustd">{order.itemName}</td>
-                  <td className="statustd">{order.customerName}</td>
-                  <td className="statustd">{order.deliveryAddress}</td>
-                  <td className="statustd">{order.phoneNo}</td>
+                  <td className="statustd">{index + 1}</td>
+                  <td className="statustd">{order.order_id}</td>
+                  <td className="statustd">{order.totalAmount}</td>
+                  <td className="statustd">{order.firstname}</td>
+                  <td className="statustd">{order.address}</td>
+                  <td className="statustd">{order.phone}</td>
                   <td className="statustd">
                     {order.isEditing ? (
                       <select
-                        className="statusupdate-btn"
-                        value={order.status}
-                        onChange={(e) => handleStatusChange(e, order.id)}
-                      >
-                        <option value="Delivered">Delivered</option>
-                        <option value="Not Delivered">Not Delivered</option>
-                      </select>
+                      className="statusupdate-btn"
+                      value={order.status}
+                      name="status"
+                      onChange={(e) => {
+                        const newStatus = e.target.value;
+                        updateOrderStatus(order.order_id, newStatus);
+                      }}
+                    >
+                      <option value="Delivered">Delivered</option>
+                      <option value="Not Delivered">Not Delivered</option>
+                    </select>
+                    
                     ) : (
                       order.status
                     )}
@@ -95,9 +93,9 @@ const ManageDelivery = () => {
                   <td className="statustd">
                     <button
                       className="statusupdate-btn"
-                      onClick={() => toggleEditing(order.id)}
+                      onClick={() => handleEditClick(order)}
                     >
-                      {order.isEditing ? 'Save' : 'Edit'}
+                      Edit
                     </button>
                   </td>
                 </tr>

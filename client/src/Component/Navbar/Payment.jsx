@@ -7,9 +7,17 @@ import axios from 'axios';
 
 const Payment = () => {
   const id = localStorage.getItem('login_id');
+  const [selectedPaymentType, setSelectedPaymentType] = useState("");
   const [inputs, setInputs] = useState({
     login_id:id,
-   
+    state: '',
+    firstname: '',
+    lastname: '',
+    housename: '',
+    address: '',
+    city: '',
+    pincode: '',
+    phone: '',
   });
   const navigate = useNavigate();
   const location = useLocation();
@@ -35,8 +43,59 @@ const Payment = () => {
     setInputs({ ...inputs, [name]: value });
     console.log(inputs);
   };
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      console.log(inputs);
+    }
+  }, [formErrors]);
+
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const phone = /^[6-9]\d{9}$/;
+
+    if (!values.firstname) {
+      errors.firstname = 'Name is required!';
+    }   if (!values.state) {
+      errors.state = 'State is required!';
+    }
+    if (!values.lastname) {
+      errors.lastname = 'Lastname is required!';
+    }
+    if (!values.address) {
+      errors.address = 'Address is required!';
+    }
+    if (!values.city) {
+      errors.city = 'City is required!';
+    }
+    if (!values.pincode) {
+      errors.pincode = 'Pincode is required!';
+    }
+    if (!values.housename) {
+      errors.housename = 'House name is required!';
+    }
+    if (!values.email) {
+      errors.email = 'Email is required!';
+    } else if (!regex.test(values.email)) {
+      errors.email = 'Invalid email format!';
+    }
+    if (!values.phone) {
+      errors.phone = 'Contact Number is required!';
+    } else if (!phone.test(values.phone)) {
+      errors.phone = 'Invalid Contact Number!';
+    }
+ 
+    return errors;
+  };
   const registersubmit = (event) => {
     event.preventDefault();
+    const errors = validate(inputs);
+    setFormErrors(errors);
+    setIsSubmit(true);
+
+    if (Object.keys(errors).length === 0) {
     window.location.href = event.target.href;
 
     const cartItemsData = cartItems.map((item) => ({
@@ -48,7 +107,13 @@ const Payment = () => {
     const subtotal = calculateSubtotal();
     const totalamount = calculateTotal();
   
-    const updatedInputs = { ...inputs, cartItems: cartItemsData, totalamount };
+    // const updatedInputs = { ...inputs, cartItems: cartItemsData, totalamount };
+    const updatedInputs = {
+      ...inputs,
+      cartItems: cartItemsData,
+      totalamount,
+      paymentType: selectedPaymentType, 
+    };
   
     axios
       .post(`http://localhost:5000/payment/save-order/${id}`,updatedInputs)
@@ -58,7 +123,7 @@ const Payment = () => {
       .catch((error) => {
         console.log('Error:', error);
       });
-  };
+  };}
   
 
   const renderCartItems = () => {
@@ -83,7 +148,7 @@ const Payment = () => {
   const calculateTotal = () => {
     return calculateSubtotal();
   };
-
+  
   return (
     <>
       <>
@@ -105,6 +170,9 @@ const Payment = () => {
                 <h2 className="h3 mb-3 text-black">Billing Details</h2>
                 <div className="p-3 p-lg-5 border">
                   <div className="form-group">
+                  <span className="errormsg" style={{ color: 'red' }}>
+                    {formErrors.state}
+                  </span>
                     <label htmlFor="c_country" className="text-black">
                       State <span className="text-danger">*</span>
                     </label>
@@ -113,6 +181,7 @@ const Payment = () => {
                       name="state"
                       value={inputs.state || ""}
                       onChange={setRegister}
+                    required
                     >
                       <option value="Select a State">Select a State</option>
                       <option value="Kerala">Kerala</option>
@@ -127,6 +196,9 @@ const Payment = () => {
                   </div>
                   <div className="form-group row">
               <div className="col-md-6">
+              <span className="errormsg" style={{ color: 'red' }}>
+                    {formErrors.firstname}
+                  </span>
                 <label htmlFor="c_fname" className="text-black">
                   First Name <span className="text-danger">*</span>
                 </label>
@@ -139,6 +211,9 @@ const Payment = () => {
                 />
               </div>
               <div className="col-md-6">
+              <span className="errormsg" style={{ color: 'red' }}>
+                    {formErrors.lastname}
+                  </span>
                 <label htmlFor="c_lname" className="text-black">
                   Last Name <span className="text-danger">*</span>
                 </label>
@@ -153,7 +228,10 @@ const Payment = () => {
             </div>
             <div className="form-group row">
               <div className="col-md-12">
-                <label htmlFor="c_companyname" className="text-black">
+              <span className="errormsg" style={{ color: 'red' }}>
+                    {formErrors.housename}
+                  </span>
+                <label htmlFor="housename" className="text-black">
                   House Name{" "}
                 </label>
                 <input
@@ -167,6 +245,9 @@ const Payment = () => {
             </div>
             <div className="form-group row">
               <div className="col-md-12">
+              <span className="errormsg" style={{ color: 'red' }}>
+                    {formErrors.address}
+                  </span>
                 <label htmlFor="c_address" className="text-black">
                   Address <span className="text-danger">*</span>
                 </label>
@@ -193,6 +274,9 @@ const Payment = () => {
             </div>
             <div className="form-group row">
               <div className="col-md-6">
+              <span className="errormsg" style={{ color: 'red' }}>
+                    {formErrors.city}
+                  </span>
                 <label htmlFor="c_state_country" className="text-black">
                   District / City <span className="text-danger">*</span>
                 </label>
@@ -205,6 +289,9 @@ const Payment = () => {
                 />
               </div>
               <div className="col-md-6">
+              <span className="errormsg" style={{ color: 'red' }}>
+                    {formErrors.pincode}
+                  </span>
                 <label htmlFor="c_postal_zip" className="text-black">
                  Pincode <span className="text-danger">*</span>
                 </label>
@@ -219,11 +306,14 @@ const Payment = () => {
             </div>
             <div className="form-group row mb-5">
               <div className="col-md-6">
+              <span className="errormsg" style={{ color: 'red' }}>
+                    {formErrors.email}
+                  </span>
                 <label htmlFor="c_email_address" className="text-black">
                   Email Address <span className="text-danger">*</span>
                 </label>
                 <input
-                  type="text"
+                  type="email"
                   className="form-control"
                   name='email'
                   value={inputs.email || ""}
@@ -231,17 +321,26 @@ const Payment = () => {
                 />
               </div>
               <div className="col-md-6">
+              <span className="errormsg" style={{ color: 'red' }}>
+                    {formErrors.phone}
+                  </span>
                 <label htmlFor="c_phone" className="text-black">
                   Phone <span className="text-danger">*</span>
                 </label>
                 <input
-                  type="text"
-                  className="form-control"
-                  name='phone'
-                  value={inputs.phone || ""}
-                onChange={setRegister}
-                  placeholder="Phone Number"
-                />
+  className="input--style-3"
+  type="text"
+  placeholder="Phone"
+  name="phone"
+  value={inputs.phone}
+  onChange={setRegister}
+  onKeyPress={(event) => {
+    if (!/[0-9]/.test(event.key) || event.target.value.length >= 10) {
+      event.preventDefault();
+    }
+  }}
+  required
+/>
               </div>
             </div>
                 </div>
@@ -285,17 +384,12 @@ const Payment = () => {
       role="button"
       aria-expanded="false"
       aria-controls="collapsebank"
+      onClick={() => setSelectedPaymentType("Direct Bank Transfer")} // Set payment type
     >
       Direct Bank Transfer
     </a>
   </h3>
-  <div className="collapse" id="collapsebank">
-    <div className="py-2 px-4">
-      <p className="mb-0">
-        Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won't be shipped until the funds have cleared in our account.
-      </p>
-    </div>
-  </div>
+  {/* ... */}
 </div>
 <div className="border mb-3">
   <h3 className="h6 mb-0">
@@ -306,17 +400,12 @@ const Payment = () => {
       role="button"
       aria-expanded="false"
       aria-controls="collapsecheque"
+      onClick={() => setSelectedPaymentType("Cheque Payment")} // Set payment type
     >
       Cheque Payment
     </a>
   </h3>
-  <div className="collapse" id="collapsecheque">
-    <div className="py-2 px-4">
-      <p className="mb-0">
-        Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won't be shipped until the funds have cleared in our account.
-      </p>
-    </div>
-  </div>
+  {/* ... */}
 </div>
 <div className="border mb-5">
   <h3 className="h6 mb-0">
@@ -327,17 +416,28 @@ const Payment = () => {
       role="button"
       aria-expanded="false"
       aria-controls="collapsepaypal"
+      onClick={() => setSelectedPaymentType("Paypal")} // Set payment type
     >
       Paypal
     </a>
   </h3>
-  <div className="collapse" id="collapsepaypal">
-    <div className="py-2 px-4">
-      <p className="mb-0">
-        Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won't be shipped until the funds have cleared in our account.
-      </p>
-    </div>
-  </div>
+  {/* ... */}
+</div>
+<div className="border mb-5">
+  <h3 className="h6 mb-0">
+    <a
+      className="d-block"
+      data-toggle="collapse"
+      href="#collapsepaypal"
+      role="button"
+      aria-expanded="false"
+      aria-controls="collapsepaypal"
+      onClick={() => setSelectedPaymentType("Cash on Delivery")} 
+    >
+     Cash on Delivery
+    </a>
+  </h3>
+  {/* ... */}
 </div>
 
                       <div className="form-group">

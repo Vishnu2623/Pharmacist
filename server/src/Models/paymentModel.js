@@ -15,6 +15,7 @@ const paymentSchema = new Schema({
   pincode: { type: String },
   email: { type: String },
   phone: { type: String },
+  paymentType: { type: String },
   date: { type:Date},
   order_id: { type:String},
   status: { type:String},

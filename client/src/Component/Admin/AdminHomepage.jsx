@@ -1,7 +1,8 @@
-import React, {useState}from 'react'
-
+import React, {useEffect, useState}from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const AdminHomepage = () => {
+  const navigate = useNavigate()
   const [activeDropdown, setActiveDropdown] = useState(null);
 
   const toggleDropdown = (dropdown) => {
@@ -11,6 +12,27 @@ const AdminHomepage = () => {
       setActiveDropdown(dropdown);
     }
   };
+  const logout = () => {
+    localStorage.removeItem('login_id')
+    localStorage.removeItem('role')
+    localStorage.removeItem('name')
+    navigate('/')
+  }
+  useEffect(() => {
+    const login_id = localStorage.getItem('login_id')
+    if (!login_id) {
+      navigate('/')
+    }
+  }, [])
+  const login_id=localStorage.getItem('login_id')
+  if (!login_id) {
+    navigate('/login')
+  }
+
+const handleSearch = (event) => {
+  const searchTerm = event.target.value;
+};
+
   return (
     <>
     <input type="checkbox" id="nav-toggle" />
@@ -93,8 +115,14 @@ const AdminHomepage = () => {
               <span style={{ marginLeft: '8px' }}>View Orders</span>
             </a>
           </li>
+          <li>
+            <a href="viewcontact">
+              <span className="bi bi-eye" />
+              <span style={{ marginLeft: '8px' }}>View Contact Us</span>
+            </a>
+          </li>
     </ul>
-             <li><a href=""><span class="bi bi-box-arrow-right"></span><span style={{ marginLeft: '8px' }}>Log Out</span></a></li>
+             <li><a href="/" onClick={logout}><span class="bi bi-box-arrow-right"></span><span style={{ marginLeft: '8px' }}>Log Out</span></a></li>
             {/* <li><a href=""><span class="las la-clipboard-list"></span><span>Tasks</span></a></li> */} 
         
       </div>
@@ -109,7 +137,8 @@ const AdminHomepage = () => {
         </h2>
         <div className="search-wrapper">
             <span className="las la-search"></span>
-            <input type="search" placeholder="Search here"/>
+            <input type="search" placeholder="Search here" onChange={handleSearch} />
+
            </div>
         <div className="user-wrapper">
   <div className="dropdown">
@@ -121,7 +150,7 @@ const AdminHomepage = () => {
     </button>
     <div className="dropdown-content">
       <a href="Cpassword">Setting</a>
-      <a href="#">Logout</a>
+      <a href="/">Logout</a>
     </div>
   </div>
 </div>

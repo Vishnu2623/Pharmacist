@@ -8,8 +8,8 @@ const addcartSchema=new schema({
     medicinename:{type:String},
     medicineimage:{type:String},
     medicinequantity:{type:String},
-    medicineprice:{type:String}
-
+    medicineprice:{type:String},
+    needprescription:{type:String}
 })
 const addcartModel = mongoose.model('addcart_tb',addcartSchema)
 module.exports =addcartModel

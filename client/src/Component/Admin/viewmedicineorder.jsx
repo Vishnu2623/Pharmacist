@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import AdminHomepage from './AdminHomepage';
-
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 const Vieworder = () => {
+  const { id } = useParams();
   const [orders, setOrders] = useState([]);
   useEffect(() => {
     fetch('http://localhost:5000/payment/view-details')
@@ -15,24 +17,20 @@ const Vieworder = () => {
         console.error('Error fetching users:', error);
       });
   }, []);
-  const handleStatusChange = (event, orderId) => {
-    const updatedOrders = orders.map((order) => {
-      if (order.id === orderId) {
-        return { ...order, status: event.target.value };
-      }
-      return order;
-    });
-    setOrders(updatedOrders);
-  };
+  const handleStatusUpdate = (orderId) => {
+    axios
+      .post(`http://localhost:5000/payment/update-admin-status/${orderId}`)
+      .then((response) => {
+        console.log(response.data);
 
-  const toggleEditing = (orderId) => {
-    const updatedOrders = orders.map((order) => {
-      if (order.id === orderId) {
-        return { ...order, isEditing: !order.isEditing };
-      }
-      return order;
-    });
-    setOrders(updatedOrders);
+        const updatedOrders = orders.map((order) =>
+          order.order_id === orderId ? { ...order, status: 'Shipped' } : order
+        );
+        setOrders(updatedOrders);
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
   };
 
   return (
@@ -67,28 +65,20 @@ const Vieworder = () => {
                   <td className="statustd">{order.address}</td>
                   <td className="statustd">{order.email}</td>
                   <td className="statustd">{order.phone}</td>
+                  <td className="statustd">{order.status}</td>
                   <td className="statustd">
-                    {order.isEditing ? (
-                      <select
-                        className="statusupdate-btn"
-                        value={order.status}
-                        onChange={(e) => handleStatusChange(e, order.id)}
-                      >
-                        <option value="Processing">Processing</option>
-                        <option value="Shipped">Shipped</option>
-                      </select>
-                    ) : (
-                      order.status
-                    )}
-                  </td>
-                  <td className="statustd">
-                    <button
-                      className="statusupdate-btn"
-                      onClick={() => toggleEditing(order.id)}
-                    >
-                      {order.isEditing ? 'Save' : 'Edit'}
-                    </button>
-                  </td>
+                      {order.status !== 'Shipped' ? (
+                        <button
+                          className="statusupdate-btn"
+                          onClick={() => handleStatusUpdate(order.order_id)}
+                        >
+                          {order.status === 'Updated' ? 'Updated' : 'Update Status'}
+                        </button>
+                      ) : (
+                        'Updated'
+                      )}
+                    </td>
+                 
                 </tr>
               ))}
             </tbody>

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import MedicalStorePage from '../../Pages/MedicalStore/MedicalStorePage'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Editmedicine = () => {
   const { id } = useParams();
   const [medicine, setMedicine] = useState({ medicinesubcategory: '', needprescription: '', medicinename: '',medicinedescription: '',medicineprice: '',medicinequantity: '',medicineprice: '', });
@@ -65,21 +66,48 @@ console.log(medicine);
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          console.log(data.message);
+          console.log('Medicine updated successfully!');
+          toast.success('Medicine updated successfully!', {
+            position: 'top-center',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         } else {
           console.log(data.message);
+          toast.error('Error updating medicine: ' + data.message, {
+            position: 'top-center',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
       })
       .catch((error) => {
-        console.log('Error:', error);
+        console.error('Error updating medicine:', error);
+        toast.error('An error occurred while updating medicine.', {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
   };
-  
   return (<>
      <MedicalStorePage/>
      <div className="main-content" style={{marginTop:'100px'}}>
 
     <div className="productcontainer">
+    <ToastContainer />
   <h2 className="text-center mb-4">Update Medicine</h2>
   <form onSubmit={handleSubmit}>
   <div className="productform-group">

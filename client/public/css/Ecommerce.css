@@ -18,6 +18,7 @@
     transition: ease all 0.5s;
 }
 
+  
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;

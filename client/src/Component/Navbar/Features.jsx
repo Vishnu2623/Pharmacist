@@ -33,13 +33,13 @@ const Features = () => {
           <h1 className="fa fa-check text-primary m-0 mr-3" />
           <a href="#" />
           <h5 className="font-weight-semi-bold m-0">
-         <Link to={'/shop'}>
+         <Link to={'/shop/64ac21a0d32f4c2d5f3e45e5'}>
           Medicines</Link>
 
           </h5>
         </div>
       </div>
-      <div className="col-lg-3 col-md-6 col-sm-12 pb-1">
+      <div className="col-lg-3 col-md-6 col-sm-12 pb-1"style={{marginLeft:'130px'}}>
         <div
           className="d-flex align-items-center bg-light mb-4"
           style={{ padding: 30,marginTop:"20px" }}
@@ -47,11 +47,12 @@ const Features = () => {
           <h1 className="fa fa-shipping-fast text-primary m-0 mr-2" />
           <a href="#" />
           <h5 className="font-weight-semi-bold m-0">
-            <a href="shop">Ayurvedic Medicines</a>
+          <Link to={'/shop/64c143a3dc89321706694413'}>
+          Ayurvedic</Link>
           </h5>
         </div>
       </div>
-      <div className="col-lg-3 col-md-6 col-sm-12 pb-1">
+      {/* <div className="col-lg-3 col-md-6 col-sm-12 pb-1">
         <div
           className="d-flex align-items-center bg-light mb-4"
           style={{ padding: 30,marginTop:"20px" }}
@@ -62,8 +63,8 @@ const Features = () => {
             <a href="Orders">Order History</a>
           </h5>
         </div>
-      </div>
-      <div className="col-lg-3 col-md-6 col-sm-12 pb-1">
+      </div> */}
+      <div className="col-lg-3 col-md-6 col-sm-12 pb-1" style={{marginLeft:'160px'}}>
         <div
           className="d-flex align-items-center bg-light mb-4"
           style={{ padding: 30,marginTop:"20px" }}

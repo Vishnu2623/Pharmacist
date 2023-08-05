@@ -79,6 +79,33 @@ addmedicineRouter.get('/view-medicine', async (req, res) => {
     });
   }
 });
+
+addmedicineRouter.get('/view-medicine-details/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const medicine = await adminaddmedicineModel.find({_id:id });
+    if (medicine.length > 0) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        data:medicine,
+      });
+    } else {
+      return res.status(400).json({
+        success: false,
+        error: true,
+        message: 'No data found',
+      });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      error: true,
+      message: 'Something went wrong',
+      details: error,
+    });
+  }
+});
 addmedicineRouter.get('/view-medicine/:id', async (req, res) => {
   try {
     const id = req.params.id;

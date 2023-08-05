@@ -26,6 +26,7 @@ loginRouter.post('/login', async (req, res) => {
                     error: false,
                     role:oldUser.role,
                     login_id: oldUser._id,
+                    
                     details: oldUser
                 })
             }
@@ -34,6 +35,7 @@ loginRouter.post('/login', async (req, res) => {
                 console.log(oldUser);
                 const user= await userRegisterModel.findOne({ login_id: oldUser._id });
                 if (user) {
+                  if(oldUser.status=='1'){
                   return res.status(200).json({
                     success: true,
                     error: false,
@@ -44,11 +46,20 @@ loginRouter.post('/login', async (req, res) => {
                     details: oldUser
                   })
                 }
-              }
+                else{
+                  return res.status(406).json({
+                    success:false,
+                    error:true,
+                    message:"waiting for admin approval!"
+                  })
+                }
+              }}
+             
             if (oldUser.role == '2') {
                 console.log(oldUser);
                 const medicalStore = await storeRegisterModel.findOne({ login_id: oldUser._id });
                 if (medicalStore) {
+                if(oldUser.status=='1'){
                   return res.status(200).json({
                     success: true,
                     error: false,
@@ -59,7 +70,14 @@ loginRouter.post('/login', async (req, res) => {
                     details: oldUser
                   })
                 }
-              }
+                else{
+                  return res.status(406).json({
+                    success:false,
+                    error:true,
+                    message:"waiting for admin approval!"
+                  })
+                }
+              }}
               if (oldUser.role == '3') {
                 const deliveryBoy = await dbRegisterModel.findOne({ login_id: oldUser._id });
                 if (deliveryBoy) {

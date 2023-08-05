@@ -51,8 +51,110 @@ const mongoose = require('mongoose');
 //     });
 //   }
 // });
-paymentRouter.get('/store-orders',async(req,res)=>{
+
+paymentRouter.post('/update-admin-status/:id', async (req, res) => {
   try {
+    const id = req.params.id;
+
+    const updatedData = { 
+      status: 'Shipped',
+    };
+
+    const updatedApplication = await paymentModel.updateOne({ order_id: id }, { $set: updatedData });
+
+    if (updatedApplication.nModified > 0) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        message: "Status updated successfully",
+        details: updatedApplication,
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        error: true,
+        message: "Status not found",
+      });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      error: true,
+      message: "Something went wrong",
+      details: error,
+    });
+  }
+});
+paymentRouter.post('/update-delivery-status/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { status } = req.body;
+
+    const updatedData = {
+      status: status,
+    };
+
+    const updatedApplication = await paymentModel.updateOne({ order_id: id }, { $set: updatedData });
+
+    if (updatedApplication.nModified > 0) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        message: "Status updated successfully",
+        details: updatedApplication,
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        error: true,
+        message: "Status not found",
+      });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      error: true,
+      message: "Something went wrong",
+      details: error,
+    });
+  }
+});
+paymentRouter.post('/update-store-status/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const updatedData = { 
+      status: 'Shipped',
+    };
+
+    const updatedApplication = await paymentModel.updateOne({ order_id: id }, { $set: updatedData });
+
+    if (updatedApplication.nModified > 0) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        message: "Status updated successfully",
+        details: updatedApplication,
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        error: true,
+        message: "Status not found",
+      });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      error: true,
+      message: "Something went wrong",
+      details: error,
+    });
+  }
+});
+paymentRouter.get('/store-orders/:id',async(req,res)=>{
+  try {
+    const id=req.params.id;
       const users = await paymentModel.aggregate([
         {
           '$lookup': {
@@ -66,6 +168,9 @@ paymentRouter.get('/store-orders',async(req,res)=>{
               "$unwind":"$storeorder"
           },
           {
+            $match: { 'storeorder.login_id':new mongoose.Types.ObjectId(id) },
+          },
+          {
             $project: {
               _id: 1,
               date: 1,
@@ -77,7 +182,8 @@ paymentRouter.get('/store-orders',async(req,res)=>{
               totalAmount: 1,
               amount:1,
               address: 1,
-              status:'processing',
+              status:1,
+              login_id: '$storeorder.login_id',
               medicinename: '$storeorder.medicinename',
               medicineimage: '$storeorder.medicineimage',
             },
@@ -131,6 +237,7 @@ paymentRouter.get('/view-details',async(req,res)=>{
               totalAmount: 1,
               amount:1,
               address: 1,
+              status: 1,
               medicinename: '$order.medicinename',
               medicineimage: '$order.medicineimage',
             },
@@ -270,6 +377,67 @@ paymentRouter.get('/myorder/:id', async (req, res) => {
     });
   }
 });
+
+paymentRouter.get('/vieworders/:id', async (req, res) => {
+  try {
+   const id=req.params.id;
+    const orders = await paymentModel.aggregate([
+      {
+        $lookup: {
+          from: 'assigndeliveryboy_tbs',
+          localField: 'pincode',
+          foreignField: 'pincode',
+          as: 'delivery',
+        },
+      },
+      {
+        $unwind: '$delivery',
+      },
+      {
+        $match: { 'delivery.deliveryboy_id':new mongoose.Types.ObjectId(id) },
+      },
+      {
+         $group: {
+          _id: '$_id',
+           date: { $first: '$date' },
+           order_id: { $first: '$order_id' },
+           firstname: { $first: '$firstname' },
+          totalAmount: { $first: '$totalAmount' },
+         address: { $first: '$address' },
+          addressline: { $first: '$addressline' },
+           status: { $first: '$status' },
+             housename: { $first: '$housename' },
+         pincode: { $first: '$pincode' },
+         phone: { $first: '$phone' },
+         deliveryboy_id: { $first: '$delivery.deliveryboy_id' },
+        delivery_pincode: { $first: '$delivery.pincode' },
+        medicine_id: { $first: '$medicine_id' },
+         },
+      },
+    ]);
+
+    if (orders.length > 0) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        data: orders,
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        error: true,
+        message: 'No data found',
+      });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      error: true,
+      message: 'Something went wrong',
+      details: error.message,
+    });
+  }
+});
 paymentRouter.get('/view-details/:trackingNumber', async (req, res) => {
   try {
     const trackingNumber = req.params.trackingNumber;
@@ -297,7 +465,7 @@ paymentRouter.get('/view-details/:trackingNumber', async (req, res) => {
           medicinequantity: 1,
           totalAmount: 1,
           address: 1,
-          status: 'processing',
+          status:1,
           medicinename: '$medicine.medicinename',
           medicineimage: '$medicine.medicineimage',
         },
@@ -353,6 +521,7 @@ paymentRouter.post('/save-order/:id', async (req, res) => {
         email: req.body.email,
         phone: req.body.phone,
         amount: req.body.amount,
+        paymentType: req.body.paymentType,
         status:'processing',
         order_id: orderId,
         medicinename: req.body.medicinename,
@@ -360,7 +529,7 @@ paymentRouter.post('/save-order/:id', async (req, res) => {
         time: req.body.time,
         date: formattedDate,
         totalAmount:totalAmount,
-        status: 0,
+       
       });
 
       datas.push(await orderData.save());
@@ -388,5 +557,8 @@ const generateRandomNumberString = (length) => {
   }
   return result;
 };
+
+
+
 
 module.exports = paymentRouter;

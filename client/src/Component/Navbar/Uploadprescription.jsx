@@ -162,6 +162,7 @@ const Uploadprescription = () => {
             <th>Order ID</th>
               <th>File Name</th>
               <th>Uploaded On</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -174,6 +175,7 @@ const Uploadprescription = () => {
                 {new Date(prescription.date_time).toLocaleDateString()}{' '}
                 {new Date(prescription.date_time).toLocaleTimeString()}
               </td>
+              <td>{prescription.status}</td>
               <td>
                 <button
                   type="button"

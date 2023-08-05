@@ -1,6 +1,33 @@
-import React from 'react'
-
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Contact = () => {
+  const navigate = useNavigate();
+  const [inputs, setInputs] = useState({});
+  console.log('value==>', inputs);
+ 
+  const setRegister = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs({ ...inputs, [name]: value });
+    console.log(inputs);
+  };
+  const registerSubmit = (event) => {
+    event.preventDefault();
+    axios.post('http://localhost:5000/contact/contactus', inputs)
+      .then((response) => {
+        console.log(response.data);
+        toast.success('Public Contact successfully added');
+        setInputs({});
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+        toast.error('Failed to add Public Contact');
+      });
+  };
+  
   return (
     <div className="site-wrap">
   <div className="site-navbar py-2">
@@ -19,6 +46,7 @@ const Contact = () => {
       </div>
     </div>
     <div className="container">
+  
       <div className="d-flex align-items-center justify-content-between">
         <div className="logo">
           <div className="site-logo">
@@ -61,12 +89,13 @@ const Contact = () => {
   </div>
   <div className="site-section">
     <div className="container">
+    <ToastContainer />
       <div className="row">
         <div className="col-md-12">
           <h2 className="h3 mb-5 text-black">Get In Touch</h2>
         </div>
         <div className="col-md-12">
-          <form action="#" method="post">
+          <form action="#" onSubmit={registerSubmit}>
             <div className="p-3 p-lg-5 border">
               <div className="form-group row">
                 <div className="col-md-6">
@@ -76,8 +105,10 @@ const Contact = () => {
                   <input
                     type="text"
                     className="form-control"
-                    id="c_fname"
-                    name="c_fname"
+                    name="firstname"
+                    value={inputs.firstname || ''}
+                    onChange={setRegister}
+                    required
                   />
                 </div>
                 <div className="col-md-6">
@@ -87,8 +118,10 @@ const Contact = () => {
                   <input
                     type="text"
                     className="form-control"
-                    id="c_lname"
-                    name="c_lname"
+                    name="lastname"
+                    value={inputs.lastname || ''}
+                    onChange={setRegister}
+                    required
                   />
                 </div>
               </div>
@@ -100,9 +133,10 @@ const Contact = () => {
                   <input
                     type="email"
                     className="form-control"
-                    id="c_email"
-                    name="c_email"
-                    placeholder=""
+                    name="email"
+                    value={inputs.email || ''}
+                    onChange={setRegister}
+                    required
                   />
                 </div>
               </div>
@@ -114,8 +148,10 @@ const Contact = () => {
                   <input
                     type="text"
                     className="form-control"
-                    id="c_subject"
-                    name="c_subject"
+                    name="subject"
+                    value={inputs.subject || ''}
+                    onChange={setRegister}
+                    required
                   />
                 </div>
               </div>
@@ -125,12 +161,14 @@ const Contact = () => {
                     Message{" "}
                   </label>
                   <textarea
-                    name="c_message"
-                    id="c_message"
                     cols={30}
                     rows={7}
                     className="form-control"
                     defaultValue={""}
+                    name="message"
+                    value={inputs.message || ''}
+                    onChange={setRegister}
+                    required
                   />
                 </div>
               </div>
@@ -139,7 +177,7 @@ const Contact = () => {
                   <input
                     type="submit"
                     className="btn btn-primary btn-lg btn-block"
-                    defaultValue="Send Message"
+                    
                   />
                 </div>
               </div>

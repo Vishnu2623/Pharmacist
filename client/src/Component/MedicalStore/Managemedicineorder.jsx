@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import MedicalStorehome from './MedicalStorehome';
+import axios from 'axios';
 
 const Managemedicineorder = () => {
   
+  const id=localStorage.getItem('login_id')
   const [orders, setOrders] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:5000/payment/store-orders')
+    fetch(`http://localhost:5000/payment/store-orders/${id}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -16,26 +18,21 @@ const Managemedicineorder = () => {
         console.error('Error fetching users:', error);
       });
   }, []);
-  const handleStatusChange = (event, orderId) => {
-    const updatedOrders = orders.map((order) => {
-      if (order.id === orderId) {
-        return { ...order, status: event.target.value };
-      }
-      return order;
-    });
-    setOrders(updatedOrders);
-  };
+  const handleStatusUpdate = (orderId) => {
+    axios
+      .post(`http://localhost:5000/payment/update-store-status/${orderId}`)
+      .then((response) => {
+        console.log(response.data);
 
-  const toggleEditing = (orderId) => {
-    const updatedOrders = orders.map((order) => {
-      if (order.id === orderId) {
-        return { ...order, isEditing: !order.isEditing };
-      }
-      return order;
-    });
-    setOrders(updatedOrders);
+        const updatedOrders = orders.map((order) =>
+          order.order_id === orderId ? { ...order, status: 'Shipped' } : order
+        );
+        setOrders(updatedOrders);
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
   };
-
   return (
     <>
       <MedicalStorehome />
@@ -65,27 +62,20 @@ const Managemedicineorder = () => {
                   <td className="statustd">{order.address}</td>
                   <td className="statustd">{order.phone}</td>
                   <td className="statustd">
-                    {order.isEditing ? (
-                      <select
-                        className="statusupdate-btn"
-                        value={order.status}
-                        onChange={(e) => handleStatusChange(e, order.id)}
-                      >
-                        <option value="Processing">Processing</option>
-                        <option value="Shipped">Shipped</option>
-                      </select>
-                    ) : (
-                      order.status
-                    )}
+                   {order.status}
                   </td>
                   <td className="statustd">
-                    <button
-                      className="statusupdate-btn"
-                      onClick={() => toggleEditing(order.id)}
-                    >
-                      {order.isEditing ? 'Save' : 'Edit'}
-                    </button>
-                  </td>
+                      {order.status !== 'Shipped' ? (
+                        <button
+                          className="statusupdate-btn"
+                          onClick={() => handleStatusUpdate(order.order_id)}
+                        >
+                          {order.status === 'Updated' ? 'Updated' : 'Update Status'}
+                        </button>
+                      ) : (
+                        'Updated'
+                      )}
+                    </td>
                 </tr>
               ))}
             </tbody>

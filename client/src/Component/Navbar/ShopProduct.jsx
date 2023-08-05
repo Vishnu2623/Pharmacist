@@ -8,16 +8,17 @@ import axios from 'axios';
 
 const ShopProduct = () => {
   const login_id = localStorage.getItem('login_id');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { id } = useParams();
   const [medicines, setMedicines] = useState([]);
   const [wishlistData, setWishlistData] = useState([]);
   const [medicalstore, setMedicalstore] = useState([]);
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
+
   console.log(search);
   const [inputs, setInputs] = useState({
-    login_id: login_id
+    login_id: login_id,
   });
 
   useEffect(() => {
@@ -31,9 +32,10 @@ const ShopProduct = () => {
       .catch((error) => {
         console.log('Error:', error);
       });
-  }, []); console.log(medicines);
+  }, []);
+
   const handleAddToCart = (medicine) => {
-    const login_id = localStorage.getItem('login_id')
+    const login_id = localStorage.getItem('login_id');
     const cartData = {
       login_id: login_id,
       medicine_id: medicine._id,
@@ -41,14 +43,7 @@ const ShopProduct = () => {
       medicineimage: medicine.medicineimage,
       medicinequantity: 1,
       medicineprice: medicine.medicineprice,
-    };
-
-    const wishlistData = {
-      login_id: login_id,
-      medicine_id: medicine._id,
-      medicinename: medicine.medicinename,
-      medicineimage: medicine.medicineimage,
-      medicineprice: medicine.medicineprice,
+      needprescription: medicine.needprescription,
     };
 
     fetch('http://localhost:5000/addcart/add-to-cart', {
@@ -62,13 +57,26 @@ const ShopProduct = () => {
       .then((data) => {
         if (data.success) {
           console.log('Item added to cart successfully');
+          toast.success('The medicine added to cart');
         } else {
           console.log('Failed to add item to cart');
+          toast.error('Failed to add cart');
         }
       })
       .catch((error) => {
         console.log('Error:', error);
       });
+  };
+
+  const handleAddToWishlist = (medicine) => {
+    const login_id = localStorage.getItem('login_id');
+    const wishlistData = {
+      login_id: login_id,
+      medicine_id: medicine._id,
+      medicinename: medicine.medicinename,
+      medicineimage: medicine.medicineimage,
+      medicineprice: medicine.medicineprice,
+    };
 
     fetch('http://localhost:5000/wishlist/add-to-wishlist', {
       method: 'POST',
@@ -81,15 +89,18 @@ const ShopProduct = () => {
       .then((data) => {
         if (data.success) {
           console.log('Item added to wishlist successfully');
+          toast.success('Medicine added wishlist successfully');
           setWishlistData([...wishlistData, wishlistData]); // Update the wishlist data state
         } else {
           console.log('Failed to add item to wishlist');
+          toast.error('Failed to add wishlist');
         }
       })
       .catch((error) => {
         console.log('Error:', error);
       });
   };
+
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleButtonClick = () => {
@@ -115,9 +126,9 @@ const ShopProduct = () => {
       });
   }, []);
 
-  const searching =(e)=>{
-  e.preventDefault()
-  axios
+  const searching = (e) => {
+    e.preventDefault();
+    axios
       .get(`http://localhost:5000/store/view-store-medicine/${search}`)
       .then((response) => {
         console.log(data);
@@ -126,7 +137,7 @@ const ShopProduct = () => {
       .catch((error) => {
         console.log('Error:', error);
       });
-  }
+  };
 
   return (
     <>
@@ -134,6 +145,7 @@ const ShopProduct = () => {
       <div className="site-wrap">
         <div className="bg-light py-3">
           <div className="container">
+          <ToastContainer />
             <div className="row">
               <div className="col-md-12 mb-0">
                 <a href="index.html">Home</a>{" "}
@@ -158,18 +170,22 @@ const ShopProduct = () => {
             <div className="row">
               <div className="col-12">
                 <div id="custom-search-input">
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      className="search-query form-control"
-                      placeholder="Search Medicines"
-                    />
-                    <span className="input-group-btn">
-                      <button type="button" disabled="">
-                        <span className="fa fa-search" />
-                      </button>
-                    </span>
-                  </div>
+                <div className="input-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search Medicines"
+            />
+            <div className="input-group-append">
+              <button
+                className="btn btn-secondary"
+                type="button"
+                style={{ backgroundColor: "#f26522", borderColor: "#f26522", width:"50px",height:'32px' }}
+              >
+                <i className="fa fa-search"/>
+              </button>
+            </div>
+          </div>
                 </div>
               </div>
             </div>
@@ -248,7 +264,7 @@ const ShopProduct = () => {
 
 
 
-                  <Link to="" className="wishlist-icon" onClick={() => handleAddToCart(medicine)}>
+                  <Link to="" className="wishlist-icon" onClick={() => handleAddToWishlist(medicine)}>
                     <i className="fas fa-heart" />
                   </Link>
 
@@ -256,7 +272,7 @@ const ShopProduct = () => {
                 </div>
                 <h3 className="text-dark">
                   <Link
-                    to={`/addcart/${medicine.id}?description=${medicine.medicinedescription}&medicine=${medicine.medicinename}&image=${medicine.medicineimage}&price=${medicine.medicineprice}`}
+                    to={`/addcart/${medicine._id}`}
                   >
                     {medicine.medicinename}
                   </Link>

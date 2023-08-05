@@ -58,6 +58,10 @@ import PaymentCustomers from '../MedicalStore/PaymentCustomers'
 import Managemedicineorder from '../MedicalStore/Managemedicineorder'
 import Viewprescriptionorder from '../MedicalStore/Viewprescriptionorder'
 import Vieworder from '../Admin/viewmedicineorder'
+import ContactUs from '../Admin/ConactUs'
+import Userchangepassword from '../Navbar/Userchangepassword'
+import Usermyprofile from '../Navbar/Usermyprofile'
+
 
 const Mainrouter = () => {
   return (
@@ -120,10 +124,13 @@ const Mainrouter = () => {
             <Route path="deliveryboyprofile" element={<BoyProfile/>}/>
             <Route path="DBchangepassword" element={<Deliverboychangepassword/>}/>
             <Route path="managedelivery" element={<ManageDelivery/>}/>
+            <Route path="viewcontact" element={<ContactUs/>}/>
             <Route path="viewpaymentcustomers" element={<PaymentCustomers/>}/>
             <Route path="managemedicineorder" element={<Managemedicineorder/>}/>
             <Route path="viewprescriptionorder" element={<Viewprescriptionorder/>}/>
             <Route path="vieworder" element={<Vieworder/>}/>
+            <Route path="userchangepassword" element={<Userchangepassword/>}/>
+            <Route path="usermyprofile" element={<Usermyprofile/>}/>
 
 
 

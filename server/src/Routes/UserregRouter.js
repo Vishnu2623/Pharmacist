@@ -697,5 +697,68 @@ const updatedmyprofile = await storeRegisterModel.updateOne({login_id:login_id},
           });
         }
       });
-  
+
+      UserregRouter.put('/edit-user-profile/:id', async (req, res) => {
+        try {
+          const login_id = req.params.id;
+          const updatedData = {
+                name: req.body.name,
+                email: req.body.email,
+                phone: req.body.phone,
+          };
+        
+const updatedmyprofile = await userRegisterModel.updateOne({login_id:login_id}, {$set:updatedData});
+      
+          if (updatedmyprofile) {
+            return res.status(200).json({
+              success: true,
+              error: false,
+              message: 'Profile updated successfully',
+              data: updatedmyprofile,
+            });
+          } else {
+            return res.status(404).json({
+              success: false,
+              error: true,
+              message: 'Profile not found',
+            });
+          }
+        } catch (error) {
+          return res.status(500).json({
+            success: false,
+            error: true,
+            message: 'Something went wrong',
+            details: error,
+          });
+        }
+      });
+
+      UserregRouter.get('/view-user-profile/:id', async (req, res) => {
+        try {
+          const id = req.params.id;
+          const userprofile = await userRegisterModel.find({login_id:id});
+          if (userprofile.length > 0) {
+            return res.status(200).json({
+              success: true,
+              error: false,
+              data: userprofile,
+            });
+          } else {
+            return res.status(400).json({
+              success: false,
+              error: true,
+              message: 'No items found in wishlist',
+            });
+          }
+        } catch (error) {
+          return res.status(400).json({
+            success: false,
+            error: true,
+            message: 'Something went wrong',
+            details: error,
+          });
+        }
+      });
+
+
 module.exports = UserregRouter

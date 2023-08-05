@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
   const navigate= useNavigate()
   const [inputs, setinputs] = useState({
@@ -53,16 +54,35 @@ const Login = () => {
         localStorage.setItem('role',data.data.role)
         navigate('/Delivery')
       }
+      else if(data.data.role=='0'){
+       
+        localStorage.setItem('login_id',data.data.login_id)
+        localStorage.setItem('role',data.data.role)
+        navigate('/Adm')
+      }
      
       
-    }).catch((error) => {
-
     })
+    .catch((error) => {
+      console.error(error);
+      toast.error(error.response.data.message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
+      });
+  
   }
   }
   return (
     <div className='loginhome'>
       <div className="container2">
+      <ToastContainer />
         <h1>Login</h1>
         <form onSubmit={registersubmit}>
           <div className="inputform-group">

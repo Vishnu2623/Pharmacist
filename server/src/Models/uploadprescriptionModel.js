@@ -7,7 +7,8 @@ const prescriptionSchema = new Schema({
   store_id: { type: mongoose.Types.ObjectId, ref:"store_register_tb" },
   prescriptionimage: { type: String },
   date_time: { type: Date }, 
-  order_id: { type:String}
+  order_id: { type:String},
+  status: { type:String}
 });
 
 const uploadprescriptionModel = mongoose.model('prescription_tb', prescriptionSchema);

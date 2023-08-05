@@ -14,7 +14,7 @@ const Publicuser = () => {
     <Features/>
     <Category/>
    <Products/>
-   <Productlist/>
+   {/* <Productlist/> */}
   
     <Publicuserfooter/>
   
